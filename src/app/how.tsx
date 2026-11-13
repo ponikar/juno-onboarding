@@ -30,6 +30,7 @@ export default function How() {
 
   return (
     <ScreenShell
+      variant="sky"
       background={bg.honesty}
       backgroundHeight={ART_H}
       footer={

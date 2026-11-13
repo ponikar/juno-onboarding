@@ -80,6 +80,7 @@ export default function Plans() {
 
   return (
     <ScreenShell
+      variant="sky"
       background={bg.plans}
       backgroundHeight={385}
       close={() => choosePlan('free')}

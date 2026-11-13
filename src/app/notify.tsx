@@ -29,6 +29,7 @@ export default function Notify() {
 
   return (
     <ScreenShell
+      variant="sky"
       background={bg.bell}
       scroll={false}
       footer={

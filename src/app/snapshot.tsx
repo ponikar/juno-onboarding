@@ -53,7 +53,7 @@ export default function Snapshot() {
       route="/snapshot"
       footer={<PrimaryButton label={S.snapshot.cta} onPress={() => router.push(nextRoute('/snapshot'))} />}>
       <Title onSky sub={S.snapshot.sub}>{name ? fill(S.snapshot.title, { name }) : S.snapshot.titleAnon}</Title>
-      <Animated.View style={[styles.card, shadow.card, cardStyle]}>
+      <Animated.View style={[styles.card, cardStyle]}>
         {list.map((r, i) => (
           <Row key={i} label={r.label} value={r.value} index={i} last={i === list.length - 1} />
         ))}
@@ -69,18 +69,26 @@ function Row({ label, value, index, last }: { label: string | null; value: strin
   }, [index, p]);
   const anim = useAnimatedStyle(() => ({ opacity: p.value }));
   return (
-    <Animated.View style={[styles.row, !last && styles.divider, anim]}>
+    <Animated.View style={[styles.row, anim]}>
       {label ? <Text style={styles.label}>{label}</Text> : null}
       <Text style={label ? styles.value : styles.watch}>{value}</Text>
     </Animated.View>
   );
 }
 
+// Figma 55: each row is a glass pill on the sky.
 const styles = StyleSheet.create({
-  card: { marginHorizontal: 22, borderRadius: radius.card, backgroundColor: colors.surface, paddingHorizontal: 22, paddingVertical: 6 },
-  row: { paddingVertical: 14, gap: 3 },
-  divider: { borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: colors.hairline },
-  label: { fontSize: 13, lineHeight: 17, fontWeight: '600', color: colors.muted },
-  value: { fontSize: 17, lineHeight: 22, fontWeight: '500', color: colors.ink },
-  watch: { fontSize: 16, lineHeight: 21, fontWeight: '500', color: colors.inkSoft },
+  card: { marginHorizontal: 34, gap: 10 },
+  row: {
+    borderRadius: 22,
+    borderWidth: 1.5,
+    borderColor: 'rgba(255,255,255,0.55)',
+    backgroundColor: 'rgba(38,108,196,0.32)', // blue-tinted glass keeps white text readable on the pale lower sky
+    paddingHorizontal: 18,
+    paddingVertical: 10,
+    gap: 2,
+  },
+  label: { fontSize: 13, lineHeight: 17, fontWeight: '600', color: 'rgba(255,255,255,0.8)' },
+  value: { fontSize: 16, lineHeight: 21, fontWeight: '600', color: '#FFFFFF' },
+  watch: { fontSize: 16, lineHeight: 21, fontWeight: '600', color: '#FFFFFF' },
 });

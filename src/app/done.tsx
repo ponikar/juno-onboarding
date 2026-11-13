@@ -31,6 +31,7 @@ export default function Done() {
 
   return (
     <ScreenShell
+      variant="sky"
       background={bg.junoCloud}
       back={false}
       scroll={false}

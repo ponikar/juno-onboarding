@@ -8,6 +8,7 @@ UDID="${EVAL_UDID:-A7D02B0B-F2EB-41D0-8927-4A98A09E746A}"
 LINK="${EVAL_LINK:-expogo}"
 HOST="${EVAL_HOST:-127.0.0.1:8081}"
 WAIT="${EVAL_WAIT:-2.5}"
+COLD="${EVAL_COLD:-0}" # 1 = relaunch Expo Go first (cold start ignores the deep link and resumes, so off by default)
 TARGET="${1:-all}"
 OUT="$ROOT/docs/evals/shots"
 mkdir -p "$OUT"
@@ -39,6 +40,7 @@ while read -r id route preset; do
     url="exp://${HOST}/--${route}${q}"
   fi
   echo "shoot $id -> $url"
+  if [ "$COLD" = "1" ]; then xcrun simctl terminate "$UDID" host.exp.Exponent >/dev/null 2>&1 || true; sleep 1; fi
   xcrun simctl openurl "$UDID" "$url"
   sleep "$WAIT"
   xcrun simctl io "$UDID" screenshot --type=png "$OUT/$id.png" >/dev/null 2>&1

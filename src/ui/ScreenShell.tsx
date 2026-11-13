@@ -42,7 +42,7 @@ export function ScreenShell({ children, variant = 'plain', background, backgroun
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       style={[
         styles.root,
-        onSky ? { experimental_backgroundImage: SKY_GRADIENT } : { backgroundColor: colors.bg },
+        onSky && !backgroundHeight ? { experimental_backgroundImage: SKY_GRADIENT } : { backgroundColor: colors.bg }, // partial art sits on the light page colour
       ]}>
       {background && (
         <Image
