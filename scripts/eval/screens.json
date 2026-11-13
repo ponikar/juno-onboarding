@@ -34,5 +34,10 @@
   {"id": "notify", "route": "/notify", "preset": "demo", "reference": "61-bell.png", "note": "20 Stay in touch, trial user; free ref 63-bell-after-plans.png, prompt ref 61-more-bell--os-notification-prompt.png (R-14)"},
   {"id": "done", "route": "/done", "preset": "demo", "reference": "64-subscribe-success.png", "note": "21 Welcome; free variant 64-more-subscribe-success--free-plan.png, also 65-how-to-use-juno.png"},
   {"id": "chat", "route": "/chat", "preset": "demo", "reference": "next-first-chat.png", "note": "21 First chat with entry logged (R-15)"},
+  {"id": "report-skipped", "route": "/report", "preset": "skipped", "reference": "09-story-report.png", "note": "16 Report, no meds/appointment/name"},
+  {"id": "plans-skipped", "route": "/plans", "preset": "skipped", "reference": "62-pw-price.png", "note": "19 Plans, no goals: default headline"},
+  {"id": "notify-free", "route": "/notify", "preset": "skipped", "reference": "63-bell-after-plans.png", "note": "20 Stay in touch, free user (R-14)"},
+  {"id": "done-free", "route": "/done", "preset": "skipped", "reference": "64-more-subscribe-success--free-plan.png", "note": "21 Welcome, free plan"},
+  {"id": "chat-skipped", "route": "/chat", "preset": "skipped", "reference": "next-first-chat.png", "note": "21 First chat, entry without symptoms"},
   {"id": "debug", "route": "/debug", "preset": "demo", "reference": "01-splash.png", "note": "Debug menu (R-20); no Figma reference, visual review only"}
 ]

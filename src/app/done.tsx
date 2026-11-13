@@ -49,7 +49,7 @@ export default function Done() {
 const styles = StyleSheet.create({
   body: { flex: 1, justifyContent: 'flex-end', paddingBottom: 24 },
   mascotClip: { position: 'absolute', top: 344, left: 0, right: 0, height: 126, overflow: 'hidden', alignItems: 'center' },
-  mascot: { width: 200, height: 150, marginTop: -12 },
+  mascot: { width: 200, height: 150, marginTop: -7 },
   center: { textAlign: 'center', paddingHorizontal: 32 },
   sub: { color: colors.inkSoft, marginTop: 10 },
 });

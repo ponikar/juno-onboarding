@@ -168,11 +168,11 @@ function PlanCard({ selected, onPress, title, sub, children }: {
 }
 
 const styles = StyleSheet.create({
-  hero: { height: 112, alignItems: 'center' },
-  key: { width: 92, height: 112 },
-  sparkle: { position: 'absolute', top: 12, left: '62%', width: 20, height: 23 },
-  title: { textAlign: 'center', paddingHorizontal: 36, marginTop: 6 },
-  cards: { paddingHorizontal: 17, marginTop: 44, gap: 16 },
+  hero: { height: 96, alignItems: 'center' },
+  key: { width: 79, height: 96 },
+  sparkle: { position: 'absolute', top: 8, left: '60%', width: 20, height: 23 },
+  title: { textAlign: 'center', paddingHorizontal: 36, marginTop: 0 },
+  cards: { paddingHorizontal: 17, marginTop: 40, gap: 14 },
   peek: { position: 'absolute', right: 23, top: -43, width: 64, height: 43 },
   tab: {
     position: 'absolute',
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   tabText: { color: '#FFFFFF', fontSize: 13, fontWeight: '700', letterSpacing: 1.2 },
-  card: { backgroundColor: colors.surface, borderRadius: radius.card - 6, borderWidth: 2.5, paddingHorizontal: 18, paddingVertical: 18 },
+  card: { backgroundColor: colors.surface, borderRadius: radius.card - 6, borderWidth: 2.5, paddingHorizontal: 18, paddingVertical: 14 },
   cardOn: { borderLeftColor: '#8F8BF3', borderTopColor: '#C79BE6', borderRightColor: '#F4B272', borderBottomColor: '#E79CC0' },
   cardOff: { borderLeftColor: '#E8E6E7', borderTopColor: '#E8E6E7', borderRightColor: '#E8E6E7', borderBottomColor: '#E8E6E7' },
   cardTop: { flexDirection: 'row', alignItems: 'baseline', justifyContent: 'space-between', gap: 8 },
@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
   price: { fontSize: 24, lineHeight: 29, fontWeight: '700', color: colors.ink },
   per: { fontSize: 15, fontWeight: '400' },
   cardSub: { fontSize: 15, lineHeight: 20, color: colors.inkSoft, marginTop: 6 },
-  refund: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, marginTop: 18 },
+  refund: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, marginTop: 14 },
   shield: { width: 14, height: 14 },
   refundText: { fontSize: 15, lineHeight: 20, color: colors.inkSoft },
   terms: { fontSize: 14, lineHeight: 19, color: colors.inkSoft, textAlign: 'center', marginBottom: 8, paddingHorizontal: 4 },

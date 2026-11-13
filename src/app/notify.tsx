@@ -1,7 +1,7 @@
 import { router } from 'expo-router';
 import { useState } from 'react';
 import { Modal, StyleSheet, Text, View } from 'react-native';
-import Animated, { FadeIn, ZoomIn } from 'react-native-reanimated';
+import Animated, { FadeIn, Keyframe } from 'react-native-reanimated';
 
 import { S } from '@/copy/strings';
 import { nextRoute } from '@/flow';
@@ -43,7 +43,7 @@ export default function Notify() {
       <Modal visible={prompt} transparent animationType="none" onRequestClose={() => finish(false)} statusBarTranslucent>
         {prompt && (
           <Animated.View entering={FadeIn.duration(150)} style={styles.dim}>
-            <Animated.View entering={ZoomIn.duration(200).easing(EASE_OUT)} style={styles.alert} accessibilityViewIsModal>
+            <Animated.View entering={ALERT_IN} style={styles.alert} accessibilityViewIsModal>
               <Text style={styles.alertTitle}>{S.notify.mockTitle}</Text>
               <Text style={styles.alertBody}>{S.notify.mockBody}</Text>
               <View style={styles.alertRow}>
@@ -61,6 +61,12 @@ export default function Notify() {
     </ScreenShell>
   );
 }
+
+// Entrances start at 0.95, never 0 (plan section 8).
+const ALERT_IN = new Keyframe({
+  0: { opacity: 0, transform: [{ scale: 0.95 }] },
+  100: { opacity: 1, transform: [{ scale: 1 }], easing: EASE_OUT },
+}).duration(200);
 
 const styles = StyleSheet.create({
   dim: { flex: 1, backgroundColor: 'rgba(10,30,70,0.25)', alignItems: 'center', justifyContent: 'center', paddingHorizontal: 42 },
