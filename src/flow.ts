@@ -39,3 +39,9 @@ export function progressFor(route: FlowRoute): { act: Act; fraction: number } {
   const idx = inAct.findIndex((s) => s.route === route);
   return { act: step.act as Act, fraction: (idx + 1) / inAct.length };
 }
+
+export function prevRoute(path: string): FlowRoute {
+  const i = FLOW.findIndex((s) => s.route === path);
+  const prev = FLOW[Math.max(i - 1, 0)].route;
+  return prev === '/building' ? '/health' : prev; // never land back on the auto-advancing screen
+}

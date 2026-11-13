@@ -1,10 +1,10 @@
-import { router } from 'expo-router';
+import { router, usePathname } from 'expo-router';
 import { ReactNode, useEffect, useState } from 'react';
 import { Image, ImageSourcePropType, Keyboard, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { S } from '@/copy/strings';
-import { FlowRoute, progressFor } from '@/flow';
+import { FlowRoute, prevRoute, progressFor } from '@/flow';
 import { colors, shadow, size, space, type } from '@/theme/tokens';
 import { Icon } from './Icon';
 import { PressableScale } from './PressableScale';
@@ -32,7 +32,9 @@ export function ScreenShell({ children, variant = 'plain', background, backgroun
   const keyboard = useKeyboardOpen();
   const onSky = variant === 'sky';
   const progress = route ? progressFor(route) : null;
-  const onBack = typeof back === 'function' ? back : () => router.back();
+  const pathname = usePathname();
+  // After a resume the stack holds one screen, so back walks the flow instead.
+  const onBack = typeof back === 'function' ? back : () => (router.canGoBack() ? router.back() : router.replace(prevRoute(pathname) as never));
 
   const Body = scroll ? ScrollView : View;
   return (

@@ -1,56 +1,77 @@
-# Welcome to your Expo app 👋
+# Juno onboarding v0
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+**Goal:** let a new user feel Juno helping them before it asks for anything, in 21 screens instead of 65.
 
-## Get started
+Juno's own funnel (30,435 starters) shows people leave when the app *asks* (account 17.3%, paywall 23.7%) and stay when it *gives* (71% try the logging demo). v0 makes three moves:
 
-1. Install dependencies
+1. **Value before account.** The user logs how they feel and sees Juno respond on screens 3 and 4. Sign-up moves to screen 17 and is framed as saving what they built.
+2. **A real result before the price.** "Your plan is ready" becomes a snapshot built from their own answers, then a preview of their doctor report.
+3. **An honest ask.** The plans screen states the billed amount and charge date, and the free plan is a visible choice.
 
-   ```bash
-   npm install
-   ```
+The sentence typed on screen 3 travels through screens 4, 7, 15, 16 and 21.
 
-2. Start the app
+## The 21 screens
 
-   ```bash
-   npx expo start
-   ```
+| # | Screen | Built from (current flow) |
+| --- | --- | --- |
+| 1 | Welcome | 01 splash |
+| 2 | Privacy promise and consent | 12 consent (+ "never sold, no ads" from 56) |
+| 3 | How do you feel today? | 36 try-logging |
+| 4 | Juno heard you | 35 tracking-demo (new content) |
+| 5 | Goals | 14 goals, 15 goal-recognition (reply) |
+| 6 | Conditions | 17 conditions (replaces 18) |
+| 7 | Symptoms (pre-ticked from screen 4) | 20 symptoms |
+| 8 | Medicines | 19 meds |
+| 9 | Next appointment | 28 appointment |
+| 10 | Energy | 37 energy-slider |
+| 11 | Support circle | 45 support-circle, 46 reply-support |
+| 12 | Name, sex at birth, age | 21 name, 31 sex, 33 age |
+| 13 | Health data | 42 wearables, 43 health-connect |
+| 14 | Building your snapshot (real items, ~4 s) | 54 analyzing |
+| 15 | Your snapshot | 55 journey-ready (new content) |
+| 16 | Doctor report preview | 09 story-report, 29 reply-care-team |
+| 17 | Save your snapshot (sign-up) | 01b auth |
+| 18 | How Juno works + trial dates | 56 honesty, 60 pw-trial |
+| 19 | Plans (+ sponsored sheet, exit question) | 62 pw-price, 62b sponsor-sheet |
+| 20 | Stay in touch | 61 bell, 63 bell-after-plans |
+| 21 | Welcome + first chat | 64 subscribe-success, 65 how-to-use-juno, first-chat |
 
-In the output, you'll find options to open the app in a
+## What was cut and why
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- Sign-up as the second screen: 6.2% abandon it before seeing any value; it now saves a snapshot (screen 17).
+- Story slides (most of 02–11): ~13% skip them; screens 3–4 show the product instead of describing it.
+- Separate reply screens (15, 46 and similar): Juno's reply now appears on the question screen itself.
+- 18 diagnosis follow-up: folded into "Still looking for answers" on screen 6.
+- Three "thinking" pauses: one remains (screen 14) and it shows the user's real answers.
+- Two notification asks (61 and 63): one ask, after the plan choice (screen 20).
+- 31 sex and 33 age as separate screens: merged into screen 12.
+- Australia-only NDIS screens: out of scope for v0.
 
-You can start developing by editing the files inside the **src/app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## What is mocked (labelled `MOCK` in code)
 
-## Get a fresh project
+- Screen 4 reply: local keyword match (`src/mocks/extractSymptoms.ts`), not a model call.
+- Authentication (screen 17), the purchase (19), the health-data permission (13) and notifications (20): each succeeds after a short delay.
+- First chat: static.
+- Analytics: `track(event, props)` logs to the console on every screen view and answer (`src/lib/track.ts`).
 
-When you're ready, run:
+## Run it
 
 ```bash
-npm run reset-project
+bun install
+bunx expo start        # press i for the iOS simulator (Expo Go)
 ```
 
-This command will move the starter code to the **example** directory and create a blank **src/app** directory where you can start developing.
+Long-press the **Juno** logo on the welcome screen to jump to any screen (and to fill demo answers) for recording.
 
-### Other setup steps
+## How the build was checked
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+- Figma has no layers or variables (each screen is one flat image), so the screens were exported as 3x PNGs (`docs/reference/`), and images were cut out of them (`assets/juno/`, see `docs/ASSETS.md`). Colours and spacing were sampled from the pixels (`src/theme/tokens.ts`).
+- Every screen is screenshotted in the iOS simulator and compared side by side with its Figma reference (`scripts/eval/`, results in `docs/evals/compare/` and `docs/evals/report.md`).
+- `bun scripts/eval/unit.ts` checks the symptom extraction and trial-date maths.
 
-## Learn more
+## What I'd measure if it shipped
 
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- Accounts per starter.
+- Share of starters reaching the snapshot (screen 15).
+- Trial starts per starter and paying users per starter.
+- Median time from first open to first chat.
