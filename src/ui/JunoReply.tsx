@@ -2,7 +2,7 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 import Animated, { Easing, FadeIn } from 'react-native-reanimated';
 
 import { REPLY_DELAY_MS, REPLY_FADE_MS } from '@/motion/tokens';
-import { colors } from '@/theme/tokens';
+import { colors, FONT_CAP } from '@/theme/tokens';
 import { avatar } from './art';
 
 // One line from Juno beside her avatar. Fades in (no movement) ~200 ms after an answer. Never blocks Continue.
@@ -17,7 +17,7 @@ export function JunoReply({ text, id, onSky }: { text: string | null; id?: strin
       style={styles.row}>
       <Image source={avatar} style={styles.avatar} />
       <View style={[styles.bubble, onSky && styles.bubbleSky]}>
-        <Text style={styles.text}>{text}</Text>
+        <Text maxFontSizeMultiplier={FONT_CAP} style={styles.text}>{text}</Text>
       </View>
     </Animated.View>
   );

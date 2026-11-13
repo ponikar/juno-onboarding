@@ -6,7 +6,7 @@ import { fill, S } from '@/copy/strings';
 import { nextRoute } from '@/flow';
 import { track } from '@/lib/track';
 import { useOnboarding } from '@/state/onboarding';
-import { colors } from '@/theme/tokens';
+import { colors, FONT_CAP } from '@/theme/tokens';
 import { Chip, ChipWrap } from '@/ui/Chip';
 import { TextField } from '@/ui/Fields';
 import { JunoReply } from '@/ui/JunoReply';
@@ -46,7 +46,7 @@ export default function About() {
         textContentType="givenName"
         returnKeyType="done"
       />
-      <Text style={styles.label}>{S.about.sexLabel}</Text>
+      <Text maxFontSizeMultiplier={FONT_CAP} style={styles.label}>{S.about.sexLabel}</Text>
       <ChipWrap>
         {S.about.sex.map((o) => (
           <Chip
@@ -61,7 +61,7 @@ export default function About() {
           />
         ))}
       </ChipWrap>
-      <Text style={styles.label}>{S.about.ageLabel}</Text>
+      <Text maxFontSizeMultiplier={FONT_CAP} style={styles.label}>{S.about.ageLabel}</Text>
       <ChipWrap>
         {S.about.ages.map((a) => (
           <Chip

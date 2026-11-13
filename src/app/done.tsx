@@ -6,7 +6,7 @@ import Animated, { useAnimatedStyle, useReducedMotion, useSharedValue, withSprin
 import { S } from '@/copy/strings';
 import { EASE_OUT, SPRING_SETTLE } from '@/motion/tokens';
 import { useOnboarding } from '@/state/onboarding';
-import { colors, type } from '@/theme/tokens';
+import { colors, type, FONT_CAP } from '@/theme/tokens';
 import { bg, mascotPeek } from '@/ui/art';
 import { haptic } from '@/ui/haptics';
 import { PrimaryButton } from '@/ui/PrimaryButton';
@@ -40,8 +40,8 @@ export default function Done() {
         <View style={styles.mascotClip} pointerEvents="none">
           <Animated.Image source={mascotPeek} style={[styles.mascot, mascot]} resizeMode="contain" />
         </View>
-        <Text accessibilityRole="header" style={[type.title, styles.center]}>{free ? S.done.freeTitle : S.done.trialTitle}</Text>
-        <Text style={[type.subtitle, styles.center, styles.sub]}>{free ? S.done.freeSub : S.done.trialSub}</Text>
+        <Text maxFontSizeMultiplier={FONT_CAP} accessibilityRole="header" style={[type.title, styles.center]}>{free ? S.done.freeTitle : S.done.trialTitle}</Text>
+        <Text maxFontSizeMultiplier={FONT_CAP} style={[type.subtitle, styles.center, styles.sub]}>{free ? S.done.freeSub : S.done.trialSub}</Text>
       </View>
     </ScreenShell>
   );

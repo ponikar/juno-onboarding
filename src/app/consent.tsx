@@ -6,7 +6,7 @@ import { S } from '@/copy/strings';
 import { nextRoute } from '@/flow';
 import { track } from '@/lib/track';
 import { useOnboarding } from '@/state/onboarding';
-import { colors, type } from '@/theme/tokens';
+import { colors, type, FONT_CAP } from '@/theme/tokens';
 import { bg } from '@/ui/art';
 import { Tick } from '@/ui/Chip';
 import { haptic } from '@/ui/haptics';
@@ -23,8 +23,8 @@ export default function Consent() {
   return (
     <ScreenShell variant="sky" background={bg.lock} scroll={false}>
       <View style={[styles.bottom, { paddingBottom: Math.max(insets.bottom - 6, 12) }]}>
-        <Text accessibilityRole="header" style={[type.title, styles.title]}>{S.consent.title}</Text>
-        <Text style={styles.body}>{S.consent.body}</Text>
+        <Text maxFontSizeMultiplier={FONT_CAP} accessibilityRole="header" style={[type.title, styles.title]}>{S.consent.title}</Text>
+        <Text maxFontSizeMultiplier={FONT_CAP} style={styles.body}>{S.consent.body}</Text>
         <View style={styles.panel}>
           <PressableScale
             accessibilityRole="checkbox"
@@ -37,9 +37,9 @@ export default function Consent() {
             style={styles.agree}
             scaleTo={0.99}>
             <Tick selected={agreed} big />
-            <Text style={styles.agreeText}>
-              {S.consent.agreeLead} <Text style={styles.strong}>{S.consent.privacy}</Text> {S.consent.and}{' '}
-              <Text style={styles.strong}>{S.consent.terms}</Text>
+            <Text maxFontSizeMultiplier={FONT_CAP} style={styles.agreeText}>
+              {S.consent.agreeLead} <Text maxFontSizeMultiplier={FONT_CAP} style={styles.strong}>{S.consent.privacy}</Text> {S.consent.and}{' '}
+              <Text maxFontSizeMultiplier={FONT_CAP} style={styles.strong}>{S.consent.terms}</Text>
             </Text>
           </PressableScale>
           <PrimaryButton label={S.common.continue} disabled={!agreed} onPress={() => router.push(nextRoute('/consent'))} testID="consent-continue" />

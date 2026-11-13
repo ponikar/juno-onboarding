@@ -9,7 +9,7 @@ import { track } from '@/lib/track';
 import { extractSymptoms } from '@/mocks/extractSymptoms';
 import { EASE_OUT } from '@/motion/tokens';
 import { useOnboarding } from '@/state/onboarding';
-import { colors, radius, type } from '@/theme/tokens';
+import { colors, radius, type, FONT_CAP } from '@/theme/tokens';
 import { TextField } from '@/ui/Fields';
 import { haptic } from '@/ui/haptics';
 import { Icon } from '@/ui/Icon';
@@ -63,7 +63,7 @@ export default function Try() {
           </PressableScale>
         }
       />
-      {micHint && <Text style={styles.hint}>{S.try.micUnavailable}</Text>}
+      {micHint && <Text maxFontSizeMultiplier={FONT_CAP} style={styles.hint}>{S.try.micUnavailable}</Text>}
       <View style={styles.suggestions}>
         {S.try.suggestions.map((sugg, i) => (
           <Animated.View key={sugg} entering={FadeIn.duration(220).delay(120 + i * 40).easing(EASE_OUT)}>
@@ -77,7 +77,7 @@ export default function Try() {
               hitSlop={4}
               style={[styles.sugg, entry === sugg && styles.suggOn]}>
               <Icon name="bubble.left" size={15} color={colors.orange} />
-              <Text style={styles.suggText}>{sugg}</Text>
+              <Text maxFontSizeMultiplier={FONT_CAP} style={styles.suggText}>{sugg}</Text>
             </PressableScale>
           </Animated.View>
         ))}

@@ -6,7 +6,7 @@ import { scheduleOnRN } from 'react-native-worklets';
 
 import { fill, S } from '@/copy/strings';
 import { SPRING_SETTLE } from '@/motion/tokens';
-import { colors, shadow } from '@/theme/tokens';
+import { colors, shadow, FONT_CAP } from '@/theme/tokens';
 import { haptic } from './haptics';
 
 const STEPS = 7;
@@ -107,8 +107,8 @@ export function EnergySlider({ value, onChange }: { value: number | null; onChan
         </View>
       </GestureDetector>
       <View style={styles.labels}>
-        <Text style={styles.label}>{S.energy.low}</Text>
-        <Text style={[styles.label, { textAlign: 'right' }]}>{S.energy.high}</Text>
+        <Text maxFontSizeMultiplier={FONT_CAP} style={styles.label}>{S.energy.low}</Text>
+        <Text maxFontSizeMultiplier={FONT_CAP} style={[styles.label, { textAlign: 'right' }]}>{S.energy.high}</Text>
       </View>
     </View>
   );

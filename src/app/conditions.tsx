@@ -6,7 +6,7 @@ import { fill, S } from '@/copy/strings';
 import { nextRoute } from '@/flow';
 import { track } from '@/lib/track';
 import { useOnboarding } from '@/state/onboarding';
-import { space, type } from '@/theme/tokens';
+import { space, type, FONT_CAP } from '@/theme/tokens';
 import { Chip, ChipWrap, Tick } from '@/ui/Chip';
 import { SearchField } from '@/ui/Fields';
 import { haptic } from '@/ui/haptics';
@@ -77,7 +77,7 @@ export default function Conditions() {
         onPress={toggleSeeking}
         style={styles.seeking}>
         <Tick selected={state.seekingDiagnosis} />
-        <Text style={type.link}>{S.conditions.seeking}</Text>
+        <Text maxFontSizeMultiplier={FONT_CAP} style={type.link}>{S.conditions.seeking}</Text>
       </PressableScale>
       <View style={styles.reply}>
         <JunoReply text={reply} />

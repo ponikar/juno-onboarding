@@ -6,7 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { S } from '@/copy/strings';
 import { track } from '@/lib/track';
 import { useOnboarding } from '@/state/onboarding';
-import { colors, type } from '@/theme/tokens';
+import { colors, type, FONT_CAP } from '@/theme/tokens';
 import { sponsorIcons, sponsorTicket } from '@/ui/art';
 import { OptionCard } from '@/ui/OptionCard';
 import { PrimaryButton } from '@/ui/PrimaryButton';
@@ -28,7 +28,7 @@ export default function Sponsor() {
     <View style={styles.root}>
       <View style={[styles.fill, styles.scroll]}>
         <Image source={sponsorTicket} style={styles.ticket} accessibilityLabel={S.sponsor.badge} />
-        <Text accessibilityRole="header" style={[type.title, styles.title]}>{S.sponsor.title}</Text>
+        <Text maxFontSizeMultiplier={FONT_CAP} accessibilityRole="header" style={[type.title, styles.title]}>{S.sponsor.title}</Text>
         <View style={styles.options}>
           {S.sponsor.options.map((o) => (
             <OptionCard
@@ -43,7 +43,7 @@ export default function Sponsor() {
         </View>
       </View>
       <View style={[styles.footer, { paddingBottom: Math.max(insets.bottom, 16) }]}>
-        <Text style={styles.note}>{S.sponsor.note}</Text>
+        <Text maxFontSizeMultiplier={FONT_CAP} style={styles.note}>{S.sponsor.note}</Text>
         <PrimaryButton label={S.sponsor.cta} disabled={!reason} onPress={claim} />
       </View>
     </View>

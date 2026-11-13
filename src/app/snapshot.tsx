@@ -7,7 +7,7 @@ import { fill, joinList, S } from '@/copy/strings';
 import { nextRoute } from '@/flow';
 import { EASE_OUT, ENTER_FROM_SCALE, ENTER_MS, staggerAt } from '@/motion/tokens';
 import { OnboardingState, useOnboarding } from '@/state/onboarding';
-import { colors, radius, shadow } from '@/theme/tokens';
+import { colors, radius, shadow, FONT_CAP } from '@/theme/tokens';
 import { haptic } from '@/ui/haptics';
 import { PrimaryButton } from '@/ui/PrimaryButton';
 import { ScreenShell, Title } from '@/ui/ScreenShell';
@@ -70,8 +70,8 @@ function Row({ label, value, index, last }: { label: string | null; value: strin
   const anim = useAnimatedStyle(() => ({ opacity: p.value }));
   return (
     <Animated.View style={[styles.row, anim]}>
-      {label ? <Text style={styles.label}>{label}</Text> : null}
-      <Text style={label ? styles.value : styles.watch}>{value}</Text>
+      {label ? <Text maxFontSizeMultiplier={FONT_CAP} style={styles.label}>{label}</Text> : null}
+      <Text maxFontSizeMultiplier={FONT_CAP} style={label ? styles.value : styles.watch}>{value}</Text>
     </Animated.View>
   );
 }

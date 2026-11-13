@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { S } from '@/copy/strings';
 import { fromISODate, startOfDay, toISODate } from '@/lib/dates';
 import { STATE_MS } from '@/motion/tokens';
-import { colors, radius, shadow } from '@/theme/tokens';
+import { colors, radius, shadow, FONT_CAP } from '@/theme/tokens';
 import { haptic } from './haptics';
 import { Icon } from './Icon';
 import { PressableScale } from './PressableScale';
@@ -27,7 +27,7 @@ export function Calendar({ value, onChange, today }: { value: string | null; onC
   return (
     <View style={[styles.card, shadow.card]}>
       <View style={styles.head}>
-        <Text style={styles.month} accessibilityRole="header">
+        <Text maxFontSizeMultiplier={FONT_CAP} style={styles.month} accessibilityRole="header">
           {`${S.appt.months[month.getMonth()]} ${month.getFullYear()}`}
         </Text>
         <PressableScale accessibilityRole="button" accessibilityLabel={S.appt.prevMonth} disabled={atFirstMonth} onPress={() => shift(-1)} hitSlop={4} style={styles.chev}>
@@ -39,7 +39,7 @@ export function Calendar({ value, onChange, today }: { value: string | null; onC
       </View>
       <View style={styles.row}>
         {S.appt.weekdays.map((w) => (
-          <Text key={w} style={styles.weekday}>
+          <Text maxFontSizeMultiplier={FONT_CAP} key={w} style={styles.weekday}>
             {w}
           </Text>
         ))}
@@ -70,7 +70,7 @@ export function Calendar({ value, onChange, today }: { value: string | null; onC
                   styles.disc,
                   { backgroundColor: selected ? colors.orange : 'transparent', transitionProperty: 'backgroundColor', transitionDuration: STATE_MS } as object,
                 ]}>
-                <Text style={[styles.day, past && styles.past, isToday && styles.today, selected && styles.selected]}>{day}</Text>
+                <Text maxFontSizeMultiplier={FONT_CAP} style={[styles.day, past && styles.past, isToday && styles.today, selected && styles.selected]}>{day}</Text>
               </View>
             </PressableScale>
           );

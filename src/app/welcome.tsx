@@ -54,11 +54,11 @@ export default function Welcome() {
           delayLongPress={600}
           accessibilityRole="header"
           accessibilityHint={S.welcome.debugHint}>
-          <Text style={[styles.brand, shadow.titleSky]}>{S.welcome.brand}</Text>
+          <Text maxFontSizeMultiplier={1.15} style={[styles.brand, shadow.titleSky]}>{S.welcome.brand}</Text>
         </Pressable>
         <Animated.View style={headStyle}>
-          <Text style={[styles.title, shadow.titleSky]}>{S.welcome.title}</Text>
-          <Text style={[styles.sub, shadow.titleSky]}>{S.welcome.sub}</Text>
+          <Text maxFontSizeMultiplier={1.15} style={[styles.title, shadow.titleSky]}>{S.welcome.title}</Text>
+          <Text maxFontSizeMultiplier={1.15} style={[styles.sub, shadow.titleSky]}>{S.welcome.sub}</Text>
         </Animated.View>
       </View>
 
@@ -69,12 +69,12 @@ export default function Welcome() {
       <View style={styles.proofRow}>
         <Image source={laurelLeft} style={styles.laurel} />
         <Animated.View style={[styles.proof, p1]}>
-          <Text style={styles.proofBig}>{S.welcome.proof1Big}</Text>
-          <Text style={styles.proofSmall}>{S.welcome.proof1Small}</Text>
+          <Text maxFontSizeMultiplier={1.15} style={styles.proofBig}>{S.welcome.proof1Big}</Text>
+          <Text maxFontSizeMultiplier={1.15} style={styles.proofSmall}>{S.welcome.proof1Small}</Text>
         </Animated.View>
         <Animated.View style={[styles.proof, p2]}>
-          <Text style={styles.proofBig}>{S.welcome.proof2Big}</Text>
-          <Text style={styles.proofSmall}>{S.welcome.proof2Small}</Text>
+          <Text maxFontSizeMultiplier={1.15} style={styles.proofBig}>{S.welcome.proof2Big}</Text>
+          <Text maxFontSizeMultiplier={1.15} style={styles.proofSmall}>{S.welcome.proof2Small}</Text>
         </Animated.View>
         <Image source={laurelRight} style={styles.laurel} />
       </View>
@@ -92,11 +92,11 @@ export default function Welcome() {
           />
         </View>
         <TextLink label={S.welcome.haveAccount} onPress={() => track('have_account')} />
-        <Text style={styles.terms}>
+        <Text maxFontSizeMultiplier={1.15} style={styles.terms}>
           {S.welcome.termsLead}
           {'\n'}
-          <Text style={styles.termsStrong}>{S.welcome.terms}</Text> {S.welcome.and}{' '}
-          <Text style={styles.termsStrong}>{S.welcome.privacy}</Text>
+          <Text maxFontSizeMultiplier={1.15} style={styles.termsStrong}>{S.welcome.terms}</Text> {S.welcome.and}{' '}
+          <Text maxFontSizeMultiplier={1.15} style={styles.termsStrong}>{S.welcome.privacy}</Text>
         </Text>
       </View>
     </View>

@@ -6,7 +6,7 @@ import { fill, S } from '@/copy/strings';
 import { nextRoute } from '@/flow';
 import { track } from '@/lib/track';
 import { useOnboarding } from '@/state/onboarding';
-import { colors, space, type } from '@/theme/tokens';
+import { colors, space, type, FONT_CAP } from '@/theme/tokens';
 import { Chip, ChipWrap, Tick } from '@/ui/Chip';
 import { SearchField } from '@/ui/Fields';
 import { haptic } from '@/ui/haptics';
@@ -66,7 +66,7 @@ export default function Meds() {
         </ScrollView>
       )}
       <View style={styles.group}>
-        <Text style={styles.groupText}>{group}</Text>
+        <Text maxFontSizeMultiplier={FONT_CAP} style={styles.groupText}>{group}</Text>
         <View style={styles.rule} />
       </View>
       <ChipWrap>
@@ -81,7 +81,7 @@ export default function Meds() {
         onPress={toggleNone}
         style={styles.toggleLink}>
         <Tick selected={state.noMedicines} />
-        <Text style={type.link}>{S.meds.none}</Text>
+        <Text maxFontSizeMultiplier={FONT_CAP} style={type.link}>{S.meds.none}</Text>
       </PressableScale>
       <View style={styles.reply}>
         <JunoReply text={changed ? S.meds.reply : null} />

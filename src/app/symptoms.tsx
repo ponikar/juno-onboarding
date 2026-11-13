@@ -6,7 +6,7 @@ import { fill, S } from '@/copy/strings';
 import { nextRoute } from '@/flow';
 import { track } from '@/lib/track';
 import { useOnboarding } from '@/state/onboarding';
-import { colors, space, type } from '@/theme/tokens';
+import { colors, space, type, FONT_CAP } from '@/theme/tokens';
 import { Chip, ChipWrap, Tick } from '@/ui/Chip';
 import { SearchField } from '@/ui/Fields';
 import { haptic } from '@/ui/haptics';
@@ -64,7 +64,7 @@ export default function Symptoms() {
         </ScrollView>
       )}
       <View style={styles.group}>
-        <Text style={styles.groupText}>{group}</Text>
+        <Text maxFontSizeMultiplier={FONT_CAP} style={styles.groupText}>{group}</Text>
         <View style={styles.rule} />
       </View>
       <ChipWrap>
@@ -85,7 +85,7 @@ export default function Symptoms() {
         onPress={toggleNone}
         style={styles.toggleLink}>
         <Tick selected={state.noSymptoms} />
-        <Text style={type.link}>{S.symptoms.none}</Text>
+        <Text maxFontSizeMultiplier={FONT_CAP} style={type.link}>{S.symptoms.none}</Text>
       </PressableScale>
       <View style={styles.reply}>
         <JunoReply text={changed ? S.symptoms.reply : null} />

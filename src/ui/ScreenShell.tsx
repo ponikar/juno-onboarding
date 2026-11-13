@@ -5,7 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { S } from '@/copy/strings';
 import { FlowRoute, prevRoute, progressFor } from '@/flow';
-import { colors, shadow, size, space, type } from '@/theme/tokens';
+import { colors, shadow, size, space, type, FONT_CAP, TITLE_CAP } from '@/theme/tokens';
 import { Icon } from './Icon';
 import { PressableScale } from './PressableScale';
 import { ProgressBar } from './ProgressBar';
@@ -100,11 +100,11 @@ export function NavButton({ icon, label, onPress, onSky }: { icon: string; label
 export function Title({ children, onSky, sub, why }: { children: string; onSky?: boolean; sub?: string; why?: string }) {
   return (
     <View style={styles.titleWrap}>
-      <Text accessibilityRole="header" style={[onSky ? [type.titleSky, shadow.titleSky] : type.title, styles.center]}>
+      <Text maxFontSizeMultiplier={TITLE_CAP} accessibilityRole="header" style={[onSky ? [type.titleSky, shadow.titleSky] : type.title, styles.center]}>
         {children}
       </Text>
-      {sub ? <Text style={[type.subtitle, styles.center, { color: onSky ? 'rgba(255,255,255,0.9)' : colors.inkSoft, marginTop: 10 }]}>{sub}</Text> : null}
-      {why ? <Text style={[type.subtitle, styles.center, { color: onSky ? 'rgba(255,255,255,0.9)' : colors.inkSoft, marginTop: 8 }]}>{why}</Text> : null}
+      {sub ? <Text maxFontSizeMultiplier={FONT_CAP} style={[type.subtitle, styles.center, { color: onSky ? 'rgba(255,255,255,0.9)' : colors.inkSoft, marginTop: 10 }]}>{sub}</Text> : null}
+      {why ? <Text maxFontSizeMultiplier={FONT_CAP} style={[type.subtitle, styles.center, { color: onSky ? 'rgba(255,255,255,0.9)' : colors.inkSoft, marginTop: 8 }]}>{why}</Text> : null}
     </View>
   );
 }

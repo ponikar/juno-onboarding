@@ -6,7 +6,7 @@ import { S } from '@/copy/strings';
 import { nextRoute } from '@/flow';
 import { track } from '@/lib/track';
 import { useOnboarding } from '@/state/onboarding';
-import { colors } from '@/theme/tokens';
+import { colors, FONT_CAP } from '@/theme/tokens';
 import { healthCluster } from '@/ui/art';
 import { Icon } from '@/ui/Icon';
 import { JunoReply } from '@/ui/JunoReply';
@@ -86,7 +86,7 @@ function Bullet({ icon, text }: { icon: string; text: string }) {
       <View style={styles.dot}>
         <Icon name={icon} size={13} color="#A49C98" />
       </View>
-      <Text style={styles.text}>{text}</Text>
+      <Text maxFontSizeMultiplier={FONT_CAP} style={styles.text}>{text}</Text>
     </View>
   );
 }

@@ -1,7 +1,7 @@
 import { forwardRef, useState } from 'react';
 import { StyleSheet, TextInput, TextInputProps, View } from 'react-native';
 
-import { colors, radius, size } from '@/theme/tokens';
+import { colors, radius, size, FONT_CAP } from '@/theme/tokens';
 import { Icon } from './Icon';
 import { PressableScale } from './PressableScale';
 
@@ -11,7 +11,7 @@ export const TextField = forwardRef<React.ComponentRef<typeof TextInput>, TextIn
     const [focused, setFocused] = useState(false);
     return (
       <View style={[styles.field, focused && styles.focused]}>
-        <TextInput
+        <TextInput maxFontSizeMultiplier={FONT_CAP}
           ref={ref}
           placeholderTextColor={colors.muted}
           style={[styles.input, style]}
@@ -42,7 +42,7 @@ export function SearchField(props: TextInputProps) {
       <View style={styles.searchIcon}>
         <Icon name="magnifyingglass" size={17} color={colors.ink} />
       </View>
-      <TextInput placeholderTextColor={colors.muted} style={[styles.input, { paddingLeft: 0 }]} returnKeyType="search" {...props} />
+      <TextInput maxFontSizeMultiplier={FONT_CAP} placeholderTextColor={colors.muted} style={[styles.input, { paddingLeft: 0 }]} returnKeyType="search" {...props} />
     </View>
   );
 }

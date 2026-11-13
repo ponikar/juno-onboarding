@@ -3,7 +3,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { fill, S } from '@/copy/strings';
 import { useOnboarding } from '@/state/onboarding';
-import { colors, radius, shadow } from '@/theme/tokens';
+import { colors, radius, shadow, FONT_CAP } from '@/theme/tokens';
 import { avatar, chatIcons } from '@/ui/art';
 import { Icon } from '@/ui/Icon';
 
@@ -18,10 +18,10 @@ export default function Chat() {
       <View style={styles.header}>
         <View style={[styles.junoPill, shadow.nav]}>
           <Image source={avatar} style={styles.headAvatar} />
-          <Text style={styles.junoName}>{S.chat.juno}</Text>
+          <Text maxFontSizeMultiplier={FONT_CAP} style={styles.junoName}>{S.chat.juno}</Text>
         </View>
         <View style={[styles.skip, shadow.nav]}>
-          <Text style={styles.skipText}>{S.chat.skip}</Text>
+          <Text maxFontSizeMultiplier={FONT_CAP} style={styles.skipText}>{S.chat.skip}</Text>
         </View>
       </View>
 
@@ -32,14 +32,14 @@ export default function Chat() {
               <View style={styles.check}>
                 <Icon name="checkmark" size={10} color="#FFFFFF" weight="bold" />
               </View>
-              <Text style={styles.logLabel}>{S.chat.loggedToday}</Text>
+              <Text maxFontSizeMultiplier={FONT_CAP} style={styles.logLabel}>{S.chat.loggedToday}</Text>
             </View>
-            {state.todayEntry ? <Text style={styles.entry}>{fill(S.snapshot.todayAsWritten, { entry: state.todayEntry })}</Text> : null}
+            {state.todayEntry ? <Text maxFontSizeMultiplier={FONT_CAP} style={styles.entry}>{fill(S.snapshot.todayAsWritten, { entry: state.todayEntry })}</Text> : null}
             {state.todaySymptoms.length > 0 && (
               <View style={styles.chips}>
                 {state.todaySymptoms.map((s) => (
                   <View key={s} style={styles.chip}>
-                    <Text style={styles.chipText}>{s}</Text>
+                    <Text maxFontSizeMultiplier={FONT_CAP} style={styles.chipText}>{s}</Text>
                   </View>
                 ))}
               </View>
@@ -50,7 +50,7 @@ export default function Chat() {
         <View style={styles.junoRow}>
           <Image source={avatar} style={styles.bubbleAvatar} />
           <View style={[styles.bubble, shadow.card]}>
-            <Text style={styles.bubbleText}>{S.chat.open}</Text>
+            <Text maxFontSizeMultiplier={FONT_CAP} style={styles.bubbleText}>{S.chat.open}</Text>
           </View>
         </View>
 
@@ -58,7 +58,7 @@ export default function Chat() {
           {S.chat.suggestions.map((s) => (
             <View key={s.id} style={[styles.suggestion, shadow.card]}>
               <Image source={chatIcons[s.id]} style={styles.suggestionIcon} />
-              <Text style={styles.suggestionText}>{s.label}</Text>
+              <Text maxFontSizeMultiplier={FONT_CAP} style={styles.suggestionText}>{s.label}</Text>
             </View>
           ))}
         </View>
@@ -67,7 +67,7 @@ export default function Chat() {
       <View style={[styles.inputWrap, { paddingBottom: Math.max(insets.bottom, 16) }]}>
         <View style={[styles.input, shadow.card]}>
           <Icon name="plus" size={20} color={colors.inkSoft} />
-          <Text style={styles.placeholder}>{S.chat.placeholder}</Text>
+          <Text maxFontSizeMultiplier={FONT_CAP} style={styles.placeholder}>{S.chat.placeholder}</Text>
           <View style={styles.send}>
             <Icon name="arrow.up" size={16} color={colors.muted} weight="semibold" />
           </View>

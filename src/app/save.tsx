@@ -7,7 +7,7 @@ import { S } from '@/copy/strings';
 import { nextRoute } from '@/flow';
 import { track } from '@/lib/track';
 import { useOnboarding } from '@/state/onboarding';
-import { colors, radius, type } from '@/theme/tokens';
+import { colors, radius, type, FONT_CAP } from '@/theme/tokens';
 import { authIcons, bg, mascotPeek } from '@/ui/art';
 import { PressableScale } from '@/ui/PressableScale';
 import { NavButton } from '@/ui/ScreenShell';
@@ -42,8 +42,8 @@ export default function Save() {
     <View style={styles.root}>
       <Image source={bg.welcome} style={StyleSheet.absoluteFill} resizeMode="cover" />
       <View style={[styles.behind, { paddingTop: insets.top + 32 }]} importantForAccessibility="no-hide-descendants">
-        <Text style={styles.brand}>{S.welcome.brand}</Text>
-        <Text style={styles.headline}>{S.welcome.title}</Text>
+        <Text maxFontSizeMultiplier={FONT_CAP} style={styles.brand}>{S.welcome.brand}</Text>
+        <Text maxFontSizeMultiplier={FONT_CAP} style={styles.headline}>{S.welcome.title}</Text>
       </View>
       <Image source={mascotPeek} style={styles.mascot} resizeMode="contain" />
       <View style={[StyleSheet.absoluteFill, styles.dim]} />
@@ -52,13 +52,13 @@ export default function Save() {
       </View>
       <View style={styles.sheet}>
         <View style={styles.grabber} />
-        <Text accessibilityRole="header" style={[styles.title, styles.center]}>{S.save.title}</Text>
-        <Text style={[type.subtitle, styles.center, styles.sub]}>{S.save.sub}</Text>
+        <Text maxFontSizeMultiplier={FONT_CAP} accessibilityRole="header" style={[styles.title, styles.center]}>{S.save.title}</Text>
+        <Text maxFontSizeMultiplier={FONT_CAP} style={[type.subtitle, styles.center, styles.sub]}>{S.save.sub}</Text>
         <AuthButton icon={authIcons.google} label={S.save.google} loading={busy === 'google'} onPress={() => signUp('google')} />
         <AuthButton icon={authIcons.apple} label={S.save.apple} loading={busy === 'apple'} onPress={() => signUp('apple')} />
         <View style={styles.orRow}>
           <View style={styles.orLine} />
-          <Text style={styles.or}>{S.save.or}</Text>
+          <Text maxFontSizeMultiplier={FONT_CAP} style={styles.or}>{S.save.or}</Text>
           <View style={styles.orLine} />
         </View>
         <PressableScale accessibilityRole="button" accessibilityLabel={S.save.email} onPress={() => signUp('email')} style={styles.email}>
@@ -67,7 +67,7 @@ export default function Save() {
           ) : (
             <>
               <Image source={authIcons.mail} style={styles.icon} />
-              <Text style={styles.btnText}>{S.save.email}</Text>
+              <Text maxFontSizeMultiplier={FONT_CAP} style={styles.btnText}>{S.save.email}</Text>
             </>
           )}
         </PressableScale>
@@ -89,7 +89,7 @@ function AuthButton({ icon, label, loading, onPress }: { icon: ImageSourcePropTy
       ) : (
         <>
           <Image source={icon} style={styles.icon} />
-          <Text style={styles.btnText}>{label}</Text>
+          <Text maxFontSizeMultiplier={FONT_CAP} style={styles.btnText}>{label}</Text>
         </>
       )}
     </PressableScale>

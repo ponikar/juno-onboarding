@@ -9,7 +9,7 @@ import { formatDate, trialDates } from '@/lib/dates';
 import { track } from '@/lib/track';
 import { STATE_MS } from '@/motion/tokens';
 import { OnboardingState, Plan, useOnboarding } from '@/state/onboarding';
-import { colors, radius, shadow, type } from '@/theme/tokens';
+import { colors, radius, shadow, type, FONT_CAP } from '@/theme/tokens';
 import { bg, key, mascotCardPeek, shield, sparkle } from '@/ui/art';
 import { haptic } from '@/ui/haptics';
 import { PressableScale } from '@/ui/PressableScale';
@@ -86,16 +86,16 @@ export default function Plans() {
       close={() => choosePlan('free')}
       footer={
         <>
-          <Text style={styles.terms}>{terms}</Text>
+          <Text maxFontSizeMultiplier={FONT_CAP} style={styles.terms}>{terms}</Text>
           <PrimaryButton label={yearly ? S.plans.cta : S.plans.ctaMonthly} loading={buying} onPress={buy} />
           <TextLink label={S.plans.free} onPress={() => choosePlan('free')} />
           <TextLink label={S.plans.cost} muted onPress={() => router.push('/sponsor')} />
-          <Text style={styles.legal}>
-            <Text style={styles.underline}>{S.plans.restore}</Text>
+          <Text maxFontSizeMultiplier={FONT_CAP} style={styles.legal}>
+            <Text maxFontSizeMultiplier={FONT_CAP} style={styles.underline}>{S.plans.restore}</Text>
             {' · '}
-            <Text style={styles.underline}>{S.plans.termsLink}</Text>
+            <Text maxFontSizeMultiplier={FONT_CAP} style={styles.underline}>{S.plans.termsLink}</Text>
             {' · '}
-            <Text style={styles.underline}>{S.plans.privacy}</Text>
+            <Text maxFontSizeMultiplier={FONT_CAP} style={styles.underline}>{S.plans.privacy}</Text>
           </Text>
         </>
       }>
@@ -103,36 +103,36 @@ export default function Plans() {
         <Image source={key} style={styles.key} />
         <Image source={sparkle} style={styles.sparkle} />
       </View>
-      <Text accessibilityRole="header" style={[type.titleSky, shadow.titleSky, styles.title]}>{headline}</Text>
+      <Text maxFontSizeMultiplier={FONT_CAP} accessibilityRole="header" style={[type.titleSky, shadow.titleSky, styles.title]}>{headline}</Text>
 
       <View style={styles.cards}>
         <View>
           <Image source={mascotCardPeek} style={styles.peek} />
           <View style={styles.tab}>
-            <Text style={styles.tabText}>{S.plans.badge}</Text>
+            <Text maxFontSizeMultiplier={FONT_CAP} style={styles.tabText}>{S.plans.badge}</Text>
           </View>
           <PlanCard selected={yearly} onPress={() => select('yearly')} title={S.plans.yearly} sub={S.plans.yearlySub}>
-            <Text style={styles.priceYearly}>{S.plans.yearlyPrice}</Text>
+            <Text maxFontSizeMultiplier={FONT_CAP} style={styles.priceYearly}>{S.plans.yearlyPrice}</Text>
           </PlanCard>
         </View>
         <PlanCard selected={!yearly} onPress={() => select('monthly')} title={S.plans.monthly} sub={S.plans.monthlySub}>
-          <Text style={styles.price}>
+          <Text maxFontSizeMultiplier={FONT_CAP} style={styles.price}>
             {S.plans.monthlyPrice}
-            <Text style={styles.per}>{S.plans.monthlyPer}</Text>
+            <Text maxFontSizeMultiplier={FONT_CAP} style={styles.per}>{S.plans.monthlyPer}</Text>
           </Text>
         </PlanCard>
       </View>
 
       <View style={styles.refund}>
         <Image source={shield} style={styles.shield} />
-        <Text style={styles.refundText}>{S.plans.refund}</Text>
+        <Text maxFontSizeMultiplier={FONT_CAP} style={styles.refundText}>{S.plans.refund}</Text>
       </View>
 
       <Sheet visible={exitOpen} onClose={() => leave(null)}>
-        <Text accessibilityRole="header" style={[type.title, styles.exitQ]}>{S.plans.exitQ}</Text>
+        <Text maxFontSizeMultiplier={FONT_CAP} accessibilityRole="header" style={[type.title, styles.exitQ]}>{S.plans.exitQ}</Text>
         {S.plans.exitOptions.map((o) => (
           <PressableScale key={o.id} accessibilityRole="button" onPress={() => leave(o.id)} style={styles.exitOption}>
-            <Text style={type.label}>{o.label}</Text>
+            <Text maxFontSizeMultiplier={FONT_CAP} style={type.label}>{o.label}</Text>
           </PressableScale>
         ))}
         <TextLink label={S.plans.exitSkip} muted onPress={() => leave(null)} />
@@ -160,10 +160,10 @@ function PlanCard({ selected, onPress, title, sub, children }: {
         { transitionProperty: ['borderTopColor', 'borderRightColor', 'borderBottomColor', 'borderLeftColor'], transitionDuration: STATE_MS } as object,
       ]}>
       <View style={styles.cardTop}>
-        <Text style={styles.cardTitle}>{title}</Text>
+        <Text maxFontSizeMultiplier={FONT_CAP} style={styles.cardTitle}>{title}</Text>
         {children}
       </View>
-      <Text style={styles.cardSub}>{sub}</Text>
+      <Text maxFontSizeMultiplier={FONT_CAP} style={styles.cardSub}>{sub}</Text>
     </PressableScale>
   );
 }

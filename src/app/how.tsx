@@ -8,7 +8,7 @@ import { fill, S } from '@/copy/strings';
 import { nextRoute } from '@/flow';
 import { formatDate, trialDates } from '@/lib/dates';
 import { EASE_OUT } from '@/motion/tokens';
-import { colors, shadow, size, type } from '@/theme/tokens';
+import { colors, shadow, size, type, FONT_CAP } from '@/theme/tokens';
 import { bg, honestyIcons } from '@/ui/art';
 import { Icon } from '@/ui/Icon';
 import { PrimaryButton } from '@/ui/PrimaryButton';
@@ -37,13 +37,13 @@ export default function How() {
         <>
           <View style={[styles.pill, shadow.card]}>
             <Icon name="crown.fill" size={16} color={colors.orange} />
-            <Text style={styles.pillText}>{S.how.noPayment}</Text>
+            <Text maxFontSizeMultiplier={FONT_CAP} style={styles.pillText}>{S.how.noPayment}</Text>
           </View>
           <PrimaryButton label={S.how.cta} onPress={() => router.push(nextRoute('/how'))} />
         </>
       }>
       <View style={{ height: ART_H - insets.top - 10 - size.nav }}>
-        <Text accessibilityRole="header" style={[type.titleSky, shadow.titleSky, styles.title]}>{S.how.title}</Text>
+        <Text maxFontSizeMultiplier={FONT_CAP} accessibilityRole="header" style={[type.titleSky, shadow.titleSky, styles.title]}>{S.how.title}</Text>
       </View>
 
       <View style={styles.rows}>
@@ -54,8 +54,8 @@ export default function How() {
               {i < S.how.rows.length - 1 && <View style={styles.connector} />}
             </View>
             <View style={styles.rowText}>
-              <Text style={styles.rowTitle}>{r.title}</Text>
-              <Text style={styles.rowSub}>{r.sub}</Text>
+              <Text maxFontSizeMultiplier={FONT_CAP} style={styles.rowTitle}>{r.title}</Text>
+              <Text maxFontSizeMultiplier={FONT_CAP} style={styles.rowSub}>{r.sub}</Text>
             </View>
           </View>
         ))}
@@ -91,8 +91,8 @@ function TimelinePoint({ index, icon, title, sub, last }: { index: number; icon:
         </Animated.View>
       </View>
       <Animated.View style={[styles.pointText, dot]}>
-        <Text style={styles.pointTitle}>{title}</Text>
-        <Text style={styles.pointSub}>{sub}</Text>
+        <Text maxFontSizeMultiplier={FONT_CAP} style={styles.pointTitle}>{title}</Text>
+        <Text maxFontSizeMultiplier={FONT_CAP} style={styles.pointSub}>{sub}</Text>
       </Animated.View>
     </View>
   );

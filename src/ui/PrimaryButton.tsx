@@ -1,6 +1,6 @@
 import { ActivityIndicator, StyleSheet, Text } from 'react-native';
 
-import { colors, radius, size, type } from '@/theme/tokens';
+import { colors, radius, size, type, FONT_CAP, TITLE_CAP } from '@/theme/tokens';
 import { PressableScale } from './PressableScale';
 
 export function PrimaryButton({ label, onPress, disabled, loading, tone = 'black', testID }: {
@@ -27,7 +27,7 @@ export function PrimaryButton({ label, onPress, disabled, loading, tone = 'black
       {loading ? (
         <ActivityIndicator color={colors.buttonText} />
       ) : (
-        <Text style={[type.button, { color: disabled ? colors.buttonDisabledText : colors.buttonText }]} numberOfLines={2}>
+        <Text maxFontSizeMultiplier={TITLE_CAP} style={[type.button, { color: disabled ? colors.buttonDisabledText : colors.buttonText }]} numberOfLines={2}>
           {label}
         </Text>
       )}
@@ -38,7 +38,7 @@ export function PrimaryButton({ label, onPress, disabled, loading, tone = 'black
 export function TextLink({ label, onPress, muted, testID }: { label: string; onPress: () => void; muted?: boolean; testID?: string }) {
   return (
     <PressableScale testID={testID} accessibilityRole="button" onPress={onPress} style={styles.link} hitSlop={10}>
-      <Text style={[type.link, muted && { color: colors.muted, fontWeight: '500' }]}>{label}</Text>
+      <Text maxFontSizeMultiplier={FONT_CAP} style={[type.link, muted && { color: colors.muted, fontWeight: '500' }]}>{label}</Text>
     </PressableScale>
   );
 }

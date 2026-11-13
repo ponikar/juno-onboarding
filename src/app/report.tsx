@@ -6,7 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { fill, joinList, S } from '@/copy/strings';
 import { daysUntil } from '@/lib/dates';
 import { useOnboarding } from '@/state/onboarding';
-import { colors, radius, shadow, type } from '@/theme/tokens';
+import { colors, radius, shadow, type, FONT_CAP } from '@/theme/tokens';
 import { haptic } from '@/ui/haptics';
 import { PrimaryButton } from '@/ui/PrimaryButton';
 
@@ -37,50 +37,50 @@ export default function Report() {
   return (
     <View style={styles.root}>
       <View style={[styles.fill, styles.scroll]}>
-        <Text accessibilityRole="header" style={[type.title, styles.center]}>{S.report.title}</Text>
+        <Text maxFontSizeMultiplier={FONT_CAP} accessibilityRole="header" style={[type.title, styles.center]}>{S.report.title}</Text>
 
         <View style={[styles.doc, shadow.card]}>
           <View style={styles.docHead}>
             <View style={{ flex: 1 }}>
-              <Text style={styles.label}>{S.report.patient}</Text>
-              {state.name ? <Text style={styles.name}>{state.name}</Text> : null}
-              {state.ageRange ? <Text style={styles.value}>{fill(S.report.age, { age: state.ageRange })}</Text> : null}
+              <Text maxFontSizeMultiplier={FONT_CAP} style={styles.label}>{S.report.patient}</Text>
+              {state.name ? <Text maxFontSizeMultiplier={FONT_CAP} style={styles.name}>{state.name}</Text> : null}
+              {state.ageRange ? <Text maxFontSizeMultiplier={FONT_CAP} style={styles.value}>{fill(S.report.age, { age: state.ageRange })}</Text> : null}
             </View>
             <View style={styles.badge}>
-              <Text style={styles.badgeText}>{S.report.badge}</Text>
+              <Text maxFontSizeMultiplier={FONT_CAP} style={styles.badgeText}>{S.report.badge}</Text>
             </View>
           </View>
 
           <View style={styles.rule} />
-          <Text style={styles.label}>{S.report.conditions}</Text>
-          <Text style={styles.value}>{conditions}</Text>
+          <Text maxFontSizeMultiplier={FONT_CAP} style={styles.label}>{S.report.conditions}</Text>
+          <Text maxFontSizeMultiplier={FONT_CAP} style={styles.value}>{conditions}</Text>
 
           <View style={styles.rule} />
-          <Text style={styles.label}>{S.report.medicines}</Text>
-          <Text style={styles.value}>{state.medicines.length ? joinList(state.medicines) : S.report.none}</Text>
+          <Text maxFontSizeMultiplier={FONT_CAP} style={styles.label}>{S.report.medicines}</Text>
+          <Text maxFontSizeMultiplier={FONT_CAP} style={styles.value}>{state.medicines.length ? joinList(state.medicines) : S.report.none}</Text>
 
           <View style={styles.rule} />
-          <Text style={styles.label}>{S.report.recent}</Text>
+          <Text maxFontSizeMultiplier={FONT_CAP} style={styles.label}>{S.report.recent}</Text>
           <View style={styles.dayRow}>
-            <Text style={styles.dayLabel}>{S.report.todayLabel}</Text>
+            <Text maxFontSizeMultiplier={FONT_CAP} style={styles.dayLabel}>{S.report.todayLabel}</Text>
             <View style={{ flex: 1, gap: 8 }}>
-              {state.todayEntry ? <Text style={styles.value}>{fill(S.snapshot.todayAsWritten, { entry: state.todayEntry })}</Text> : null}
+              {state.todayEntry ? <Text maxFontSizeMultiplier={FONT_CAP} style={styles.value}>{fill(S.snapshot.todayAsWritten, { entry: state.todayEntry })}</Text> : null}
               {state.todaySymptoms.length > 0 && (
                 <View style={styles.chips}>
                   {state.todaySymptoms.map((s) => (
                     <View key={s} style={styles.chip}>
-                      <Text style={styles.chipText}>{s}</Text>
+                      <Text maxFontSizeMultiplier={FONT_CAP} style={styles.chipText}>{s}</Text>
                     </View>
                   ))}
                 </View>
               )}
             </View>
           </View>
-          <Text style={styles.note}>{S.report.sampleNote}</Text>
+          <Text maxFontSizeMultiplier={FONT_CAP} style={styles.note}>{S.report.sampleNote}</Text>
         </View>
 
-        {countdown ? <Text style={styles.countdown}>{countdown}</Text> : null}
-        <Text style={[type.subtitle, styles.center, styles.footerText]}>{S.report.footer}</Text>
+        {countdown ? <Text maxFontSizeMultiplier={FONT_CAP} style={styles.countdown}>{countdown}</Text> : null}
+        <Text maxFontSizeMultiplier={FONT_CAP} style={[type.subtitle, styles.center, styles.footerText]}>{S.report.footer}</Text>
       </View>
       <View style={[styles.footer, { paddingBottom: Math.max(insets.bottom, 16) }]}>
         <PrimaryButton label={S.report.cta} onPress={onContinue} />

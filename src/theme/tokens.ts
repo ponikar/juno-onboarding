@@ -109,3 +109,8 @@ export const shadow = {
     textShadowOffset: { width: 0, height: 2 },
   },
 } as const;
+
+// Font scaling stays on. Caps keep the largest accessibility sizes from overlapping fixed art:
+// body text grows up to 1.6x, big display titles up to 1.25x.
+export const FONT_CAP = 1.6;
+export const TITLE_CAP = 1.25;

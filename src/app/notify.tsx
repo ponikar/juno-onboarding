@@ -8,7 +8,7 @@ import { nextRoute } from '@/flow';
 import { track } from '@/lib/track';
 import { EASE_OUT } from '@/motion/tokens';
 import { useOnboarding } from '@/state/onboarding';
-import { colors } from '@/theme/tokens';
+import { colors, FONT_CAP } from '@/theme/tokens';
 import { bg } from '@/ui/art';
 import { PressableScale } from '@/ui/PressableScale';
 import { PrimaryButton, TextLink } from '@/ui/PrimaryButton';
@@ -45,14 +45,14 @@ export default function Notify() {
         {prompt && (
           <Animated.View entering={FadeIn.duration(150)} style={styles.dim}>
             <Animated.View entering={ALERT_IN} style={styles.alert} accessibilityViewIsModal>
-              <Text style={styles.alertTitle}>{S.notify.mockTitle}</Text>
-              <Text style={styles.alertBody}>{S.notify.mockBody}</Text>
+              <Text maxFontSizeMultiplier={FONT_CAP} style={styles.alertTitle}>{S.notify.mockTitle}</Text>
+              <Text maxFontSizeMultiplier={FONT_CAP} style={styles.alertBody}>{S.notify.mockBody}</Text>
               <View style={styles.alertRow}>
                 <PressableScale accessibilityRole="button" onPress={() => finish(false)} style={styles.alertBtn}>
-                  <Text style={styles.alertBtnText}>{S.notify.mockDeny}</Text>
+                  <Text maxFontSizeMultiplier={FONT_CAP} style={styles.alertBtnText}>{S.notify.mockDeny}</Text>
                 </PressableScale>
                 <PressableScale accessibilityRole="button" onPress={() => finish(true)} style={styles.alertBtn}>
-                  <Text style={styles.alertBtnText}>{S.notify.mockAllow}</Text>
+                  <Text maxFontSizeMultiplier={FONT_CAP} style={styles.alertBtnText}>{S.notify.mockAllow}</Text>
                 </PressableScale>
               </View>
             </Animated.View>

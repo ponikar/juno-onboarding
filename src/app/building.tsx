@@ -7,7 +7,7 @@ import { fill, joinList, S } from '@/copy/strings';
 import { formatDate, fromISODate } from '@/lib/dates';
 import { EASE_OUT, ENTER_FROM_SCALE, ENTER_MS } from '@/motion/tokens';
 import { OnboardingState, useOnboarding } from '@/state/onboarding';
-import { colors, radius, shadow } from '@/theme/tokens';
+import { colors, radius, shadow, FONT_CAP } from '@/theme/tokens';
 import { Icon } from '@/ui/Icon';
 import { ScreenShell } from '@/ui/ScreenShell';
 
@@ -40,7 +40,7 @@ export default function Building() {
     <ScreenShell variant="sky" route="/building" back={false} scroll={false}>
       <View style={styles.head} accessibilityLiveRegion="polite">
         <ActivityIndicator color={colors.skyText} />
-        <Text accessibilityRole="header" style={[styles.title, shadow.titleSky]}>{S.building.title}</Text>
+        <Text maxFontSizeMultiplier={FONT_CAP} accessibilityRole="header" style={[styles.title, shadow.titleSky]}>{S.building.title}</Text>
       </View>
       <View style={styles.list}>
         {list.map((text, i) => (
@@ -64,7 +64,7 @@ function Item({ text, delay }: { text: string; delay: number }) {
   return (
     <Animated.View style={[styles.item, anim]}>
       <Icon name="checkmark" size={14} color={colors.skyText} weight="bold" />
-      <Text style={styles.itemText}>{text}</Text>
+      <Text maxFontSizeMultiplier={FONT_CAP} style={styles.itemText}>{text}</Text>
     </Animated.View>
   );
 }

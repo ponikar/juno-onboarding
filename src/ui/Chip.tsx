@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import Animated, { useAnimatedStyle, useReducedMotion, useSharedValue, withDelay, withTiming } from 'react-native-reanimated';
 
 import { EASE_OUT, STATE_MS } from '@/motion/tokens';
-import { colors, radius, size, type } from '@/theme/tokens';
+import { colors, radius, size, type, FONT_CAP } from '@/theme/tokens';
 import { haptic } from './haptics';
 import { Icon } from './Icon';
 import { PressableScale } from './PressableScale';
@@ -36,7 +36,7 @@ export function Chip({ label, selected, onToggle, preTicked, testID }: {
         } as object,
       ]}>
       <Tick selected={selected} preTicked={preTicked} />
-      <Text style={type.chip}>{label}</Text>
+      <Text maxFontSizeMultiplier={FONT_CAP} style={[type.chip, { flexShrink: 1 }]}>{label}</Text>
     </PressableScale>
   );
 }
@@ -71,6 +71,7 @@ export function ChipWrap({ children }: { children: React.ReactNode }) {
 
 const styles = StyleSheet.create({
   chip: {
+    maxWidth: '100%',
     minHeight: size.chip,
     borderRadius: radius.pill,
     borderWidth: 1.5,

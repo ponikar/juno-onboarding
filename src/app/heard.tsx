@@ -16,7 +16,7 @@ import { track } from '@/lib/track';
 import { extractSymptoms } from '@/mocks/extractSymptoms';
 import { EASE_OUT, ENTER_FROM_SCALE, ENTER_MS } from '@/motion/tokens';
 import { useOnboarding } from '@/state/onboarding';
-import { colors, radius, shadow, type } from '@/theme/tokens';
+import { colors, radius, shadow, type, FONT_CAP } from '@/theme/tokens';
 import { Tick } from '@/ui/Chip';
 import { haptic } from '@/ui/haptics';
 import { Icon } from '@/ui/Icon';
@@ -60,12 +60,12 @@ export default function Heard() {
 
       <View style={styles.userRow}>
         <View style={styles.userBubble}>
-          <Text style={styles.userText}>
+          <Text maxFontSizeMultiplier={FONT_CAP} style={styles.userText}>
             {segments(entry, matches).map((seg, i) =>
               seg.hit ? (
-                <Text key={i} style={[styles.hit, highlight && styles.hitOn]}>{seg.text}</Text>
+                <Text maxFontSizeMultiplier={FONT_CAP} key={i} style={[styles.hit, highlight && styles.hitOn]}>{seg.text}</Text>
               ) : (
-                <Text key={i}>{seg.text}</Text>
+                <Text maxFontSizeMultiplier={FONT_CAP} key={i}>{seg.text}</Text>
               ),
             )}
           </Text>
@@ -74,8 +74,8 @@ export default function Heard() {
 
       <View style={[styles.card, shadow.card]}>
         <View style={styles.cardHead}>
-          <Text style={styles.cardTitle}>{S.heard.today}</Text>
-          <Text style={styles.cardDate}>{new Date().toLocaleDateString(undefined, { weekday: 'long', month: 'short', day: 'numeric' })}</Text>
+          <Text maxFontSizeMultiplier={FONT_CAP} style={styles.cardTitle}>{S.heard.today}</Text>
+          <Text maxFontSizeMultiplier={FONT_CAP} style={styles.cardDate}>{new Date().toLocaleDateString(undefined, { weekday: 'long', month: 'short', day: 'numeric' })}</Text>
         </View>
         <View style={styles.chips}>
           {items.map((s, i) => (
@@ -83,11 +83,11 @@ export default function Heard() {
               {s ? (
                 <View style={styles.chip}>
                   <Tick selected big={false} />
-                  <Text style={type.chip}>{s}</Text>
+                  <Text maxFontSizeMultiplier={FONT_CAP} style={type.chip}>{s}</Text>
                 </View>
               ) : (
                 <View style={styles.asWritten}>
-                  <Text style={[type.body, { flex: 1 }]}>{`“${entry}”`}</Text>
+                  <Text maxFontSizeMultiplier={FONT_CAP} style={[type.body, { flex: 1 }]}>{`“${entry}”`}</Text>
                   <View style={styles.logged}>
                     <Icon name="checkmark" size={11} color="#FFFFFF" weight="bold" />
                   </View>

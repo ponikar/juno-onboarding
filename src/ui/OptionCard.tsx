@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { Image, ImageSourcePropType, StyleSheet, Text, View } from 'react-native';
 
 import { STATE_MS } from '@/motion/tokens';
-import { colors, radius, shadow, size, type } from '@/theme/tokens';
+import { colors, radius, shadow, size, type, FONT_CAP } from '@/theme/tokens';
 import { Tick } from './Chip';
 import { haptic } from './haptics';
 import { PressableScale } from './PressableScale';
@@ -40,7 +40,7 @@ export function OptionCard({ label, icon, iconNode, selected, onPress, multi = t
       <View style={styles.icon}>
         {icon ? <Image source={icon} style={styles.iconImg} resizeMode="contain" /> : iconNode}
       </View>
-      <Text style={[type.label, styles.label]}>{label}</Text>
+      <Text maxFontSizeMultiplier={FONT_CAP} style={[type.label, styles.label]}>{label}</Text>
       <Tick selected={selected} big />
     </PressableScale>
   );
