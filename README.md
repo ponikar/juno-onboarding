@@ -69,6 +69,33 @@ Long-press the **Juno** logo on the welcome screen to jump to any screen (and to
 - Every screen is screenshotted in the iOS simulator and compared side by side with its Figma reference (`scripts/eval/`, results in `docs/evals/compare/` and `docs/evals/report.md`).
 - `bun scripts/eval/unit.ts` checks the symptom extraction and trial-date maths.
 
+### Pixel scores, and why most screens say REVIEW
+
+`compare.py` scores each screenshot against the old Figma screen it was built from. PASS (mean colour difference ≤ 18 and SSIM ≥ 0.75) means a near-copy: Welcome, Consent, Try and Energy pass. Most other screens say REVIEW because v0 changes their content on purpose (new questions, Juno's replies, the snapshot and report built from real answers, honest prices). For those, each side-by-side image in `docs/evals/compare/` was looked at for layout, colour, type and clipping instead of trusting the number.
+
+### Intentional differences from Figma
+
+- New copy from the plan's copy deck everywhere; additions the deck did not cover are marked `// NEW` in `src/copy/strings.ts` (for example the screen 4 title, empty-state lines, and the goal-based plan headlines).
+- Progress bar: four segments, one per act (Figma shows three).
+- Screen 3: two extra suggestion chips and a microphone button (dictation uses the keyboard mic; it focuses the field).
+- Screen 4: the chat demo is rebuilt full-width instead of inside a phone mock-up.
+- Screen 12 combines name, sex at birth and age; sex and age are chips instead of full-width cards.
+- Screen 14 shows the user's real answers instead of the bubbles with "0" counters (they read as fake progress).
+- Screen 19: the yearly card leads with $99.99 a year; terms with real dates, the free plan link and "Is cost a problem?" are added, so the cards sit higher than in Figma.
+- The Dynamic Island and Expo Go's gear button show in simulator screenshots; neither is part of the app.
+
+### Accessibility
+
+- Font scaling stays on. Body text grows up to 1.6x and large titles up to 1.25x, so the largest system size reflows without overlapping the art (checked at AX5 on Welcome, Conditions, Snapshot and Plans).
+- Every animation branches on `useReducedMotion()`: opacity stays, translation, scale and springs drop.
+- Touch targets are at least 44 pt (hit slop on the 38 pt back button and small links).
+
+### Not verified
+
+- Tapping and dragging in the simulator: no touch-injection tool was available, so buttons, the slider drag, sheets, the mock purchase and the exit question were checked by code review and by opening each screen in each state through deep links, not by tapping.
+- Haptics timing, gesture feel and performance on an older Android phone need a real device.
+- Android was not run.
+
 ## What I'd measure if it shipped
 
 - Accounts per starter.
