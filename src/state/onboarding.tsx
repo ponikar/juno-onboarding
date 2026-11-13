@@ -32,6 +32,7 @@ export interface OnboardingState {
   signedIn: boolean;
   plan: Plan | null;
   paywallExitReason: 'price' | 'unsure' | 'try_first' | null;
+  paywallExitAsked: boolean;
   notificationsAllowed: boolean | null;
   lastRoute: string | null;
 }
@@ -61,6 +62,7 @@ export const initialState: OnboardingState = {
   signedIn: false,
   plan: null,
   paywallExitReason: null,
+  paywallExitAsked: false,
   notificationsAllowed: null,
   lastRoute: null,
 };

@@ -87,7 +87,7 @@ export default function Heard() {
                 </View>
               ) : (
                 <View style={styles.asWritten}>
-                  <Text maxFontSizeMultiplier={FONT_CAP} style={[type.body, { flex: 1 }]}>{`“${entry}”`}</Text>
+                  <Text maxFontSizeMultiplier={FONT_CAP} style={[type.body, { flex: 1 }]}>{fill(S.snapshot.todayAsWritten, { entry })}</Text>
                   <View style={styles.logged}>
                     <Icon name="checkmark" size={11} color="#FFFFFF" weight="bold" />
                   </View>

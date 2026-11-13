@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { fill, S } from '@/copy/strings';
@@ -22,7 +22,7 @@ export default function Symptoms() {
   const { state, set } = useOnboarding();
   const [query, setQuery] = useState('');
   const [changed, setChanged] = useState(false);
-  const seedingNow = useRef(!state.symptomsSeeded).current;
+  const [seedingNow] = useState(!state.symptomsSeeded);
   const picked = state.symptomsSeeded ? state.symptoms : state.todaySymptoms;
 
   useEffect(() => {

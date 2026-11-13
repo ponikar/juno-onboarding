@@ -299,6 +299,7 @@ export const S = {
     restore: 'Restore purchases',
     termsLink: 'Terms',
     privacy: 'Privacy',
+    dot: ' · ',
     processing: 'Confirming…',
     exitQ: 'What stopped you?',
     exitOptions: [

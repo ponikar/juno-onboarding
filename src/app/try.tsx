@@ -29,7 +29,7 @@ export default function Try() {
   const go = () => {
     const todaySymptoms = extractSymptoms(entry.trim()).symptoms;
     // A new entry re-seeds screen 7's pre-ticks.
-    set((s) => ({ todayEntry: entry.trim(), todaySymptoms, symptomsSeeded: s.todayEntry.trim() === entry.trim() ? s.symptomsSeeded : false }));
+    set((s) => ({ todayEntry: entry.trim(), todaySymptoms, symptomsSeeded: s.todaySymptoms.join('|') === todaySymptoms.join('|') ? s.symptomsSeeded : false }));
     track('answer', { screen: 'try', length: entry.trim().length, matched: todaySymptoms.length });
     router.push(nextRoute('/try'));
   };

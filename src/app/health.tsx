@@ -26,12 +26,15 @@ export default function Health() {
   }, []);
 
   const later = () => {
+    if (timer.current) clearTimeout(timer.current);
+    timer.current = null;
     set({ healthAnswered: true, healthDataConnected: false });
     track('answer', { screen: 'health', connected: false });
     router.push(nextRoute('/health'));
   };
 
   const allow = () => {
+    if (timer.current) return;
     set({ healthAnswered: true, healthDataConnected: true });
     track('answer', { screen: 'health', connected: true });
     setConnected(true);

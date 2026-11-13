@@ -31,8 +31,8 @@ function FlowWatcher() {
 
   useEffect(() => {
     if (!ready || pathname === '/' || pathname === '/debug') return;
-    set({ lastRoute: pathname });
     track('screen_view', { screen: pathname });
+    if (pathname !== '/sponsor' && pathname !== '/report') set({ lastRoute: pathname }); // never resume on a sheet
   }, [ready, pathname, set]);
 
   return null;

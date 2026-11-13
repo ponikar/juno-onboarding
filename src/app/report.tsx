@@ -30,7 +30,7 @@ export default function Report() {
     days === null ? null : days === 0 ? S.report.countdown0 : days === 1 ? S.report.countdown1 : fill(S.report.countdown, { days });
 
   const onContinue = () => {
-    router.dismiss();
+    if (router.canGoBack()) router.dismiss();
     router.push('/save');
   };
 

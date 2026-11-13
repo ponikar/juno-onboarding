@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { ActivityIndicator, StyleSheet, Text } from 'react-native';
 
 import { colors, radius, size, type, FONT_CAP, TITLE_CAP } from '@/theme/tokens';
@@ -12,6 +13,7 @@ export function PrimaryButton({ label, onPress, disabled, loading, tone = 'black
   testID?: string;
 }) {
   const off = disabled || loading;
+  const guarded = useOnce(onPress);
   return (
     <PressableScale
       testID={testID}
@@ -19,7 +21,7 @@ export function PrimaryButton({ label, onPress, disabled, loading, tone = 'black
       accessibilityLabel={label}
       accessibilityState={{ disabled: !!disabled, busy: !!loading }}
       disabled={off}
-      onPress={onPress}
+      onPress={guarded}
       style={[
         styles.btn,
         { backgroundColor: disabled ? colors.buttonDisabled : tone === 'navy' ? colors.navy : colors.button },
@@ -36,11 +38,23 @@ export function PrimaryButton({ label, onPress, disabled, loading, tone = 'black
 }
 
 export function TextLink({ label, onPress, muted, testID }: { label: string; onPress: () => void; muted?: boolean; testID?: string }) {
+  const guarded = useOnce(onPress);
   return (
-    <PressableScale testID={testID} accessibilityRole="button" onPress={onPress} style={styles.link} hitSlop={10}>
+    <PressableScale testID={testID} accessibilityRole="button" onPress={guarded} style={styles.link} hitSlop={10}>
       <Text maxFontSizeMultiplier={FONT_CAP} style={[type.link, muted && { color: colors.muted, fontWeight: '500' }]}>{label}</Text>
     </PressableScale>
   );
+}
+
+// A double tap must navigate once (spec section 4): ignore presses for 700 ms after one lands.
+function useOnce(fn: () => void) {
+  const last = useRef(0);
+  return () => {
+    const now = Date.now();
+    if (now - last.current < 700) return;
+    last.current = now;
+    fn();
+  };
 }
 
 const styles = StyleSheet.create({

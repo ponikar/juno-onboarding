@@ -91,7 +91,10 @@ export default function Welcome() {
             testID="welcome-cta"
           />
         </View>
-        <TextLink label={S.welcome.haveAccount} onPress={() => track('have_account')} />
+        <TextLink label={S.welcome.haveAccount} onPress={() => {
+            track('have_account');
+            router.push('/save');
+          }} />
         <Text maxFontSizeMultiplier={1.15} style={styles.terms}>
           {S.welcome.termsLead}
           {'\n'}

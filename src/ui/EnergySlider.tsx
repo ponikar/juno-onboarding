@@ -24,16 +24,16 @@ export function EnergySlider({ value, onChange }: { value: number | null; onChan
   const [width, setWidth] = useState(0);
   const shown = value ?? 4;
   const x = useSharedValue(0);
-  const step = useSharedValue(shown);
+  const step = useSharedValue(value ?? 0);
   const w = useSharedValue(0);
   const drag = useSharedValue(false);
 
   const span = Math.max(width - INSET * 2, 1);
   useEffect(() => {
-    w.value = width;
-    step.value = shown;
-    if (width && !drag.value) x.value = INSET + ((shown - 1) / (STEPS - 1)) * span;
-  }, [width, shown, span, w, x, step, drag]);
+    w.set(width);
+    step.set(value ?? 0);
+    if (width && !drag.get()) x.set(INSET + ((shown - 1) / (STEPS - 1)) * span);
+  }, [width, value, shown, span, w, x, step, drag]);
 
   const pick = (n: number) => {
     haptic.selection();
@@ -45,35 +45,35 @@ export function EnergySlider({ value, onChange }: { value: number | null; onChan
     minDistance: 0,
     onBegin: (e) => {
       'worklet';
-      drag.value = true;
-      const clamped = Math.min(Math.max(e.x, INSET), w.value - INSET);
-      x.value = clamped;
-      const n = Math.round(((clamped - INSET) / Math.max(w.value - INSET * 2, 1)) * (STEPS - 1)) + 1;
-      if (n !== step.value) {
-        step.value = n;
+      drag.set(true);
+      const clamped = Math.min(Math.max(e.x, INSET), w.get() - INSET);
+      x.set(clamped);
+      const n = Math.round(((clamped - INSET) / Math.max(w.get() - INSET * 2, 1)) * (STEPS - 1)) + 1;
+      if (n !== step.get()) {
+        step.set(n);
         scheduleOnRN(pick, n);
       }
     },
     onUpdate: (e) => {
       'worklet';
-      const clamped = Math.min(Math.max(e.x, INSET), w.value - INSET);
-      x.value = clamped;
-      const n = Math.round(((clamped - INSET) / Math.max(w.value - INSET * 2, 1)) * (STEPS - 1)) + 1;
-      if (n !== step.value) {
-        step.value = n;
+      const clamped = Math.min(Math.max(e.x, INSET), w.get() - INSET);
+      x.set(clamped);
+      const n = Math.round(((clamped - INSET) / Math.max(w.get() - INSET * 2, 1)) * (STEPS - 1)) + 1;
+      if (n !== step.get()) {
+        step.set(n);
         scheduleOnRN(pick, n);
       }
     },
     onFinalize: () => {
       'worklet';
-      drag.value = false;
-      const target = INSET + ((step.value - 1) / (STEPS - 1)) * (w.value - INSET * 2);
-      x.value = reduced ? target : withSpring(target, SPRING_SETTLE);
+      drag.set(false);
+      const target = INSET + ((step.get() - 1) / (STEPS - 1)) * (w.get() - INSET * 2);
+      x.set(reduced ? target : withSpring(target, SPRING_SETTLE));
     },
   });
 
-  const fillStyle = useAnimatedStyle(() => ({ transform: [{ translateX: x.value - w.value }] }));
-  const thumbStyle = useAnimatedStyle(() => ({ transform: [{ translateX: x.value - THUMB / 2 }] }));
+  const fillStyle = useAnimatedStyle(() => ({ transform: [{ translateX: x.get() - w.get() }] }));
+  const thumbStyle = useAnimatedStyle(() => ({ transform: [{ translateX: x.get() - THUMB / 2 }] }));
 
   const set = (n: number) => {
     const c = Math.min(Math.max(n, 1), STEPS);

@@ -26,7 +26,6 @@ export default function Plans() {
   const [choice, setChoice] = useState<Choice>(state.plan === 'monthly' ? 'monthly' : 'yearly');
   const [buying, setBuying] = useState(false);
   const [exitOpen, setExitOpen] = useState(false);
-  const [asked, setAsked] = useState(false);
   const repeatBack = useRef<(() => void) | null>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const dates = useMemo(() => trialDates(new Date()), []);
@@ -37,13 +36,15 @@ export default function Plans() {
   }, []);
 
   // Back (button or swipe) with no plan chosen asks the exit question once, then continues the back action.
-  usePreventRemove(state.plan === null && !asked, ({ repeat }) => {
+  usePreventRemove(state.plan === null && !state.paywallExitAsked, ({ repeat }) => {
     repeatBack.current = repeat;
-    setAsked(true);
+    set({ paywallExitAsked: true });
     setExitOpen(true);
   });
 
   const choosePlan = (p: Plan) => {
+    if (timer.current) clearTimeout(timer.current);
+    timer.current = null;
     set({ plan: p });
     track('answer', { screen: '/plans', plan: p });
     router.push(nextRoute('/plans'));
@@ -57,6 +58,7 @@ export default function Plans() {
 
   // MOCK purchase: succeeds after a short delay.
   const buy = () => {
+    if (buying) return;
     setBuying(true);
     timer.current = setTimeout(() => {
       setBuying(false);
@@ -83,18 +85,18 @@ export default function Plans() {
       variant="sky"
       background={bg.plans}
       backgroundHeight={385}
-      close={() => choosePlan('free')}
+      close={() => !buying && choosePlan('free')}
       footer={
         <>
           <Text maxFontSizeMultiplier={FONT_CAP} style={styles.terms}>{terms}</Text>
           <PrimaryButton label={yearly ? S.plans.cta : S.plans.ctaMonthly} loading={buying} onPress={buy} />
-          <TextLink label={S.plans.free} onPress={() => choosePlan('free')} />
-          <TextLink label={S.plans.cost} muted onPress={() => router.push('/sponsor')} />
+          <TextLink label={S.plans.free} onPress={() => !buying && choosePlan('free')} />
+          <TextLink label={S.plans.cost} muted onPress={() => !buying && router.push('/sponsor')} />
           <Text maxFontSizeMultiplier={FONT_CAP} style={styles.legal}>
             <Text maxFontSizeMultiplier={FONT_CAP} style={styles.underline}>{S.plans.restore}</Text>
-            {' · '}
+            {S.plans.dot}
             <Text maxFontSizeMultiplier={FONT_CAP} style={styles.underline}>{S.plans.termsLink}</Text>
-            {' · '}
+            {S.plans.dot}
             <Text maxFontSizeMultiplier={FONT_CAP} style={styles.underline}>{S.plans.privacy}</Text>
           </Text>
         </>

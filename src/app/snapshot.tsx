@@ -1,13 +1,13 @@
 import { router } from 'expo-router';
 import { useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import Animated, { useAnimatedStyle, useReducedMotion, useSharedValue, withDelay, withTiming } from 'react-native-reanimated';
 
 import { fill, joinList, S } from '@/copy/strings';
 import { nextRoute } from '@/flow';
 import { EASE_OUT, ENTER_FROM_SCALE, ENTER_MS, staggerAt } from '@/motion/tokens';
 import { OnboardingState, useOnboarding } from '@/state/onboarding';
-import { colors, radius, shadow, FONT_CAP } from '@/theme/tokens';
+import { FONT_CAP } from '@/theme/tokens';
 import { haptic } from '@/ui/haptics';
 import { PrimaryButton } from '@/ui/PrimaryButton';
 import { ScreenShell, Title } from '@/ui/ScreenShell';

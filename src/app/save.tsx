@@ -48,7 +48,7 @@ export default function Save() {
       <Image source={mascotPeek} style={styles.mascot} resizeMode="contain" />
       <View style={[StyleSheet.absoluteFill, styles.dim]} />
       <View style={[styles.nav, { marginTop: insets.top + 10 }]}>
-        <NavButton icon="arrow.left" label={S.common.back} onSky onPress={() => router.back()} />
+        <NavButton icon="arrow.left" label={S.common.back} onSky onPress={() => (router.canGoBack() ? router.back() : router.replace('/snapshot'))} />
       </View>
       <View style={styles.sheet}>
         <View style={styles.grabber} />
