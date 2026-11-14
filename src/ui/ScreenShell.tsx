@@ -72,7 +72,7 @@ export function ScreenShell({ children, variant = 'plain', background, backgroun
   );
 }
 
-function useKeyboardOpen() {
+export function useKeyboardOpen() {
   const [open, setOpen] = useState(false);
   useEffect(() => {
     const a = Keyboard.addListener('keyboardWillShow', () => setOpen(true));

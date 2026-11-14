@@ -17,6 +17,7 @@ import { ScreenShell } from '@/ui/ScreenShell';
 const ART_H = 362;
 const CROP = 70; // empty sky above the title; keeps the charge date above the fold
 const POINT_MS = 160;
+const RAIL_GRADIENT = 'linear-gradient(180deg, #4E9FE9 0%, #7DB3EE 45%, #BFD7F5 80%, rgba(248,246,247,0) 100%)';
 const POINT_GAP_MS = 120; // each point starts 40 ms before the previous one ends: 3 points in 400 ms
 
 // Screen 18 (from 56 honesty + 60 pw-trial): the four honesty rows, then the free-week timeline with real dates.
@@ -64,6 +65,7 @@ export default function How() {
       </View>
 
       <View style={styles.timeline}>
+        <Rail />
         {points.map((p, i) => (
           <TimelinePoint key={i} index={i} last={i === points.length - 1} {...p} />
         ))}
@@ -72,22 +74,27 @@ export default function How() {
   );
 }
 
-function TimelinePoint({ index, icon, title, sub, last }: { index: number; icon: string; title: string; sub: string; last: boolean }) {
+// One continuous rail behind the dots, deep blue fading out at the bottom (Figma 60).
+function Rail() {
   const reduced = useReducedMotion();
+  const t = useSharedValue(0);
+  useEffect(() => {
+    t.value = withTiming(1, { duration: 400, easing: EASE_OUT });
+  }, [t]);
+  const grow = useAnimatedStyle(() => ({ opacity: Math.min(1, t.value * 2), transform: reduced ? [] : [{ scaleY: t.value }] }));
+  return <Animated.View pointerEvents="none" style={[styles.rail2, { experimental_backgroundImage: RAIL_GRADIENT } as object, grow]} />;
+}
+
+function TimelinePoint({ index, icon, title, sub }: { index: number; icon: string; title: string; sub: string; last: boolean }) {
   const t = useSharedValue(0);
   useEffect(() => {
     t.value = withDelay(index * POINT_GAP_MS, withTiming(1, { duration: POINT_MS, easing: EASE_OUT }));
   }, [index, t]);
   const dot = useAnimatedStyle(() => ({ opacity: t.value }));
-  const line = useAnimatedStyle(() => ({
-    opacity: t.value,
-    transform: reduced ? [] : [{ scaleY: t.value }],
-  }));
 
   return (
     <View style={styles.point}>
       <View style={styles.pointRail}>
-        <Animated.View style={[styles.bar, index === 0 && styles.barFirst, last && styles.barLast, line]} />
         <Animated.View style={[styles.dot, dot]}>
           <Icon name={icon} size={14} color="#FFFFFF" weight="semibold" />
         </Animated.View>
@@ -113,9 +120,7 @@ const styles = StyleSheet.create({
   timeline: { paddingHorizontal: 17, marginTop: 6 },
   point: { flexDirection: 'row', gap: 16 },
   pointRail: { width: 36, alignItems: 'center' },
-  bar: { position: 'absolute', top: 0, bottom: 0, width: 36, backgroundColor: '#7FB2EC', transformOrigin: 'top' },
-  barFirst: { top: 18, backgroundColor: '#4E9FE9' },
-  barLast: { bottom: 12, backgroundColor: '#C7DCF6', borderBottomLeftRadius: 18, borderBottomRightRadius: 18 },
+  rail2: { position: 'absolute', left: 17, top: 18, bottom: -8, width: 36, transformOrigin: 'top' },
   dot: {
     width: 36,
     height: 36,

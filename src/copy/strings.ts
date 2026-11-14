@@ -351,6 +351,15 @@ export const S = {
       { id: 'vent', label: 'I just need to vent' },
     ], // NEW in strings, wording from next-first-chat
     attach: 'Add attachment', // NEW
+    replies: {
+      flare: 'I’m sorry today is hard. I’ve marked it as a flare day. What’s worst right now?',
+      log: 'Sure. Tell me how you feel in your own words and I’ll log it.',
+      vent: 'I’m here. Say as much or as little as you like.',
+      skip: 'No problem. I’m here whenever you want to talk.',
+      logged: 'Got it. I’ve logged {list} for today.',
+      saved: 'Thanks for telling me. I’ve added that to today’s entry.',
+    }, // NEW: mock replies
+    typing: 'Juno is typing', // NEW
     send: 'Send', // NEW
   },
   debug: {

@@ -1,31 +1,105 @@
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useEffect, useRef, useState } from 'react';
+import { Image, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import Animated, { Easing, FadeIn, FadeInDown, FadeOut } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { fill, S } from '@/copy/strings';
+import { fill, joinList, S } from '@/copy/strings';
+import { track } from '@/lib/track';
+import { extractSymptoms } from '@/mocks/extractSymptoms';
+import { ENTER_MS } from '@/motion/tokens';
 import { useOnboarding } from '@/state/onboarding';
 import { colors, radius, shadow, FONT_CAP } from '@/theme/tokens';
 import { avatar, chatIcons } from '@/ui/art';
+import { haptic } from '@/ui/haptics';
 import { Icon } from '@/ui/Icon';
+import { PressableScale } from '@/ui/PressableScale';
+import { useKeyboardOpen } from '@/ui/ScreenShell';
 
-// First chat (from next-first-chat): today's entry already logged, Juno's opening line, static suggestions and input.
+type Msg = { id: number; from: 'me' | 'juno'; text: string };
+type SuggestionId = keyof typeof S.chat.replies;
+
+const TYPING_MS = 900;
+
+// MOCK: canned replies. Free text reuses screen 4's keyword match, so nothing medical is generated.
+function replyTo(text: string, id?: SuggestionId) {
+  if (id) return S.chat.replies[id];
+  const { symptoms } = extractSymptoms(text);
+  return symptoms.length ? fill(S.chat.replies.logged, { list: joinList(symptoms.map((x) => x.toLowerCase())) }) : S.chat.replies.saved;
+}
+
+// First chat (from next-first-chat): today's entry already logged, Juno's opening line, suggestions and a working (mocked) input.
 export default function Chat() {
   const insets = useSafeAreaInsets();
+  const keyboard = useKeyboardOpen();
   const { state } = useOnboarding();
   const logged = state.todayEntry || state.todaySymptoms.length > 0;
+  const [messages, setMessages] = useState<Msg[]>([]);
+  const [draft, setDraft] = useState('');
+  const [typing, setTyping] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(true);
+  const nextId = useRef(1);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const scroller = useRef<React.ComponentRef<typeof ScrollView>>(null);
+  const input = useRef<React.ComponentRef<typeof TextInput>>(null);
+
+  useEffect(() => () => {
+    if (timer.current) clearTimeout(timer.current);
+  }, []);
+
+  const push = (from: Msg['from'], text: string) => setMessages((m) => [...m, { id: nextId.current++, from, text }]);
+
+  const junoSays = (text: string) => {
+    if (timer.current) clearTimeout(timer.current);
+    setTyping(true);
+    timer.current = setTimeout(() => {
+      setTyping(false);
+      push('juno', text);
+      haptic.light();
+    }, TYPING_MS);
+  };
+
+  const send = (text: string, id?: SuggestionId) => {
+    const t = text.trim();
+    if (!t || typing) return;
+    haptic.selection();
+    setShowSuggestions(false);
+    push('me', t);
+    setDraft('');
+    track('chat_message', { suggestion: id ?? null });
+    junoSays(replyTo(t, id));
+  };
+
+  const skip = () => {
+    if (!showSuggestions || typing) return;
+    haptic.selection();
+    setShowSuggestions(false);
+    track('chat_skip', {});
+    junoSays(S.chat.replies.skip);
+  };
+
+  const canSend = draft.trim().length > 0 && !typing;
 
   return (
-    <View style={[styles.root, { paddingTop: insets.top + 10 }]}>
+    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={[styles.root, { paddingTop: insets.top + 10 }]}>
       <View style={styles.header}>
         <View style={[styles.junoPill, shadow.nav]}>
           <Image source={avatar} style={styles.headAvatar} />
           <Text maxFontSizeMultiplier={FONT_CAP} style={styles.junoName}>{S.chat.juno}</Text>
         </View>
-        <View style={[styles.skip, shadow.nav]}>
-          <Text maxFontSizeMultiplier={FONT_CAP} style={styles.skipText}>{S.chat.skip}</Text>
-        </View>
+        {showSuggestions && !typing && (
+          <PressableScale accessibilityRole="button" accessibilityLabel={S.chat.skip} onPress={skip} hitSlop={6} style={[styles.skip, shadow.nav]}>
+            <Text maxFontSizeMultiplier={FONT_CAP} style={styles.skipText}>{S.chat.skip}</Text>
+          </PressableScale>
+        )}
       </View>
 
-      <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        ref={scroller}
+        contentContainerStyle={styles.scroll}
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
+        keyboardDismissMode="interactive"
+        onContentSizeChange={() => scroller.current?.scrollToEnd({ animated: true })}>
         {logged ? (
           <View style={[styles.logCard, shadow.card]}>
             <View style={styles.logHead}>
@@ -54,26 +128,79 @@ export default function Chat() {
           </View>
         </View>
 
-        <View style={styles.suggestions}>
-          {S.chat.suggestions.map((s) => (
-            <View key={s.id} style={[styles.suggestion, shadow.card]}>
-              <Image source={chatIcons[s.id]} style={styles.suggestionIcon} />
-              <Text maxFontSizeMultiplier={FONT_CAP} style={styles.suggestionText}>{s.label}</Text>
+        {showSuggestions && (
+          <Animated.View exiting={FadeOut.duration(150)} style={styles.suggestions}>
+            {S.chat.suggestions.map((s) => (
+              <PressableScale
+                key={s.id}
+                accessibilityRole="button"
+                accessibilityLabel={s.label}
+                onPress={() => send(s.label, s.id as SuggestionId)}
+                style={[styles.suggestion, shadow.card]}>
+                <Image source={chatIcons[s.id]} style={styles.suggestionIcon} />
+                <Text maxFontSizeMultiplier={FONT_CAP} style={styles.suggestionText}>{s.label}</Text>
+              </PressableScale>
+            ))}
+          </Animated.View>
+        )}
+
+        {messages.map((m) =>
+          m.from === 'me' ? (
+            <Animated.View key={m.id} entering={FadeInDown.duration(ENTER_MS).easing(Easing.out(Easing.quad))} style={styles.meBubble}>
+              <Text maxFontSizeMultiplier={FONT_CAP} style={styles.meText}>{m.text}</Text>
+            </Animated.View>
+          ) : (
+            <Animated.View key={m.id} entering={FadeIn.duration(ENTER_MS)} style={styles.junoRow} accessibilityLiveRegion="polite">
+              <Image source={avatar} style={styles.bubbleAvatar} />
+              <View style={[styles.bubble, shadow.card]}>
+                <Text maxFontSizeMultiplier={FONT_CAP} style={styles.bubbleText}>{m.text}</Text>
+              </View>
+            </Animated.View>
+          ),
+        )}
+
+        {typing && (
+          <Animated.View entering={FadeIn.duration(150)} exiting={FadeOut.duration(100)} style={styles.junoRow} accessibilityLabel={S.chat.typing}>
+            <Image source={avatar} style={styles.bubbleAvatar} />
+            <View style={[styles.bubble, styles.typing, shadow.card]}>
+              {[0, 1, 2].map((i) => (
+                <Animated.View key={i} entering={FadeIn.delay(i * 150).duration(300)} style={styles.dot} />
+              ))}
             </View>
-          ))}
-        </View>
+          </Animated.View>
+        )}
       </ScrollView>
 
-      <View style={[styles.inputWrap, { paddingBottom: Math.max(insets.bottom, 16) }]}>
+      <View style={[styles.inputWrap, { paddingBottom: keyboard ? 8 : Math.max(insets.bottom, 16) }]}>
         <View style={[styles.input, shadow.card]}>
-          <Icon name="plus" size={20} color={colors.inkSoft} />
-          <Text maxFontSizeMultiplier={FONT_CAP} style={styles.placeholder}>{S.chat.placeholder}</Text>
-          <View style={styles.send}>
-            <Icon name="arrow.up" size={16} color={colors.muted} weight="semibold" />
-          </View>
+          <PressableScale accessibilityRole="button" accessibilityLabel={S.chat.attach} hitSlop={8} onPress={() => input.current?.focus()}>
+            <Icon name="plus" size={20} color={colors.inkSoft} />
+          </PressableScale>
+          <TextInput
+            ref={input}
+            value={draft}
+            onChangeText={setDraft}
+            placeholder={S.chat.placeholder}
+            placeholderTextColor={colors.muted}
+            maxFontSizeMultiplier={FONT_CAP}
+            style={styles.field}
+            returnKeyType="send"
+            submitBehavior="submit"
+            onSubmitEditing={() => send(draft)}
+            accessibilityLabel={S.chat.placeholder}
+          />
+          <PressableScale
+            accessibilityRole="button"
+            accessibilityLabel={S.chat.send}
+            accessibilityState={{ disabled: !canSend }}
+            disabled={!canSend}
+            onPress={() => send(draft)}
+            style={[styles.send, canSend && styles.sendOn]}>
+            <Icon name="arrow.up" size={16} color={canSend ? '#FFFFFF' : colors.muted} weight="semibold" />
+          </PressableScale>
         </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -131,6 +258,11 @@ const styles = StyleSheet.create({
     paddingLeft: 18,
     paddingRight: 6,
   },
-  placeholder: { flex: 1, fontSize: 17, color: colors.muted },
+  field: { flex: 1, fontSize: 17, color: colors.ink, paddingVertical: 10 },
   send: { width: 44, height: 44, borderRadius: 22, backgroundColor: '#EEECEB', alignItems: 'center', justifyContent: 'center' },
+  sendOn: { backgroundColor: '#111111' },
+  meBubble: { alignSelf: 'flex-end', maxWidth: '80%', backgroundColor: colors.userBubble, borderRadius: radius.panel, borderBottomRightRadius: 6, paddingHorizontal: 14, paddingVertical: 10 },
+  meText: { fontSize: 17, lineHeight: 23, color: '#FFFFFF' },
+  typing: { flexDirection: 'row', gap: 5, paddingVertical: 16 },
+  dot: { width: 7, height: 7, borderRadius: 3.5, backgroundColor: colors.muted },
 });

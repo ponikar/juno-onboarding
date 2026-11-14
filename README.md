@@ -51,7 +51,7 @@ The sentence typed on screen 3 travels through screens 4, 7, 15, 16 and 21.
 
 - Screen 4 reply: local keyword match (`src/mocks/extractSymptoms.ts`), not a model call.
 - Authentication (screen 17), the purchase (19), the health-data permission (13) and notifications (20): each succeeds after a short delay.
-- First chat: static.
+- First chat: suggestions, typing and send work; Juno's replies are canned, and typed text reuses the screen 4 keyword match.
 - Analytics: `track(event, props)` logs to the console on every screen view and answer (`src/lib/track.ts`).
 
 ## Run it
