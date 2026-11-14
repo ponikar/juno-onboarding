@@ -114,7 +114,6 @@ export default function Heard() {
         </View>
         <Text maxFontSizeMultiplier={FONT_CAP} style={[type.body, styles.progressText]}>{S.heard.progress}</Text>
       </View>
-      <Text maxFontSizeMultiplier={FONT_CAP} style={[type.subtitle, styles.next]}>{S.heard.next}</Text>
     </ScreenShell>
   );
 }
@@ -187,6 +186,5 @@ const styles = StyleSheet.create({
   replyWrap: { marginTop: 18, minHeight: 64 }, // two-line reply height reserved, so the lines below never move when it lands
   progressRow: { flexDirection: 'row', alignItems: 'center', gap: 10, marginTop: 18, paddingHorizontal: 20 },
   progressText: { flex: 1 },
-  next: { color: colors.inkSoft, marginTop: 6, paddingHorizontal: 20, paddingLeft: 52 },
 });
 
