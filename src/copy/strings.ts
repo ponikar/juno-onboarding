@@ -449,27 +449,25 @@ export const S = {
     joinN: 'Join {n} groups',
     later: 'Not now',
   },
-  source: { // v4, from the Juno app
+  source: { // v4, from the Juno app (top 5 + Other, so it stays one glance)
     title: 'Where did you find Juno?',
     options: [
-      { id: 'facebook', label: 'Facebook' },
       { id: 'tiktok', label: 'TikTok' },
-      { id: 'community', label: 'Community' },
-      { id: 'appstore', label: 'App Store' },
       { id: 'instagram', label: 'Instagram' },
-      { id: 'doctor', label: 'Doctor or clinic' },
-      { id: 'youtube', label: 'YouTube' },
       { id: 'friends', label: 'Friends or family' },
-      { id: 'google', label: 'Google' },
-      { id: 'chatgpt', label: 'ChatGPT' },
-      { id: 'reddit', label: 'Reddit' },
-      { id: 'aisearch', label: 'AI search' },
-      { id: 'therapist', label: 'Therapist' },
+      { id: 'doctor', label: 'Doctor or clinic' },
+      { id: 'appstore', label: 'App Store' },
       { id: 'other', label: 'Other' },
     ],
     skip: 'Skip',
   },
   healthSynced: 'Apple Health connected', // v4
+  growth: { // v4: the Juno app's evolving graph, charting entries (not mood: no promise of feeling better)
+    title: 'One line a day adds up',
+    yAxis: 'Entries on your doctor page',
+    today: 'Today',
+    you: 'You today',
+  },
   checkin: { // v3.1: the commitment, right before the first chat (title, sub, three short lines, time)
     title: 'Your daily check-in',
     sub: 'One line a day fills your doctor page.',

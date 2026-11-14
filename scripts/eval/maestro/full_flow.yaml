@@ -133,6 +133,10 @@ appId: host.exp.Exponent
 - assertVisible: "Here's tomorrow's check.in"
 - takeScreenshot: docs/evals/e2e/21-demo
 - tapOn: "Got it"
+- waitForAnimationToEnd
+- assertVisible: "One line a day adds up"
+- takeScreenshot: docs/evals/e2e/22-growth
+- tapOn: "Keep going"
 - extendedWaitUntil:
     visible: "See my doctor page"
     timeout: 10000
@@ -141,9 +145,6 @@ appId: host.exp.Exponent
 - tapOn: "See my doctor page"
 - waitForAnimationToEnd
 - takeScreenshot: docs/evals/e2e/24-report
-- scrollUntilVisible:
-    element: "What this page becomes"
-- takeScreenshot: docs/evals/e2e/24-report-projection
 - tapOn: "Save my snapshot"
 - waitForAnimationToEnd
 - tapOn: "Continue with Apple"

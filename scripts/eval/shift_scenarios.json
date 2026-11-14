@@ -100,7 +100,7 @@
     "id": "source-pick",
     "route": "/source",
     "preset": "empty",
-    "actions": "- tapOn: \"Google\""
+    "actions": "- tapOn: \"TikTok\""
   },
   {
     "id": "snapshot",
@@ -225,5 +225,10 @@
     "ignore": [
       "Morning.*"
     ]
+  },
+  {
+    "id": "growth",
+    "route": "/growth",
+    "preset": "demo"
   }
 ]

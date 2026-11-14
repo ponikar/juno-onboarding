@@ -25,15 +25,16 @@ export const FLOW = [
   { route: '/source', n: 19, seg: 'you', act: 1, from: 'Juno app: where did you find Juno' },
   { route: '/promise', n: 20, seg: 'routine', act: 1, from: '45 support-circle' },
   { route: '/demo', n: 21, seg: 'routine', act: 1, from: 'first-chat + 61 bell' },
-  { route: '/building', n: 22, seg: 'snapshot', act: 2, from: '54 analyzing' },
-  { route: '/snapshot', n: 23, seg: 'snapshot', act: 2, from: '55 journey-ready' },
-  { route: '/report', n: 24, seg: 'snapshot', act: 2, from: '09 story-report + 29 reply-care-team + 60 pw-trial timeline' },
-  { route: '/save', n: 25, seg: 'snapshot', act: 2, from: '01b auth' },
-  { route: '/how', n: 26, seg: 'plan', act: 3, from: '56 honesty + 60 pw-trial' },
-  { route: '/plans', n: 27, seg: 'plan', act: 3, from: '62 pw-price (+ 62b sponsor sheet)' },
-  { route: '/done', n: 28, seg: null, act: 3, from: '64 subscribe-success + 65 how-to-use-juno' },
-  { route: '/checkin', n: 29, seg: null, act: 3, from: '61 bell (commitment + reminder)' },
-  { route: '/chat', n: 29, seg: null, act: 3, from: 'first-chat' },
+  { route: '/growth', n: 22, seg: 'routine', act: 1, from: 'Juno app: evolving graph (entries, not mood)' },
+  { route: '/building', n: 23, seg: 'snapshot', act: 2, from: '54 analyzing' },
+  { route: '/snapshot', n: 24, seg: 'snapshot', act: 2, from: '55 journey-ready' },
+  { route: '/report', n: 25, seg: 'snapshot', act: 2, from: '09 story-report + 29 reply-care-team + 60 pw-trial timeline' },
+  { route: '/save', n: 26, seg: 'snapshot', act: 2, from: '01b auth' },
+  { route: '/how', n: 27, seg: 'plan', act: 3, from: '56 honesty + 60 pw-trial' },
+  { route: '/plans', n: 28, seg: 'plan', act: 3, from: '62 pw-price (+ 62b sponsor sheet)' },
+  { route: '/done', n: 29, seg: null, act: 3, from: '64 subscribe-success + 65 how-to-use-juno' },
+  { route: '/checkin', n: 30, seg: null, act: 3, from: '61 bell (commitment + reminder)' },
+  { route: '/chat', n: 30, seg: null, act: 3, from: 'first-chat' },
 ] as const;
 
 export type FlowRoute = (typeof FLOW)[number]['route'];
@@ -50,8 +51,8 @@ export function flowBarFor(
   route: FlowRoute,
 ): { seg: Exclude<Segment, null>; part: number; fraction: number; done: boolean } | null {
   const step = FLOW.find((s) => s.route === route);
-  if (!step || step.seg === null || step.n < 4 || step.n > 27) return null;
-  return { seg: step.seg, part: SEGMENTS.indexOf(step.seg) + 1, fraction: (step.n - 3) / 24, done: !!DONE_SCREENS[route] };
+  if (!step || step.seg === null || step.n < 4 || step.n > 28) return null;
+  return { seg: step.seg, part: SEGMENTS.indexOf(step.seg) + 1, fraction: (step.n - 3) / 25, done: !!DONE_SCREENS[route] };
 }
 
 // Legacy four-act progress, kept until every screen uses the flow bar.
@@ -65,5 +66,5 @@ export function progressFor(route: FlowRoute): { act: Act; fraction: number } {
 export function prevRoute(path: string): FlowRoute {
   const i = FLOW.findIndex((s) => s.route === path);
   const prev = FLOW[Math.max(i - 1, 0)].route;
-  return prev === '/building' ? '/demo' : prev; // never land back on the auto-advancing screen
+  return prev === '/building' ? '/growth' : prev; // never land back on the auto-advancing screen
 }

@@ -1,25 +1,20 @@
 import { router } from 'expo-router';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { fill, joinList, S } from '@/copy/strings';
 import { useFlag } from '@/experiments/flags';
 import { projection } from '@/lib/projection';
-import { projectionTimeline } from '@/lib/projectionTimeline';
 import { useOnboarding } from '@/state/onboarding';
 import { colors, radius, shadow, type, FONT_CAP, TITLE_CAP } from '@/theme/tokens';
 import { DayMarkers } from '@/ui/DayMarkers';
 import { haptic } from '@/ui/haptics';
 import { PrimaryButton } from '@/ui/PrimaryButton';
-import { ProjectionTimeline } from '@/ui/ProjectionTimeline';
 import { ScreenShell } from '@/ui/ScreenShell';
 
 // Screen 20 (from 09 story-report + 29 reply-care-team, projection from 60 pw-trial): a sample one-page summary and what it becomes.
 export default function Report() {
   const { state } = useOnboarding();
-  const [viewH, setViewH] = useState(0);
-  const [timelineY, setTimelineY] = useState<number | null>(null);
-  const [seen, setSeen] = useState(false);
 
   useEffect(() => {
     const t = setTimeout(() => haptic.light(), 350);
@@ -35,17 +30,6 @@ export default function Report() {
   const details = [state.ageRange ? fill(S.report.age, { age: state.ageRange }) : null, sex].filter(Boolean).join(' · ');
 
   const plan = useFlag('projection') ? projection(state, new Date()) : null;
-  const nodes = projectionTimeline(state.nextAppointment, new Date());
-
-  const offset = useRef(0);
-  const check = (o: number, h = viewH, y = timelineY) => {
-    offset.current = o;
-    if (!seen && h > 0 && y !== null && y + VISIBLE_PT <= o + h) setSeen(true);
-  };
-  // Both layouts land in separate renders; check again once both are known (timeline already in view on tall phones).
-  useEffect(() => {
-    if (!seen && viewH > 0 && timelineY !== null && timelineY + VISIBLE_PT <= offset.current + viewH) setSeen(true);
-  }, [seen, viewH, timelineY]);
 
   return (
     <ScreenShell route="/report" scroll={false} footer={<PrimaryButton label={S.project.cta} onPress={() => router.push('/save')} />}>
@@ -53,12 +37,7 @@ export default function Report() {
         style={styles.fill}
         contentContainerStyle={styles.scroll}
         showsVerticalScrollIndicator={false}
-        scrollEventThrottle={32}
-        onLayout={(e) => {
-          setViewH(e.nativeEvent.layout.height);
-          check(0, e.nativeEvent.layout.height);
-        }}
-        onScroll={(e) => check(e.nativeEvent.contentOffset.y)}>
+>
         <View style={styles.titleRow}>
           <Text maxFontSizeMultiplier={TITLE_CAP} accessibilityRole="header" style={[type.title, styles.center]}>{S.report.title}</Text>
           <View style={styles.badge}>
@@ -105,22 +84,11 @@ export default function Report() {
           )}
         </View>
 
-        <Text maxFontSizeMultiplier={TITLE_CAP} accessibilityRole="header" style={styles.section}>{S.project.title}</Text>
-        <View
-          style={styles.timeline}
-          onLayout={(e) => {
-            setTimelineY(e.nativeEvent.layout.y);
-            check(0, viewH, e.nativeEvent.layout.y);
-          }}>
-          <ProjectionTimeline nodes={nodes} play={seen} />
-        </View>
-        <Text maxFontSizeMultiplier={FONT_CAP} style={styles.projectNote}>{S.project.note}</Text>
       </ScrollView>
     </ScreenShell>
   );
 }
 
-const VISIBLE_PT = 40;
 
 const styles = StyleSheet.create({
   fill: { flex: 1 },
