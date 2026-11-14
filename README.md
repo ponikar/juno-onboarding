@@ -68,6 +68,7 @@ Long-press the **Juno** logo on the welcome screen to jump to any screen (and to
 - Figma has no layers or variables (each screen is one flat image), so the screens were exported as 3x PNGs (`docs/reference/`), and images were cut out of them (`assets/juno/`, see `docs/ASSETS.md`). Colours and spacing were sampled from the pixels (`src/theme/tokens.ts`).
 - Every screen is screenshotted in the iOS simulator and compared side by side with its Figma reference (`scripts/eval/`, results in `docs/evals/compare/` and `docs/evals/report.md`).
 - `bun scripts/eval/unit.ts` checks the symptom extraction and trial-date maths.
+- `python3 scripts/eval/layout_shift.py` opens 22 screen states in the simulator, reads every element's frame through Maestro while the screen settles and after each tap, and fails if anything already on screen moves more than 2 pt (report in `docs/evals/layout-shift.md`). All 22 pass; run against the old Conditions screen it fails with the list jumping 61 pt.
 
 ### Pixel scores, and why most screens say REVIEW
 

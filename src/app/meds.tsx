@@ -7,7 +7,7 @@ import { nextRoute } from '@/flow';
 import { customEntry } from '@/lib/search';
 import { track } from '@/lib/track';
 import { useOnboarding } from '@/state/onboarding';
-import { colors, space, type, FONT_CAP } from '@/theme/tokens';
+import { colors, space, type, FONT_CAP, size } from '@/theme/tokens';
 import { Chip, ChipWrap, Tick } from '@/ui/Chip';
 import { SearchField } from '@/ui/Fields';
 import { haptic } from '@/ui/haptics';
@@ -60,27 +60,22 @@ export default function Meds() {
       }>
       <Title why={S.meds.why}>{S.meds.q}</Title>
       <SearchField placeholder={S.meds.search} value={query} onChangeText={setQuery} accessibilityLabel={S.meds.search} />
-      {custom && (
-        <View style={{ marginTop: 12 }}>
-          <ChipWrap>
-            <Chip
-              label={fill(S.common.addCustom, { text: custom })}
-              selected={false}
-              onToggle={() => {
-                toggle(custom);
-                setQuery('');
-              }}
-            />
-          </ChipWrap>
-        </View>
-      )}
-      {picked.length > 0 && (
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.pickedRow} contentContainerStyle={styles.pickedContent}>
+      {/* Always reserves the row (as in Figma), so picking never pushes the list down. */}
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} keyboardShouldPersistTaps="handled" style={styles.pickedRow} contentContainerStyle={styles.pickedContent}>
+        {custom && (
+          <Chip
+            label={fill(S.common.addCustom, { text: custom })}
+            selected={false}
+            onToggle={() => {
+              toggle(custom);
+              setQuery('');
+            }}
+          />
+        )}
           {picked.map((m) => (
             <Chip key={m} label={m} selected onToggle={() => toggle(m)} />
           ))}
-        </ScrollView>
-      )}
+      </ScrollView>
       <View style={styles.group}>
         <Text maxFontSizeMultiplier={FONT_CAP} style={styles.groupText}>{group}</Text>
         <View style={styles.rule} />
@@ -107,7 +102,7 @@ export default function Meds() {
 }
 
 const styles = StyleSheet.create({
-  pickedRow: { marginTop: 18, flexGrow: 0 },
+  pickedRow: { marginTop: 18, flexGrow: 0, minHeight: size.chip },
   pickedContent: { paddingHorizontal: space.gutter, gap: 9 },
   group: { flexDirection: 'row', alignItems: 'center', gap: 12, paddingLeft: space.gutter, marginTop: 30, marginBottom: 18 },
   groupText: { fontSize: 16, lineHeight: 21, fontWeight: '600', color: colors.muted },

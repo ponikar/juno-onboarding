@@ -1,0 +1,128 @@
+[
+  {
+    "id": "welcome",
+    "route": "/welcome",
+    "preset": "empty"
+  },
+  {
+    "id": "consent-tick",
+    "route": "/consent",
+    "preset": "empty",
+    "actions": "- tapOn: \".*I agree to the.*\""
+  },
+  {
+    "id": "try-chip",
+    "route": "/try",
+    "preset": "empty",
+    "actions": "- tapOn: \"Dizzy when I stand up\""
+  },
+  {
+    "id": "heard",
+    "route": "/heard",
+    "preset": "demo"
+  },
+  {
+    "id": "goals-pick",
+    "route": "/goals",
+    "preset": "empty",
+    "actions": "- tapOn: \"Manage flare days\"\n- tapOn: \"Reduce pain\""
+  },
+  {
+    "id": "conditions-pick",
+    "route": "/conditions",
+    "preset": "empty",
+    "actions": "- tapOn: \"POTS\""
+  },
+  {
+    "id": "conditions-seeking",
+    "route": "/conditions",
+    "preset": "empty",
+    "actions": "- tapOn: \"Still looking for answers\""
+  },
+  {
+    "id": "symptoms-pick",
+    "route": "/symptoms",
+    "preset": "empty",
+    "actions": "- tapOn: \"Fatigue\""
+  },
+  {
+    "id": "meds-pick",
+    "route": "/meds",
+    "preset": "empty",
+    "actions": "- tapOn: \"Propranolol\""
+  },
+  {
+    "id": "appointment-date",
+    "route": "/appointment",
+    "preset": "empty",
+    "actions": "- tapOn: \".*, 20 November\""
+  },
+  {
+    "id": "appointment-none",
+    "route": "/appointment",
+    "preset": "empty",
+    "actions": "- tapOn: \"None booked\""
+  },
+  {
+    "id": "energy",
+    "route": "/energy",
+    "preset": "empty"
+  },
+  {
+    "id": "support-pick",
+    "route": "/support",
+    "preset": "empty",
+    "actions": "- tapOn: \"1 or 2\""
+  },
+  {
+    "id": "about-pick",
+    "route": "/about",
+    "preset": "empty",
+    "actions": "- tapOn: \"Female\"\n- tapOn: \"25–34\""
+  },
+  {
+    "id": "health",
+    "route": "/health",
+    "preset": "demo"
+  },
+  {
+    "id": "snapshot",
+    "route": "/snapshot",
+    "preset": "demo"
+  },
+  {
+    "id": "save",
+    "route": "/save",
+    "preset": "demo"
+  },
+  {
+    "id": "how",
+    "route": "/how",
+    "preset": "demo"
+  },
+  {
+    "id": "plans-monthly",
+    "route": "/plans",
+    "preset": "demo",
+    "actions": "- tapOn: \"Monthly.*\""
+  },
+  {
+    "id": "notify",
+    "route": "/notify",
+    "preset": "demo"
+  },
+  {
+    "id": "done",
+    "route": "/done",
+    "preset": "demo"
+  },
+  {
+    "id": "chat-suggestion",
+    "route": "/chat",
+    "preset": "demo",
+    "actions": "- tapOn: \"I just need to vent\"",
+    "ignore": [
+      "I just need to vent"
+    ]
+  }
+]
