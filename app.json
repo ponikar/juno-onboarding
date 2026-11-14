@@ -8,7 +8,9 @@
     "scheme": "junoonboarding",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "icon": "./assets/expo.icon"
+      "icon": "./assets/expo.icon",
+      "bundleIdentifier": "com.ponikar.junoonboarding",
+      "appleTeamId": "2HLAP46BQN"
     },
     "android": {
       "adaptiveIcon": {
