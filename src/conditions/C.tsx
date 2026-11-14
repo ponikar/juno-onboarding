@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import Animated, { Easing, FadeIn } from 'react-native-reanimated';
 
@@ -149,7 +149,7 @@ function PickChip({ label, selected, onPress }: { label: string; selected: boole
         onPress();
       }}
       style={[styles.chip, selected ? styles.chipOn : styles.chipOff, transition] as object}>
-      {selected && <Tick selected ringless />}
+      {selected && <AppearTick />}
       <Text maxFontSizeMultiplier={FONT_CAP} style={[type.chip, styles.label]}>{label}</Text>
     </PressableScale>
   );
@@ -223,3 +223,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.2)',
   },
 });
+
+// Mounts unticked, then ticks on the next frame, so the tick fades and scales in from 0.9 (Tick animates the change).
+function AppearTick() {
+  const [on, setOn] = useState(false);
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setOn(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
+  return <Tick selected={on} ringless />;
+}

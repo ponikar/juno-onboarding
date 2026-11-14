@@ -12,17 +12,19 @@ export type Flag = keyof typeof FLAGS;
 const KEY = 'juno.experiment.flags';
 let values: Record<Flag, boolean> = { projection: true, actionEnding: true, activationTracking: true };
 const listeners = new Set<() => void>();
+let touched = false; // a setter ran before storage loaded: keep its value
 const emit = () => listeners.forEach((l) => l());
 
 AsyncStorage.getItem(KEY)
   .then((raw) => {
-    if (!raw) return;
+    if (!raw || touched) return;
     values = { ...values, ...JSON.parse(raw) };
     emit();
   })
   .catch(() => {});
 
 export function setFlag(flag: Flag, on: boolean) {
+  touched = true;
   values = { ...values, [flag]: on };
   AsyncStorage.setItem(KEY, JSON.stringify(values)).catch(() => {});
   emit();

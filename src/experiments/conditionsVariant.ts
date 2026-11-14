@@ -9,14 +9,16 @@ export type ConditionsVariant = (typeof CONDITIONS_VARIANTS)[number];
 const KEY = 'juno.experiment.conditions';
 let value: ConditionsVariant = 'current';
 const listeners = new Set<() => void>();
+let touched = false; // a setter ran before storage loaded: keep its value
 
 AsyncStorage.getItem(KEY)
   .then((v) => {
-    if (v && (CONDITIONS_VARIANTS as readonly string[]).includes(v)) setConditionsVariant(v as ConditionsVariant, false);
+    if (!touched && v && (CONDITIONS_VARIANTS as readonly string[]).includes(v)) setConditionsVariant(v as ConditionsVariant, false);
   })
   .catch(() => {});
 
 export function setConditionsVariant(v: ConditionsVariant, persist = true) {
+  if (persist) touched = true;
   value = v;
   if (persist) AsyncStorage.setItem(KEY, v).catch(() => {});
   listeners.forEach((l) => l());

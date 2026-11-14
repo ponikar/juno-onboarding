@@ -117,12 +117,33 @@
     "preset": "demo"
   },
   {
-    "id": "chat-suggestion",
+    "id": "chat-sleep-reply",
     "route": "/chat",
     "preset": "demo",
-    "actions": "- tapOn: \"I just need to vent\"",
+    "actions": "- tapOn: \"Okay\"",
     "ignore": [
-      "I just need to vent"
+      "Okay"
     ]
+  },
+  {
+    "id": "conditions-A-pick",
+    "route": "/conditions",
+    "preset": "empty",
+    "actions": "- tapOn: \"POTS\"",
+    "variant": "A"
+  },
+  {
+    "id": "conditions-B-pick",
+    "route": "/conditions",
+    "preset": "empty",
+    "actions": "- tapOn: \"POTS\"",
+    "variant": "B"
+  },
+  {
+    "id": "conditions-C-pick",
+    "route": "/conditions",
+    "preset": "empty",
+    "actions": "- tapOn: \"POTS\"",
+    "variant": "C"
   }
 ]

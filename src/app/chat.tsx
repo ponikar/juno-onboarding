@@ -35,7 +35,15 @@ export default function Chat() {
   const { state, set } = useOnboarding();
   const sleepOn = useFlag('actionEnding');
   const logged = state.todayEntry || state.todaySymptoms.length > 0;
-  const [messages, setMessages] = useState<Msg[]>([]);
+  // After a relaunch the sleep answer is still in the store: show it again instead of an empty chat.
+  const [messages, setMessages] = useState<Msg[]>(() =>
+    sleepOn && state.sleepLastNight
+      ? [
+          { id: -2, from: 'me', text: state.sleepLastNight },
+          { id: -1, from: 'juno', text: S.sleep.reply },
+        ]
+      : [],
+  );
   const [draft, setDraft] = useState('');
   const [typing, setTyping] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(true);

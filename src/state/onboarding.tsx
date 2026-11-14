@@ -150,7 +150,8 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
     setState((s) => ({ ...s, ...(typeof patch === 'function' ? patch(s) : patch) }));
   }, []);
 
-  const reset = useCallback((to: OnboardingState = initialState) => setState(to), []);
+  // `activated` survives resets: the activation event is once per install.
+  const reset = useCallback((to: OnboardingState = initialState) => setState((s) => ({ ...to, activated: s.activated })), []);
 
   const value = useMemo(() => ({ state, ready, set, reset }), [state, ready, set, reset]);
   return <OnboardingContext.Provider value={value}>{children}</OnboardingContext.Provider>;

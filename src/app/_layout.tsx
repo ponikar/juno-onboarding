@@ -26,16 +26,16 @@ function FlowWatcher() {
 
   // ?exp=on|off flips every experiment flag (screenshots).
   useEffect(() => {
-    if (exp === 'on' || exp === 'off') (Object.keys(FLAGS) as Flag[]).forEach((f) => setFlag(f, exp === 'on'));
+    if (__DEV__ && (exp === 'on' || exp === 'off')) (Object.keys(FLAGS) as Flag[]).forEach((f) => setFlag(f, exp === 'on'));
   }, [exp]);
 
   // ?variant=current|A|B|C picks the conditions experiment variant (screenshots, evals).
   useEffect(() => {
-    if (variant && (CONDITIONS_VARIANTS as readonly string[]).includes(variant)) setConditionsVariant(variant as ConditionsVariant);
+    if (__DEV__ && variant && (CONDITIONS_VARIANTS as readonly string[]).includes(variant)) setConditionsVariant(variant as ConditionsVariant);
   }, [variant]);
 
   useEffect(() => {
-    if (!ready) return;
+    if (!ready || !__DEV__) return; // debug links (presets, evals) only work in development builds
     if (!preset) {
       applied.current = null; // so the same debug link applies again next time
       return;
@@ -45,7 +45,8 @@ function FlowWatcher() {
     applied.current = k;
     const s = presetState(preset);
     // ?appt=<days>|none (screenshots): appointment that many days from today.
-    if (appt) s.nextAppointment = appt === 'none' ? null : toISODate(addDays(new Date(), Number(appt)));
+    if (appt === 'none') s.nextAppointment = null;
+    else if (appt && Number.isFinite(Number(appt))) s.nextAppointment = toISODate(addDays(new Date(), Number(appt)));
     reset(s);
     // ?fresh=1 (evals): drop every screen underneath, so the stack holds only this one.
     if (fresh && router.canDismiss()) {
