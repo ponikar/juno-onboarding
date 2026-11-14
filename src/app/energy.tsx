@@ -16,6 +16,7 @@ export default function Energy() {
   return (
     <ScreenShell
       route="/energy"
+      reply={<JunoReply text={state.energy !== null ? S.energy.reply : null} />}
       footer={<PrimaryButton label={S.common.continue} onPress={() => router.push(nextRoute('/energy'))} />}>
       <Title why={S.energy.why}>{S.energy.q}</Title>
       <View style={styles.slider}>
@@ -27,7 +28,6 @@ export default function Energy() {
           }}
         />
       </View>
-      <JunoReply text={state.energy !== null ? S.energy.reply : null} />
     </ScreenShell>
   );
 }

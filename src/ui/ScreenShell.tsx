@@ -9,6 +9,7 @@ import { flowBarFor, FlowRoute, prevRoute } from '@/flow';
 import { EASE_OUT, REST_DELAY_MS, TITLE_ENTER_MS, TITLE_RISE } from '@/motion/tokens';
 import { colors, shadow, size, space, type, FONT_CAP, TITLE_CAP } from '@/theme/tokens';
 import { FlowBar } from './FlowBar';
+import { InReplyDock } from './JunoReply';
 import { Icon } from './Icon';
 import { PressableScale } from './PressableScale';
 import { useTapHaptic } from './PrimaryButton';
@@ -27,6 +28,7 @@ type Props = {
   back?: boolean | (() => void);
   close?: () => void;
   footer?: ReactNode;
+  reply?: ReactNode; // Juno's line, pinned above the footer buttons
   scroll?: boolean;
   headerRight?: ReactNode;
 };
@@ -34,7 +36,7 @@ type Props = {
 // Height the flow bar row adds under the nav (marginTop 6 + label line 20 + gap 6 + bar 6), for screens that size art from the nav.
 export const FLOW_BAR_ROW = 38;
 
-export function ScreenShell({ children, variant = 'plain', background, backgroundHeight, backgroundTop = 0, route, back = true, close, footer, scroll = true, headerRight }: Props) {
+export function ScreenShell({ children, variant = 'plain', background, backgroundHeight, backgroundTop = 0, route, back = true, close, footer, reply, scroll = true, headerRight }: Props) {
   const insets = useSafeAreaInsets();
   const keyboard = useKeyboardOpen();
   const onSky = variant === 'sky';
@@ -81,8 +83,15 @@ export function ScreenShell({ children, variant = 'plain', background, backgroun
             showsVerticalScrollIndicator={false}>
             {children}
           </Body>
-          {footer && (
-            <Animated.View style={[styles.footer, { paddingBottom: keyboard ? 12 : Math.max(insets.bottom, 16) }, footerEnter]}>{footer}</Animated.View>
+          {reply ? (
+            <Animated.View style={[styles.dock, { paddingBottom: keyboard ? 12 : Math.max(insets.bottom, 16) }, footerEnter]}>
+              <InReplyDock.Provider value>{reply}</InReplyDock.Provider>
+              {footer && <View style={styles.dockFooter}>{footer}</View>}
+            </Animated.View>
+          ) : (
+            footer && (
+              <Animated.View style={[styles.footer, { paddingBottom: keyboard ? 12 : Math.max(insets.bottom, 16) }, footerEnter]}>{footer}</Animated.View>
+            )
           )}
         </Animated.View>
       </EnterContext>
@@ -168,6 +177,8 @@ const styles = StyleSheet.create({
   body: { flex: 1 },
   scrollContent: { flexGrow: 1, paddingBottom: space.xl },
   footer: { paddingHorizontal: space.buttonGutter, paddingTop: 8, gap: 4 },
+  dock: { backgroundColor: colors.bg, borderTopWidth: 1, borderTopColor: colors.hairline, paddingTop: 12, gap: 8 },
+  dockFooter: { paddingHorizontal: space.buttonGutter, gap: 4 },
   titleWrap: { marginTop: 30, marginBottom: 24, paddingHorizontal: 36 },
   center: { textAlign: 'center' },
 });

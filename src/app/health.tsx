@@ -53,6 +53,7 @@ export default function Health() {
     <ScreenShell
       variant="sky"
       route="/health"
+      reply={<JunoReply text={connected || state.healthDataConnected ? S.health.reply : null} />}
       footer={
         <>
           <TextLink label={S.health.later} onPress={later} />
@@ -73,7 +74,6 @@ export default function Health() {
           <Bullet icon="heart.fill" text={S.health.bullet1} />
           <Bullet icon="arrow.up.arrow.down" text={S.health.bullet2} />
         </View>
-        <JunoReply text={connected || state.healthDataConnected ? S.health.reply : null} />
       </View>
     </ScreenShell>
   );

@@ -54,9 +54,23 @@ export default function Meds() {
   return (
     <ScreenShell
       route="/meds"
+      reply={<JunoReply text={changed ? S.meds.reply : null} />}
       footer={
         <>
-          <TextLink label={S.meds.later} onPress={later} />
+          {/* Both ways out on one row, so the list keeps its room on small phones. */}
+          <View style={styles.escapeRow}>
+            <PressableScale
+              accessibilityRole="checkbox"
+              accessibilityState={{ checked: state.noMedicines }}
+              accessibilityLabel={S.meds.none}
+              onPress={toggleNone}
+              style={styles.escape}>
+              <Tick selected={state.noMedicines} />
+              <Text maxFontSizeMultiplier={FONT_CAP} style={type.link}>{S.meds.none}</Text>
+            </PressableScale>
+            <View style={styles.escapeDivider} />
+            <TextLink label={S.meds.later} onPress={later} />
+          </View>
           <PrimaryButton label={label} disabled={picked.length === 0 && !state.noMedicines} onPress={() => router.push(nextRoute('/meds'))} />
         </>
       }>
@@ -84,18 +98,6 @@ export default function Meds() {
           <Chip key={x} label={x} selected onToggle={() => toggle(x)} />
         ))}
       </ChipWrap>
-      <PressableScale
-        accessibilityRole="checkbox"
-        accessibilityState={{ checked: state.noMedicines }}
-        accessibilityLabel={S.meds.none}
-        onPress={toggleNone}
-        style={styles.toggleLink}>
-        <Tick selected={state.noMedicines} />
-        <Text maxFontSizeMultiplier={FONT_CAP} style={type.link}>{S.meds.none}</Text>
-      </PressableScale>
-      <View style={styles.reply}>
-        <JunoReply text={changed ? S.meds.reply : null} />
-      </View>
     </ScreenShell>
   );
 }
@@ -104,14 +106,14 @@ const styles = StyleSheet.create({
   group: { flexDirection: 'row', alignItems: 'center', gap: 12, paddingLeft: space.gutter, marginTop: 30, marginBottom: 18 },
   groupText: { fontSize: 16, lineHeight: 21, fontWeight: '600', color: colors.muted },
   rule: { flex: 1, height: 1.5, backgroundColor: '#C9CFDA' },
-  toggleLink: {
+  escapeRow: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', columnGap: 4 },
+  escapeDivider: { width: 1, height: 18, backgroundColor: colors.hairline },
+  escape: {
     minHeight: 44,
-    marginTop: 20,
-    alignSelf: 'center',
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     gap: 10,
     paddingHorizontal: 12,
   },
-  reply: { marginTop: 16 },
 });

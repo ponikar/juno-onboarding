@@ -17,6 +17,7 @@ export default function Support() {
   return (
     <ScreenShell
       route="/support"
+      reply={<JunoReply text={state.support ? S.support.reply : null} />}
       footer={
         <PrimaryButton label={S.common.continue} disabled={!state.support} onPress={() => router.push(nextRoute('/support'))} />
       }>
@@ -36,7 +37,6 @@ export default function Support() {
           />
         ))}
       </View>
-      <JunoReply text={state.support ? S.support.reply : null} />
     </ScreenShell>
   );
 }

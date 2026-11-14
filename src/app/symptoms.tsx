@@ -55,8 +55,20 @@ export default function Symptoms() {
   return (
     <ScreenShell
       route="/symptoms"
+      reply={<JunoReply text={changed ? S.symptoms.reply : null} />}
       footer={
-        <PrimaryButton label={label} disabled={picked.length === 0 && !state.noSymptoms} onPress={() => router.push(nextRoute('/symptoms'))} />
+        <>
+          <PressableScale
+            accessibilityRole="checkbox"
+            accessibilityState={{ checked: state.noSymptoms }}
+            accessibilityLabel={S.symptoms.none}
+            onPress={toggleNone}
+            style={styles.escape}>
+            <Tick selected={state.noSymptoms} />
+            <Text maxFontSizeMultiplier={FONT_CAP} style={type.link}>{S.symptoms.none}</Text>
+          </PressableScale>
+          <PrimaryButton label={label} disabled={picked.length === 0 && !state.noSymptoms} onPress={() => router.push(nextRoute('/symptoms'))} />
+        </>
       }>
       <Title why={S.symptoms.why}>{S.symptoms.q}</Title>
       <SearchField placeholder={S.symptoms.search} value={query} onChangeText={setQuery} accessibilityLabel={S.symptoms.search} />
@@ -88,18 +100,6 @@ export default function Symptoms() {
           <Chip key={x} label={x} selected onToggle={() => toggle(x)} />
         ))}
       </ChipWrap>
-      <PressableScale
-        accessibilityRole="checkbox"
-        accessibilityState={{ checked: state.noSymptoms }}
-        accessibilityLabel={S.symptoms.none}
-        onPress={toggleNone}
-        style={styles.toggleLink}>
-        <Tick selected={state.noSymptoms} />
-        <Text maxFontSizeMultiplier={FONT_CAP} style={type.link}>{S.symptoms.none}</Text>
-      </PressableScale>
-      <View style={styles.reply}>
-        <JunoReply text={changed ? S.symptoms.reply : null} />
-      </View>
     </ScreenShell>
   );
 }
@@ -108,14 +108,12 @@ const styles = StyleSheet.create({
   group: { flexDirection: 'row', alignItems: 'center', gap: 12, paddingLeft: space.gutter, marginTop: 30, marginBottom: 18 },
   groupText: { fontSize: 16, lineHeight: 21, fontWeight: '600', color: colors.muted },
   rule: { flex: 1, height: 1.5, backgroundColor: '#C9CFDA' },
-  toggleLink: {
+  escape: {
     minHeight: 44,
-    marginTop: 20,
-    alignSelf: 'center',
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     gap: 10,
     paddingHorizontal: 12,
   },
-  reply: { marginTop: 16 },
 });

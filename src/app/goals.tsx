@@ -28,6 +28,7 @@ export default function Goals() {
     <ScreenShell
       variant="sky"
       route="/goals"
+      reply={<JunoReply text={picked.length ? S.goals.reply : null} onSky />}
       footer={<PrimaryButton label={S.common.continue} disabled={picked.length === 0} onPress={() => router.push(nextRoute('/goals'))} />}>
       <Title onSky sub={S.goals.limit} why={picked.length ? fill(S.goals.selected, { n: picked.length }) : S.goals.noneSelected}>
         {S.goals.q}
@@ -49,9 +50,6 @@ export default function Goals() {
           );
         })}
       </View>
-      <View style={styles.reply}>
-        <JunoReply text={picked.length ? S.goals.reply : null} onSky />
-      </View>
     </ScreenShell>
   );
 }
@@ -61,5 +59,4 @@ const MAX_GOALS = 3;
 const styles = StyleSheet.create({
   list: { gap: 14 },
   off: { opacity: 0.4 },
-  reply: { marginTop: 16 },
 });

@@ -1,6 +1,6 @@
 import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 
 import { fill, S } from '@/copy/strings';
 import { nextRoute } from '@/flow';
@@ -29,6 +29,7 @@ export default function About() {
   return (
     <ScreenShell
       route="/about"
+      reply={<JunoReply text={greeted && greeted === name ? fill(S.about.reply, { name }) : null} id={greeted} />}
       footer={<PrimaryButton label={S.common.continue} onPress={() => router.push(nextRoute('/about'))} />}>
       <Title>{S.about.q}</Title>
       <TextField
@@ -76,14 +77,10 @@ export default function About() {
           />
         ))}
       </ChipWrap>
-      <View style={styles.reply}>
-        <JunoReply text={greeted && greeted === name ? fill(S.about.reply, { name }) : null} id={greeted} />
-      </View>
     </ScreenShell>
   );
 }
 
 const styles = StyleSheet.create({
   label: { fontSize: 15, lineHeight: 20, fontWeight: '600', color: colors.inkSoft, marginTop: 26, marginBottom: 12, marginHorizontal: 20 },
-  reply: { marginTop: 24 },
 });

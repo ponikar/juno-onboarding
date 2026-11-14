@@ -28,7 +28,7 @@ SETTLE_S = 2.2
 LOAD_WINDOW_S = 3.0
 TAP_WINDOW_S = 2.0
 STATUS_BAR_BOTTOM = 60
-NOISE = {'Expo Go', 'gearshape.fill', 'Horizontal scroll bar, 1 page', 'Vertical scroll bar, 1 page'}
+NOISE = {'selected', 'Expo Go', 'gearshape.fill', 'Horizontal scroll bar, 1 page', 'Vertical scroll bar, 1 page'}
 BOUNDS = re.compile(r'\[(-?\d+),(-?\d+)\]\[(-?\d+),(-?\d+)\]')
 
 

@@ -51,12 +51,24 @@ export function ConditionsCurrent() {
   return (
     <ScreenShell
       route="/conditions"
+      reply={<JunoReply text={reply} />}
       footer={
-        <PrimaryButton
-          label={label}
-          disabled={picked.length === 0 && !state.seekingDiagnosis}
-          onPress={() => router.push(nextRoute('/conditions'))}
-        />
+        <>
+          <PressableScale
+            accessibilityRole="checkbox"
+            accessibilityState={{ checked: state.seekingDiagnosis }}
+            accessibilityLabel={S.conditions.seeking}
+            onPress={toggleSeeking}
+            style={styles.escape}>
+            <Tick selected={state.seekingDiagnosis} />
+            <Text maxFontSizeMultiplier={FONT_CAP} style={type.link}>{S.conditions.seeking}</Text>
+          </PressableScale>
+          <PrimaryButton
+            label={label}
+            disabled={picked.length === 0 && !state.seekingDiagnosis}
+            onPress={() => router.push(nextRoute('/conditions'))}
+          />
+        </>
       }>
       <Title why={S.conditions.why}>{S.conditions.q}</Title>
       <SearchField placeholder={S.conditions.search} value={query} onChangeText={setQuery} accessibilityLabel={S.conditions.search} />
@@ -80,32 +92,18 @@ export function ConditionsCurrent() {
           ))}
         </ChipWrap>
       </View>
-      <PressableScale
-        accessibilityRole="checkbox"
-        accessibilityState={{ checked: state.seekingDiagnosis }}
-        accessibilityLabel={S.conditions.seeking}
-        onPress={toggleSeeking}
-        style={styles.seeking}>
-        <Tick selected={state.seekingDiagnosis} />
-        <Text maxFontSizeMultiplier={FONT_CAP} style={type.link}>{S.conditions.seeking}</Text>
-      </PressableScale>
-      <View style={styles.reply}>
-        <JunoReply text={reply} />
-      </View>
     </ScreenShell>
   );
 }
 
 const styles = StyleSheet.create({
   list: { marginTop: 14 },
-  seeking: {
+  escape: {
     minHeight: 44,
-    marginTop: 4,
-    alignSelf: 'center',
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     gap: 10,
     paddingHorizontal: 12,
   },
-  reply: { marginTop: 16 },
 });

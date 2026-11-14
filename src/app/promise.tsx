@@ -48,6 +48,7 @@ export default function Commit() {
   return (
     <ScreenShell
       route="/promise"
+      reply={<JunoReply text={state.commitment ? (unsure ? S.commit.replyUnsure : S.commit.reply) : null} id={unsure ? 'unsure' : 'yes'} />}
       footer={<PrimaryButton label={unsure ? S.card.cta : S.commit.cta} disabled={!state.commitment} onPress={next} testID="commit-cta" />}>
       <Mascot style={styles.mascot} nod={nods} />
       <Title why={S.commit.sub}>{S.commit.q}</Title>
@@ -56,7 +57,6 @@ export default function Commit() {
           <OptionCard key={o.id} testID={`commit-${o.id}`} label={o.label} multi={false} selected={state.commitment === o.id} onPress={() => pick(o.id)} />
         ))}
       </View>
-      <JunoReply text={state.commitment ? (unsure ? S.commit.replyUnsure : S.commit.reply) : null} id={unsure ? 'unsure' : 'yes'} />
     </ScreenShell>
   );
 }

@@ -1,6 +1,4 @@
 import { router } from 'expo-router';
-import { StyleSheet, View } from 'react-native';
-
 import { fill, S } from '@/copy/strings';
 import { nextRoute } from '@/flow';
 import { daysUntil } from '@/lib/dates';
@@ -36,6 +34,7 @@ export default function Appointment() {
   return (
     <ScreenShell
       route="/appointment"
+      reply={<JunoReply text={replyFor(state.nextAppointment, state.appointmentAnswered)} />}
       footer={
         <>
           <TextLink label={S.appt.none} onPress={none} />
@@ -44,13 +43,6 @@ export default function Appointment() {
       }>
       <Title why={S.appt.why}>{S.appt.q}</Title>
       <Calendar value={state.nextAppointment} onChange={pick} today={new Date()} />
-      <View style={styles.reply}>
-        <JunoReply text={replyFor(state.nextAppointment, state.appointmentAnswered)} />
-      </View>
     </ScreenShell>
   );
 }
-
-const styles = StyleSheet.create({
-  reply: { marginTop: 20 },
-});

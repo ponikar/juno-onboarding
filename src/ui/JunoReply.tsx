@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { AccessibilityInfo, Image, Platform, StyleSheet, View } from 'react-native';
 import Animated, { Easing, FadeIn, useAnimatedStyle, useReducedMotion, useSharedValue, withTiming } from 'react-native-reanimated';
 
@@ -7,6 +7,9 @@ import { colors, FONT_CAP } from '@/theme/tokens';
 import { avatar } from './art';
 import { TypingDots } from './TypingDots';
 
+// Set by ScreenShell's bottom dock: there the reply needs no reserved space (it grows the dock upward, nothing on screen moves).
+export const InReplyDock = createContext(false);
+
 // One line from Juno beside her avatar: typing dots for 450 ms, then the text fades in (v3 R-11). Never blocks Continue.
 // Pass a changing `id` to replay it when the reply changes.
 export function JunoReply({ text, id, onSky }: { text: string | null; id?: string; onSky?: boolean }) {
@@ -14,7 +17,8 @@ export function JunoReply({ text, id, onSky }: { text: string | null; id?: strin
   useEffect(() => {
     if (text && Platform.OS === 'ios') AccessibilityInfo.announceForAccessibility(text);
   }, [text, id]);
-  if (!text) return <View style={styles.placeholder} />;
+  const docked = useContext(InReplyDock);
+  if (!text) return docked ? null : <View style={styles.placeholder} />;
   return <Reply key={id ?? text} text={text} onSky={onSky} />;
 }
 

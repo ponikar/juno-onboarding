@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
   },
   asWritten: { flexDirection: 'row', alignItems: 'center', gap: 10, width: '100%' },
   logged: { width: 22, height: 22, borderRadius: 11, backgroundColor: colors.success, alignItems: 'center', justifyContent: 'center' },
-  replyWrap: { marginTop: 18 },
+  replyWrap: { marginTop: 18, minHeight: 64 }, // two-line reply height reserved, so the lines below never move when it lands
   progressRow: { flexDirection: 'row', alignItems: 'center', gap: 10, marginTop: 18, paddingHorizontal: 20 },
   progressText: { flex: 1 },
   next: { color: colors.inkSoft, marginTop: 6, paddingHorizontal: 20, paddingLeft: 52 },
