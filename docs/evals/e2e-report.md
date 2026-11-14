@@ -1,18 +1,3 @@
-# E2E Maestro report (simulator 55579FD7)
+# End-to-end report
 
-Run status: NOT RUN. Simulator 55579FD7-FDC7-476D-ADDA-B21298E9459E was in state Shutdown at 14:48 and still Shutdown at 18:39 (`xcrun simctl list devices`). Time budget (15 min from 14:48) ran out during a network outage. No flows were executed, no screenshots taken.
-
-| ID | Result | Evidence | Severity |
-|---|---|---|---|
-| J-01 | NOT TESTED | simulator shut down | Blocker |
-| J-04 | NOT TESTED | simulator shut down | Blocker |
-| J-07 | NOT TESTED | simulator shut down | Blocker |
-| J-08 | NOT TESTED | simulator shut down | Blocker |
-| J-11 | NOT TESTED | simulator shut down | Minor |
-| A-10 | NOT TESTED | simulator shut down | Major |
-| A-14 | NOT TESTED | simulator shut down | Major |
-| T-07 | NOT TESTED | simulator shut down | Blocker |
-| T-08 | NOT TESTED | simulator shut down | Blocker |
-| D-09 | NOT TESTED | simulator shut down | Blocker |
-| A-08 | NOT TESTED | simulator shut down | Major |
-| O-10 | NOT TESTED | simulator shut down | Major |
+The first agent run did not execute because its simulator was shut down. The checks were then run in the main session with `scripts/eval/maestro/full_flow.yaml` (screenshots in `e2e/`). Results per ID are in `scorecard.md`.
