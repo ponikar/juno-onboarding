@@ -72,6 +72,15 @@ export const S = {
     reply: '{condition} is exhausting. I’ll keep a close eye on it.',
     replyNone: 'Not having a name for it is hard. I’ll track it anyway.',
     seeking: 'Still looking for answers',
+    showAll: 'Show all conditions', // NEW: experiment variant A
+    showFewer: 'Show fewer', // NEW
+    more: 'More conditions', // NEW: experiment variant B
+    yours: 'Your conditions', // NEW: experiment variant B
+    remove: 'Remove {name}', // NEW: screen reader label on removable chips
+    somethingElse: 'Something else', // NEW: experiment variant C
+    echo: 'Got it: {list}.', // NEW: experiment variant C
+    echoSeeking: 'Got it: still looking for answers.', // NEW: experiment variant C
+    noMatch: 'No match. Add it as typed below.', // NEW
     addN: 'Add {n} diagnoses',
     add1: 'Add 1 diagnosis',
     options: [
@@ -364,6 +373,7 @@ export const S = {
     send: 'Send', // NEW
   },
   debug: {
+    experiment: 'Experiment: conditions screen (6)', // NEW
     title: 'Jump to a screen',
     reset: 'Reset and start over',
     demo: 'Fill with demo answers',

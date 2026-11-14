@@ -41,7 +41,7 @@ export function Chip({ label, selected, onToggle, preTicked, testID }: {
   );
 }
 
-export function Tick({ selected, preTicked, big }: { selected: boolean; preTicked?: boolean; big?: boolean }) {
+export function Tick({ selected, preTicked, big, ringless }: { selected: boolean; preTicked?: boolean; big?: boolean; ringless?: boolean }) {
   const reduced = useReducedMotion();
   const s = useSharedValue(selected ? 1 : 0);
   const o = useSharedValue(preTicked && selected ? 0.6 : 1);
@@ -57,7 +57,7 @@ export function Tick({ selected, preTicked, big }: { selected: boolean; preTicke
     transform: reduced ? [] : [{ scale: 0.9 + 0.1 * s.value }],
   }));
   return (
-    <View style={[styles.ring, { width: d, height: d, borderRadius: d / 2 }]}>
+    <View style={[styles.ring, ringless && styles.ringless, { width: d, height: d, borderRadius: d / 2 }]}>
       <Animated.View style={[StyleSheet.absoluteFill, styles.tick, { borderRadius: d / 2 }, anim]}>
         <Icon name="checkmark" size={big ? 12 : 10} color="#FFFFFF" weight="bold" />
       </Animated.View>
@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   ring: { borderWidth: 1.5, borderColor: colors.radio, backgroundColor: colors.surface },
+  ringless: { borderColor: 'transparent', backgroundColor: 'transparent' }, // experiment variants: no empty circle
   tick: { margin: -1.5, backgroundColor: colors.orangeTick, alignItems: 'center', justifyContent: 'center' },
   wrap: { flexDirection: 'row', flexWrap: 'wrap', gap: 9, paddingHorizontal: 14 },
 });

@@ -4,6 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect, useRef } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
+import { CONDITIONS_VARIANTS, ConditionsVariant, setConditionsVariant } from '@/experiments/conditionsVariant';
 import { track } from '@/lib/track';
 import { OnboardingProvider, presetState, useOnboarding } from '@/state/onboarding';
 import { colors } from '@/theme/tokens';
@@ -14,12 +15,17 @@ SplashScreen.preventAutoHideAsync();
 function FlowWatcher() {
   const { ready, reset, set } = useOnboarding();
   const pathname = usePathname();
-  const { preset, fresh } = useGlobalSearchParams<{ preset?: string; fresh?: string }>();
+  const { preset, fresh, variant } = useGlobalSearchParams<{ preset?: string; fresh?: string; variant?: string }>();
   const applied = useRef<string | null>(null);
 
   useEffect(() => {
     if (ready) SplashScreen.hideAsync();
   }, [ready]);
+
+  // ?variant=current|A|B|C picks the conditions experiment variant (screenshots, evals).
+  useEffect(() => {
+    if (variant && (CONDITIONS_VARIANTS as readonly string[]).includes(variant)) setConditionsVariant(variant as ConditionsVariant);
+  }, [variant]);
 
   useEffect(() => {
     if (!ready) return;
