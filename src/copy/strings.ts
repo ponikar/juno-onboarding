@@ -432,6 +432,51 @@ export const S = {
     soon: "Today's entry is already on it",
   },
   flow: { part: 'Part {n} of 7' }, // v3 spec
+  pacing: { // v4, from the Juno app: what the energy answer is for
+    title: 'Juno helps you pace your week',
+    example: 'Example',
+    week: [
+      { day: 'Mon', items: ['Physio 9 AM', 'Groceries'] },
+      { day: 'Tue', items: ['Rest'] },
+      { day: 'Wed', items: ['Hospital appt', 'Work deadline', 'Dinner out'] },
+      { day: 'Thu', items: ['Rest'] },
+    ],
+    nudge: 'Wednesday looks full. Move dinner to Friday?',
+  },
+  community: { // v4, Juno's group chats (names from the Juno app)
+    title: 'You’re not alone in this',
+    sub: 'Join a group whenever you like.',
+    groups: [
+      { id: 'eds', label: 'EDS/Hypermobility' },
+      { id: 'fibro', label: 'Fibro Friends' },
+      { id: 'depression', label: 'Depression Support' },
+      { id: 'anxiety', label: 'Anxiety Support' },
+    ],
+    join1: 'Join 1 group',
+    joinN: 'Join {n} groups',
+    later: 'Not now',
+  },
+  source: { // v4, from the Juno app
+    title: 'Where did you find Juno?',
+    options: [
+      { id: 'facebook', label: 'Facebook' },
+      { id: 'tiktok', label: 'TikTok' },
+      { id: 'community', label: 'Community' },
+      { id: 'appstore', label: 'App Store' },
+      { id: 'instagram', label: 'Instagram' },
+      { id: 'doctor', label: 'Doctor or clinic' },
+      { id: 'youtube', label: 'YouTube' },
+      { id: 'friends', label: 'Friends or family' },
+      { id: 'google', label: 'Google' },
+      { id: 'chatgpt', label: 'ChatGPT' },
+      { id: 'reddit', label: 'Reddit' },
+      { id: 'aisearch', label: 'AI search' },
+      { id: 'therapist', label: 'Therapist' },
+      { id: 'other', label: 'Other' },
+    ],
+    skip: 'Skip',
+  },
+  healthSynced: 'Apple Health connected', // v4
   checkin: { // v3.1: the commitment, right before the first chat (title, sub, three short lines, time)
     title: 'Your daily check-in',
     sub: 'One line a day fills your doctor page.',

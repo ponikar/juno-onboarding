@@ -65,7 +65,7 @@ export default function Demo() {
 
   const back = () => {
     if (router.canGoBack()) router.back();
-    else router.replace(state.commitment === 'unsure' ? '/promise' : '/when');
+    else router.replace('/promise');
   };
 
   const fade = FadeIn.duration(ENTER_MS).easing(EASE_OUT);

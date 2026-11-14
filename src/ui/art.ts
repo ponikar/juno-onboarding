@@ -85,3 +85,31 @@ export const goalIcons: Record<string, number> = {
   'Prepare for appointments': require('@/assets/juno/goal-appointments.png'),
   'Manage my energy': require('@/assets/juno/goal-energy.png'),
 };
+
+// v4: cut from the Juno app (same 3D style as the Figma icons), transparent backgrounds.
+export const answerIcons = {
+  yes: require('@/assets/juno/answer-yes.png'),
+  maybe: require('@/assets/juno/answer-maybe.png'),
+};
+export const groupIcons: Record<string, number> = {
+  eds: require('@/assets/juno/group-eds.png'),
+  fibro: require('@/assets/juno/group-fibro.png'),
+  depression: require('@/assets/juno/group-depression.png'),
+  anxiety: require('@/assets/juno/group-anxiety.png'),
+};
+export const sourceIcons: Record<string, number> = {
+  facebook: require('@/assets/juno/source-facebook.png'),
+  tiktok: require('@/assets/juno/source-tiktok.png'),
+  community: require('@/assets/juno/source-community.png'),
+  appstore: require('@/assets/juno/source-appstore.png'),
+  instagram: require('@/assets/juno/source-instagram.png'),
+  doctor: require('@/assets/juno/source-doctor.png'),
+  youtube: require('@/assets/juno/source-youtube.png'),
+  friends: require('@/assets/juno/source-friends.png'),
+  google: require('@/assets/juno/source-google.png'),
+  chatgpt: require('@/assets/juno/source-chatgpt.png'),
+  reddit: require('@/assets/juno/source-reddit.png'),
+  aisearch: require('@/assets/juno/source-aisearch.png'),
+  therapist: require('@/assets/juno/source-therapist.png'),
+  other: require('@/assets/juno/source-other.png'),
+};

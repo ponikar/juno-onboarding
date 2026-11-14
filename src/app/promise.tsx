@@ -39,10 +39,8 @@ export default function Commit() {
   };
 
   const next = () => {
-    if (unsure) {
-      set({ checkInTime: null });
-      router.push('/demo');
-    } else router.push(nextRoute('/promise'));
+    if (unsure) set({ checkInTime: null });
+    router.push(nextRoute('/promise'));
   };
 
   return (
