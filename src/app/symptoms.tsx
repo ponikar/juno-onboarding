@@ -56,8 +56,8 @@ export default function Symptoms() {
       reply={<JunoReply text={changed ? S.symptoms.reply : null} />}
       footer={
         <>
-          <EscapeButton label={S.symptoms.none} selected={state.noSymptoms} onPress={toggleNone} />
           <PrimaryButton label={label} disabled={picked.length === 0 && !state.noSymptoms} onPress={() => router.push(nextRoute('/symptoms'))} />
+          <EscapeButton label={S.symptoms.none} selected={state.noSymptoms} onPress={toggleNone} />
         </>
       }>
       <Title why={S.symptoms.why}>{S.symptoms.q}</Title>

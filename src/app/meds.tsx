@@ -55,13 +55,13 @@ export default function Meds() {
       reply={<JunoReply text={changed ? S.meds.reply : null} />}
       footer={
         <>
+          <PrimaryButton label={label} disabled={picked.length === 0 && !state.noMedicines} onPress={() => router.push(nextRoute('/meds'))} />
           {/* Both ways out on one row, so the list keeps its room on small phones. */}
           <View style={styles.escapeRow}>
             <EscapeButton label={S.meds.none} selected={state.noMedicines} onPress={toggleNone} />
             <View style={styles.escapeDivider} />
             <TextLink label={S.meds.later} onPress={later} />
           </View>
-          <PrimaryButton label={label} disabled={picked.length === 0 && !state.noMedicines} onPress={() => router.push(nextRoute('/meds'))} />
         </>
       }>
       <Title why={S.meds.why}>{S.meds.q}</Title>

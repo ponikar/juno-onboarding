@@ -51,12 +51,12 @@ export function ConditionsCurrent() {
       reply={<JunoReply text={reply} />}
       footer={
         <>
-          <EscapeButton label={S.conditions.seeking} selected={state.seekingDiagnosis} onPress={toggleSeeking} />
           <PrimaryButton
             label={label}
             disabled={picked.length === 0 && !state.seekingDiagnosis}
             onPress={() => router.push(nextRoute('/conditions'))}
           />
+          <EscapeButton label={S.conditions.seeking} selected={state.seekingDiagnosis} onPress={toggleSeeking} />
         </>
       }>
       <Title why={S.conditions.why}>{S.conditions.q}</Title>
