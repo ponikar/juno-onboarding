@@ -5,14 +5,14 @@ import Animated, { Keyframe } from 'react-native-reanimated';
 
 import { S } from '@/copy/strings';
 import { track } from '@/lib/track';
-import { EASE_OUT, STATE_MS } from '@/motion/tokens';
+import { EASE_OUT } from '@/motion/tokens';
 import { useOnboarding } from '@/state/onboarding';
-import { colors, radius, FONT_CAP } from '@/theme/tokens';
+import { colors, FONT_CAP } from '@/theme/tokens';
 import { haptic } from '@/ui/haptics';
 import { Icon } from '@/ui/Icon';
 import { Mascot } from '@/ui/Mascot';
 import { NotificationPrompt } from '@/ui/NotificationPrompt';
-import { PressableScale } from '@/ui/PressableScale';
+import { OptionCard } from '@/ui/OptionCard';
 import { PrimaryButton, TextLink } from '@/ui/PrimaryButton';
 import { ScreenShell, Title } from '@/ui/ScreenShell';
 
@@ -38,9 +38,7 @@ export default function CheckIn() {
   const compact = useWindowDimensions().height < 740; // iPhone SE and similar: keep everything above the buttons
 
   const pick = (t: Time) => {
-    if (t === time) return;
-    haptic.selection();
-    setTime(t);
+    if (t !== time) setTime(t);
   };
 
   const commit = () => {
@@ -60,6 +58,7 @@ export default function CheckIn() {
   return (
     <ScreenShell
       route="/checkin"
+      variant="sky"
       scroll={false}
       footer={
         <>
@@ -69,50 +68,32 @@ export default function CheckIn() {
       }>
       <View style={styles.body}>
         {!compact && <Mascot style={styles.mascot} />}
-        <Title sub={S.checkin.sub}>{S.checkin.title}</Title>
+        <Title onSky sub={S.checkin.sub}>{S.checkin.title}</Title>
 
         <Animated.View entering={groupIn} style={[styles.group, compact && styles.groupCompact]}>
           <View style={[styles.list, compact && styles.listCompact]}>
             {S.checkin.you.map((line, i) => (
               <View key={line} style={styles.row}>
                 <View style={styles.icon}>
-                  <Icon name={ICONS[i]} size={17} color={colors.orangeStrong} />
+                  <Icon name={ICONS[i]} size={16} color={colors.skyText} />
                 </View>
                 <Text maxFontSizeMultiplier={FONT_CAP} style={styles.rowText}>{line}</Text>
               </View>
             ))}
           </View>
 
-          <View style={styles.remind}>
-            <Text maxFontSizeMultiplier={FONT_CAP} style={styles.remindLabel}>{S.checkin.remind}</Text>
-            <View style={[styles.times, compact && styles.timesCompact]} accessibilityRole="radiogroup">
-              {TIMES.map((t) => {
-                const on = t === time;
-                return (
-                  <PressableScale
-                    key={t}
-                    accessibilityRole="radio"
-                    accessibilityState={{ checked: on }}
-                    accessibilityLabel={`${LABEL[t]}, ${S.checkin.clock[t]}`}
-                    selected={on}
-                    onPress={() => pick(t)}
-                    style={[
-                      styles.time,
-                      compact && styles.timeCompact,
-                      {
-                        backgroundColor: on ? colors.orangeFill : colors.surface,
-                        borderColor: on ? colors.orangeBorder : colors.hairline,
-                        transitionProperty: ['backgroundColor', 'borderColor'],
-                        transitionDuration: STATE_MS,
-                      } as object,
-                    ]}>
-                    <Icon name={TIME_ICON[t]} size={18} color={on ? colors.orangeStrong : colors.muted} />
-                    <Text maxFontSizeMultiplier={FONT_CAP} style={[styles.timeLabel, on && styles.timeOn]}>{LABEL[t]}</Text>
-                    <Text maxFontSizeMultiplier={FONT_CAP} style={[styles.timeClock, on && styles.timeOn]}>{S.checkin.clock[t]}</Text>
-                  </PressableScale>
-                );
-              })}
-            </View>
+          <View style={[styles.remind, compact && styles.remindCompact]} accessibilityRole="radiogroup" accessibilityLabel={S.checkin.remind}>
+            {!compact && <Text maxFontSizeMultiplier={FONT_CAP} style={styles.remindLabel}>{S.checkin.remind}</Text>}
+            {TIMES.map((t) => (
+              <OptionCard
+                key={t}
+                multi={false}
+                label={`${LABEL[t]} · ${S.checkin.clock[t]}`}
+                iconNode={<Icon name={TIME_ICON[t]} size={22} color={colors.orange} />}
+                selected={t === time}
+                onPress={() => pick(t)}
+              />
+            ))}
           </View>
         </Animated.View>
       </View>
@@ -123,22 +104,16 @@ export default function CheckIn() {
 }
 
 const styles = StyleSheet.create({
-  body: { flex: 1, justifyContent: 'center', paddingBottom: 12 },
-  mascot: { alignSelf: 'center', width: 120, height: 90, marginBottom: 6 },
-  group: { marginTop: 24, paddingHorizontal: 24, gap: 24 },
-  groupCompact: { marginTop: 14, gap: 16 },
-  list: { gap: 18, alignSelf: 'center' },
-  listCompact: { gap: 10 },
-  row: { flexDirection: 'row', alignItems: 'center', gap: 14 },
-  icon: { width: 36, height: 36, borderRadius: 18, backgroundColor: colors.orangeFill, alignItems: 'center', justifyContent: 'center' },
-  rowText: { fontSize: 18, lineHeight: 23, fontWeight: '500', color: colors.ink },
-  remind: { gap: 12 },
-  remindLabel: { fontSize: 15, lineHeight: 20, fontWeight: '600', color: colors.inkSoft, textAlign: 'center' },
-  times: { gap: 8 },
-  timesCompact: { gap: 6 },
-  time: { minHeight: 48, borderRadius: radius.pill, borderWidth: 1.5, flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: 18 },
-  timeCompact: { minHeight: 44 },
-  timeLabel: { flex: 1, fontSize: 16, lineHeight: 20, fontWeight: '600', color: colors.inkSoft },
-  timeClock: { fontSize: 15, lineHeight: 20, color: colors.muted },
-  timeOn: { color: colors.ink },
+  body: { flex: 1, justifyContent: 'center', paddingBottom: 8 },
+  mascot: { alignSelf: 'center', width: 112, height: 84, marginBottom: 4 },
+  group: { marginTop: 22, gap: 22 },
+  groupCompact: { marginTop: 10, gap: 14 },
+  list: { gap: 12, alignSelf: 'center' },
+  listCompact: { gap: 6 },
+  row: { flexDirection: 'row', alignItems: 'center', gap: 12 },
+  icon: { width: 32, height: 32, borderRadius: 16, backgroundColor: 'rgba(255,255,255,0.22)', alignItems: 'center', justifyContent: 'center' },
+  rowText: { fontSize: 17, lineHeight: 22, fontWeight: '600', color: colors.skyText },
+  remind: { gap: 10 },
+  remindCompact: { gap: 8 },
+  remindLabel: { fontSize: 15, lineHeight: 20, fontWeight: '600', color: colors.skyText, marginLeft: 22 },
 });
