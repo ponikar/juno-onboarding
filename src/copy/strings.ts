@@ -336,7 +336,8 @@ export const S = {
   },
   notify: {
     withTime: 'Can I check in each {time}?', // v2 narration spec
-    trialLine: "I'll also remind you before your trial ends.", // v2 narration spec
+    trialLine: "I'll also remind you before your trial ends.",
+    why: 'So I can check in at the time you picked. You can change it any time.', // v3 spec // v2 narration spec
     free: 'Can I check in with you once a day?',
     allow: 'Turn on reminders', // eval T-02: says what happens
     later: 'Not now', // existing "Not now" wording from screen 35
@@ -390,13 +391,49 @@ export const S = {
     options: ['Badly', 'Okay', 'Well'], // NEW (experiment): one-tap answers to chat.open
     reply: 'Logged. That’s two entries today. I’ll check in tomorrow.', // NEW (experiment)
   },
-  story: { // v2 narration spec, screen 2
-    title: 'We built Juno because we needed it.',
-    body1: 'Isaac waited 14 years for a diagnosis.', // insight F7 (facts.ts)
-    body2: 'Marshall lives with ME/CFS.',
-    close: 'So Juno listens first.',
+  story: { // v3 spec: three beats, sourced from Juno's YC launch page (see docs/specs/onboarding-v3.md section 9)
+    b1Title: 'Months to get an appointment. Then 15 minutes.',
+    b1Body: 'That is all the time you get to explain years of symptoms.',
+    b1Source: "From Juno's founders, YC launch",
+    b2Title: 'We know because we lived it.',
+    b2Isaac: 'Isaac waited 14 years for an eosinophilic bronchitis diagnosis.', // insight F7
+    b2Marshall: 'Marshall lives with ME/CFS and is still searching for something that helps.',
+    b3Title: 'So we built Juno to keep the record.',
+    b3Body: 'Tell Juno how you feel, by text or voice. It turns your days into a summary your doctor can understand quickly.',
+    next: 'Next',
     cta: 'Show me how',
   },
+  when: { // v3 spec
+    q: 'When should I check in?',
+    sub: 'One short message. Answer in a tap.',
+    morningHint: 'Before the day gets going',
+    afternoonHint: 'A quick pause midday',
+    eveningHint: 'Looking back on the day',
+    cta: 'Show me',
+  },
+  demo: { // v3 spec
+    title: "Here's tomorrow's check-in",
+    notifyTitle: 'Juno',
+    notification: 'How are you today? Tap to tell me in a few words.',
+    when: { morning: 'Tomorrow morning', afternoon: 'Tomorrow afternoon', evening: 'Tomorrow evening', none: 'Tomorrow' },
+    greet: { morning: 'Morning.', afternoon: 'Afternoon.', evening: 'Evening.', none: 'Hi.' },
+    ask: '{greet} How are you feeling today?',
+    replies: ['Better than yesterday', 'About the same', 'Rough day'],
+    logged: "Logged. That's day 2 on your doctor page.",
+    caption: "That's it. One line a day.",
+    cta: 'Got it',
+  },
+  meter: { // v3 spec
+    title: 'Your doctor page',
+    today: 'Today',
+    health: 'Health',
+    days: 'Days',
+    routine: 'Routine',
+    forecast: 'Up to {entries} entries by {date}',
+    week: '7 entries by {date}',
+    soon: "Today's entry is already on it",
+  },
+  flow: { part: 'Part {n} of 7' }, // v3 spec
   seg: { // v2: flow bar segment labels (spec keys seg.health.done -> seg.healthDone)
     today: 'Today',
     health: 'Your health',
@@ -404,6 +441,7 @@ export const S = {
     days: 'Your days',
     daysDone: 'Your days, done',
     you: 'You',
+    routine: 'Your routine', // v3 spec
     snapshot: 'Your snapshot',
     plan: 'Your plan',
   },
