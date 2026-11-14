@@ -92,7 +92,7 @@ Long-press the **Juno** logo on the welcome screen to jump to any screen (and to
 
 ### Not verified
 
-- Tapping and dragging in the simulator: no touch-injection tool was available, so buttons, the slider drag, sheets, the mock purchase and the exit question were checked by code review and by opening each screen in each state through deep links, not by tapping.
+- The whole flow (screens 1–21, the sponsored sheet, the exit question, the mock sign-in, purchase and permission prompts, and the slider drag) was tapped through on the iOS simulator with Maestro. Not tapped: the email sign-up path and the free-plan path to the end.
 - Haptics timing, gesture feel and performance on an older Android phone need a real device.
 - Android was not run.
 

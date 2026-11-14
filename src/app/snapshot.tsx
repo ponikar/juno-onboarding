@@ -19,10 +19,14 @@ function rows(s: OnboardingState) {
       label: S.snapshot.rowConditions,
       value: s.conditions.length ? joinList(s.conditions) : s.seekingDiagnosis ? S.snapshot.seeking : S.snapshot.noConditions,
     },
-    {
-      label: S.snapshot.rowToday,
-      value: s.todaySymptoms.length ? joinList(s.todaySymptoms) : fill(S.snapshot.todayAsWritten, { entry: s.todayEntry.trim() }),
-    },
+    ...(s.todaySymptoms.length || s.todayEntry.trim()
+      ? [
+          {
+            label: S.snapshot.rowToday,
+            value: s.todaySymptoms.length ? joinList(s.todaySymptoms) : fill(S.snapshot.todayAsWritten, { entry: s.todayEntry.trim() }),
+          },
+        ]
+      : []),
     { label: S.snapshot.rowMeds, value: s.medicines.length ? joinList(s.medicines) : S.snapshot.noMeds },
     { label: S.snapshot.rowEnergy, value: s.energy !== null ? fill(S.snapshot.energyValue, { n: s.energy }) : S.snapshot.noEnergy },
     { label: null, value: symptom ? fill(S.snapshot.watch, { symptom: symptom.toLowerCase() }) : S.snapshot.watchDefault },

@@ -4,6 +4,7 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { fill, S } from '@/copy/strings';
 import { nextRoute } from '@/flow';
+import { customEntry } from '@/lib/search';
 import { track } from '@/lib/track';
 import { useOnboarding } from '@/state/onboarding';
 import { colors, space, type, FONT_CAP } from '@/theme/tokens';
@@ -25,6 +26,7 @@ export default function Meds() {
   const picked = state.medicines;
   const q = query.trim().toLowerCase();
   const options = S.meds.options.filter((m) => m.toLowerCase().includes(q));
+  const custom = customEntry(query, S.meds.options, picked);
 
   const toggle = (m: string) => {
     const medicines = picked.includes(m) ? picked.filter((x) => x !== m) : [...picked, m];
@@ -58,6 +60,20 @@ export default function Meds() {
       }>
       <Title why={S.meds.why}>{S.meds.q}</Title>
       <SearchField placeholder={S.meds.search} value={query} onChangeText={setQuery} accessibilityLabel={S.meds.search} />
+      {custom && (
+        <View style={{ marginTop: 12 }}>
+          <ChipWrap>
+            <Chip
+              label={fill(S.common.addCustom, { text: custom })}
+              selected={false}
+              onToggle={() => {
+                toggle(custom);
+                setQuery('');
+              }}
+            />
+          </ChipWrap>
+        </View>
+      )}
       {picked.length > 0 && (
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.pickedRow} contentContainerStyle={styles.pickedContent}>
           {picked.map((m) => (

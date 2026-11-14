@@ -4,6 +4,7 @@
 export const S = {
   common: {
     continue: 'Continue',
+    addCustom: 'Add “{text}”', // NEW: search with no match
     back: 'Back',
     close: 'Close',
     skip: 'Skip',

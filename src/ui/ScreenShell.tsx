@@ -18,7 +18,8 @@ type Props = {
   children: ReactNode;
   variant?: 'plain' | 'sky';
   background?: ImageSourcePropType; // full-bleed art cut from Figma, drawn over the variant colour
-  backgroundHeight?: number; // pt; omit for full screen
+  backgroundHeight?: number;
+  backgroundTop?: number; // negative crops empty sky off the top of partial art // pt; omit for full screen
   route?: FlowRoute; // shows the progress bar
   back?: boolean | (() => void);
   close?: () => void;
@@ -27,7 +28,7 @@ type Props = {
   headerRight?: ReactNode;
 };
 
-export function ScreenShell({ children, variant = 'plain', background, backgroundHeight, route, back = true, close, footer, scroll = true, headerRight }: Props) {
+export function ScreenShell({ children, variant = 'plain', background, backgroundHeight, backgroundTop = 0, route, back = true, close, footer, scroll = true, headerRight }: Props) {
   const insets = useSafeAreaInsets();
   const keyboard = useKeyboardOpen();
   const onSky = variant === 'sky';
@@ -47,7 +48,7 @@ export function ScreenShell({ children, variant = 'plain', background, backgroun
       {background && (
         <Image
           source={background}
-          style={[styles.bgArt, backgroundHeight ? { height: backgroundHeight } : { bottom: 0 }]}
+          style={[styles.bgArt, { top: backgroundTop }, backgroundHeight ? { height: backgroundHeight } : { bottom: 0 }]}
           resizeMode="cover"
           accessibilityIgnoresInvertColors
         />

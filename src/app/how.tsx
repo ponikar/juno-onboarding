@@ -15,6 +15,7 @@ import { PrimaryButton } from '@/ui/PrimaryButton';
 import { ScreenShell } from '@/ui/ScreenShell';
 
 const ART_H = 362;
+const CROP = 70; // empty sky above the title; keeps the charge date above the fold
 const POINT_MS = 160;
 const POINT_GAP_MS = 120; // each point starts 40 ms before the previous one ends: 3 points in 400 ms
 
@@ -33,6 +34,7 @@ export default function How() {
       variant="sky"
       background={bg.honesty}
       backgroundHeight={ART_H}
+      backgroundTop={-CROP}
       footer={
         <>
           <View style={[styles.pill, shadow.card]}>
@@ -42,7 +44,7 @@ export default function How() {
           <PrimaryButton label={S.how.cta} onPress={() => router.push(nextRoute('/how'))} />
         </>
       }>
-      <View style={{ height: ART_H - insets.top - 10 - size.nav }}>
+      <View style={{ height: ART_H - CROP - insets.top - 10 - size.nav }}>
         <Text maxFontSizeMultiplier={FONT_CAP} accessibilityRole="header" style={[type.titleSky, shadow.titleSky, styles.title]}>{S.how.title}</Text>
       </View>
 
@@ -87,7 +89,7 @@ function TimelinePoint({ index, icon, title, sub, last }: { index: number; icon:
       <View style={styles.pointRail}>
         <Animated.View style={[styles.bar, index === 0 && styles.barFirst, last && styles.barLast, line]} />
         <Animated.View style={[styles.dot, dot]}>
-          <Icon name={icon} size={16} color="#FFFFFF" weight="semibold" />
+          <Icon name={icon} size={14} color="#FFFFFF" weight="semibold" />
         </Animated.View>
       </View>
       <Animated.View style={[styles.pointText, dot]}>
@@ -99,34 +101,34 @@ function TimelinePoint({ index, icon, title, sub, last }: { index: number; icon:
 }
 
 const styles = StyleSheet.create({
-  title: { textAlign: 'center', marginTop: 56, paddingHorizontal: 36 },
+  title: { textAlign: 'center', marginTop: 8, paddingHorizontal: 36 },
   rows: { paddingHorizontal: 17, marginTop: 8 },
   row: { flexDirection: 'row', gap: 14 },
-  rail: { width: 40, alignItems: 'center' },
-  rowIcon: { width: 40, height: 40, borderRadius: 20 },
-  connector: { width: 1, flex: 1, minHeight: 12, backgroundColor: colors.hairline, marginVertical: 6 },
-  rowText: { flex: 1, paddingBottom: 14, paddingTop: 1 },
-  rowTitle: { fontSize: 17, lineHeight: 22, fontWeight: '600', color: colors.ink },
-  rowSub: { fontSize: 15, lineHeight: 20, color: colors.muted, marginTop: 4 },
-  timeline: { paddingHorizontal: 20, marginTop: 10 },
+  rail: { width: 34, alignItems: 'center' },
+  rowIcon: { width: 34, height: 34, borderRadius: 17 },
+  connector: { width: 1, flex: 1, minHeight: 6, backgroundColor: colors.hairline, marginVertical: 4 },
+  rowText: { flex: 1, paddingBottom: 10 },
+  rowTitle: { fontSize: 16, lineHeight: 21, fontWeight: '600', color: colors.ink },
+  rowSub: { fontSize: 14, lineHeight: 18, color: colors.muted, marginTop: 2 },
+  timeline: { paddingHorizontal: 17, marginTop: 6 },
   point: { flexDirection: 'row', gap: 16 },
-  pointRail: { width: 42, alignItems: 'center' },
-  bar: { position: 'absolute', top: 0, bottom: 0, width: 42, backgroundColor: '#7FB2EC', transformOrigin: 'top' },
-  barFirst: { top: 21, backgroundColor: '#4E9FE9' },
-  barLast: { bottom: 12, backgroundColor: '#C7DCF6', borderBottomLeftRadius: 21, borderBottomRightRadius: 21 },
+  pointRail: { width: 36, alignItems: 'center' },
+  bar: { position: 'absolute', top: 0, bottom: 0, width: 36, backgroundColor: '#7FB2EC', transformOrigin: 'top' },
+  barFirst: { top: 18, backgroundColor: '#4E9FE9' },
+  barLast: { bottom: 12, backgroundColor: '#C7DCF6', borderBottomLeftRadius: 18, borderBottomRightRadius: 18 },
   dot: {
-    width: 42,
-    height: 42,
-    borderRadius: 21,
+    width: 36,
+    height: 36,
+    borderRadius: 18,
     backgroundColor: '#1A1A22',
     borderWidth: 1.5,
     borderColor: '#D9DCE3',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  pointText: { flex: 1, paddingTop: 1, paddingBottom: 26 },
-  pointTitle: { fontSize: 18, lineHeight: 23, fontWeight: '700', color: colors.ink },
-  pointSub: { fontSize: 15, lineHeight: 20, color: colors.inkSoft, marginTop: 4 },
+  pointText: { flex: 1, paddingBottom: 14 },
+  pointTitle: { fontSize: 17, lineHeight: 22, fontWeight: '700', color: colors.ink },
+  pointSub: { fontSize: 14, lineHeight: 18, color: colors.inkSoft, marginTop: 2 },
   pill: {
     flexDirection: 'row',
     alignItems: 'center',

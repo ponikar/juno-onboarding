@@ -31,6 +31,9 @@ export function Icon({ name, size = 18, color = '#261910', weight = 'medium' }: 
       size={size}
       tintColor={color}
       weight={weight}
+      accessible={false}
+      accessibilityElementsHidden
+      importantForAccessibility="no-hide-descendants"
       fallback={<Text maxFontSizeMultiplier={FONT_CAP} style={{ fontSize: size, color, lineHeight: size + 2 }}>{FALLBACK[name] ?? '•'}</Text>}
     />
   );

@@ -48,6 +48,7 @@ export default function RootLayout() {
           <Stack.Screen name="report" options={{ presentation: 'formSheet', sheetAllowedDetents: [0.92], sheetGrabberVisible: true, sheetCornerRadius: 28 }} />
           <Stack.Screen name="sponsor" options={{ presentation: 'formSheet', sheetAllowedDetents: [0.82], sheetGrabberVisible: true, sheetCornerRadius: 28 }} />
           <Stack.Screen name="debug" options={{ presentation: 'modal' }} />
+          <Stack.Screen name="energy" options={{ gestureEnabled: false }} />
           <Stack.Screen name="building" options={{ gestureEnabled: false }} />
           <Stack.Screen name="chat" options={{ gestureEnabled: false }} />
         </Stack>

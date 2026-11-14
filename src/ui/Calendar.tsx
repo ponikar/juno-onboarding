@@ -56,7 +56,7 @@ export function Calendar({ value, onChange, today }: { value: string | null; onC
             <PressableScale
               key={i}
               accessibilityRole="button"
-              accessibilityLabel={iso}
+              accessibilityLabel={date.toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long' })}
               accessibilityState={{ selected, disabled: past }}
               disabled={past}
               hitSlop={2}
