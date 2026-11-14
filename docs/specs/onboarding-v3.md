@@ -97,7 +97,7 @@ No new dependencies. Reuse tokens, components, mascot art (`mascotPeekSky` on sk
 | commit.q | Can you tell me one line a day? (v2) |
 | commit.sub | Like the one you wrote earlier. (v2) |
 | when.q | When should I check in? |
-| when.sub | One short message. Answer in a tap. |
+| when.sub | One short message you can answer in a tap. |
 | when.morningHint | Before the day gets going |
 | when.afternoonHint | A quick pause midday |
 | when.eveningHint | Looking back on the day |
@@ -111,7 +111,7 @@ No new dependencies. Reuse tokens, components, mascot art (`mascotPeekSky` on sk
 | demo.logged | Logged. That's day 2 on your doctor page. |
 | demo.caption | That's it. One line a day. |
 | demo.cta | Got it |
-| notify.why | So I can check in at the time you picked. You can change it any time. |
+| notify.why | So I can check in at the time you picked, and you can change it any time. |
 | flow.part | Part {n} of 7 |
 | seg.routine | Your routine |
 | meter.title | Your doctor page |
@@ -147,3 +147,10 @@ Parts: Today 4-5, Your health 6-10, Your days 11-14, You 15-16, Your routine 17-
 8. Flow bar: one row, part name left, "Part n of 7" right, bar below; done state with tick kept on 10 and 14; FLOW_BAR_ROW recomputed.
 9. Typing dots replace the reply's 200 ms delay (reduced motion: no dots, plain fade). Health auto-advance waits the extra 450 ms. In the demo, a reply tap picks that reply; `demo.cta` is always enabled. The demo is a rehearsal of tomorrow, so chat keeps "Day 1 of 7". Story and demo have swipe-back off; the story's back button steps back a beat, the demo's back returns to When (or Commit for unsure), as section 4 says.
 10. Update full_flow.yaml, shift_scenarios.json and screens.json for the new order; create the skill file.
+
+### Copy check (after build, auto)
+- Health data bullet 2 claimed pattern finding ("find what's really driving your flares"): now "Juno keeps them next to your symptoms, so your doctor page shows both".
+- Plans headline for "Manage flare days" claimed prediction ("See your flare days coming"): now "Keep track of your flare days".
+- Reminders shows `notify.why` only when a time was picked.
+- `notify.why` and `when.sub` rewritten as one sentence each (eval D-02).
+- Open for Juno: welcome "#1 App for chronic illness" and "300K Happy users" (Juno's YC page says "Over 80,000 people already use Juno"); plans "Full refund, no questions asked"; how "The kind of read a health coach gives, at a fraction of the cost". All come from Juno's Figma; none has a source here.

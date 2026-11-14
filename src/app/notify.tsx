@@ -38,7 +38,7 @@ export default function Notify() {
           <TextLink label={S.notify.later} onPress={() => finish(false)} />
         </>
       }>
-      <Title onSky sub={S.notify.why}>
+      <Title onSky sub={state.checkInTime ? S.notify.why : undefined}>
         {state.checkInTime ? fill(S.notify.withTime, { time: state.checkInTime }) : S.notify.free}
       </Title>
 

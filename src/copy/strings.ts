@@ -204,7 +204,7 @@ export const S = {
     why: 'So you have less to log.',
     reply: 'Connected. I’ll fill in the quiet days.',
     bullet1: 'Pair Juno with Apple Health and watch your sleep, heart rate and activity appear like magic',
-    bullet2: 'Juno cross-references them with your symptoms to find what’s really driving your flares',
+    bullet2: 'Juno keeps them next to your symptoms, so your doctor page shows both', // copy check: was a pattern-finding claim
     connect: 'Connect Apple Health',
     later: 'Maybe later',
     mockTitle: '“Juno” would like to access your Health data', // MOCK system sheet
@@ -289,7 +289,7 @@ export const S = {
   plans: {
     headline: {
       default: 'See what your week is telling you',
-      'Manage flare days': 'See your flare days coming', // NEW mapping
+      'Manage flare days': 'Keep track of your flare days', // copy check: was a prediction claim
       'Understand my symptoms': 'See what your symptoms are telling you', // NEW mapping
       'Find my triggers': 'See what sets your symptoms off', // NEW mapping
       'Prepare for appointments': 'Walk into every appointment ready', // NEW mapping
@@ -336,7 +336,7 @@ export const S = {
   },
   notify: {
     withTime: 'Can I check in each {time}?', // v2 narration spec
-    why: 'So I can check in at the time you picked. You can change it any time.', // v3 spec
+    why: 'So I can check in at the time you picked, and you can change it any time.', // v3 spec
     free: 'Can I check in with you once a day?',
     allow: 'Turn on reminders', // eval T-02: says what happens
     later: 'Not now', // existing "Not now" wording from screen 35
@@ -404,7 +404,7 @@ export const S = {
   },
   when: { // v3 spec
     q: 'When should I check in?',
-    sub: 'One short message. Answer in a tap.',
+    sub: 'One short message you can answer in a tap.',
     morningHint: 'Before the day gets going',
     afternoonHint: 'A quick pause midday',
     eveningHint: 'Looking back on the day',
