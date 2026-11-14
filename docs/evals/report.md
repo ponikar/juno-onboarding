@@ -34,7 +34,7 @@ REVIEW when mean diff > 18.0 or SSIM < 0.75. Mean diff is 0-255 per pixel at 134
 | report | 09-story-report.png | 45.93 | 0.385 | 68.6/0.34 | 44.2/0.34 | 25.0/0.47 | REVIEW |
 | save | 01b-auth.png | 20.08 | 0.570 | 25.5/0.58 | 25.0/0.44 | 9.7/0.68 | REVIEW |
 | how | 60-pw-trial.png | 17.34 | 0.585 | 13.5/0.66 | 23.6/0.44 | 14.9/0.65 | REVIEW |
-| plans | 62-pw-price.png | 48.75 | 0.367 | 24.2/0.59 | 37.6/0.18 | 84.4/0.33 | REVIEW |
+| plans | 62-pw-price.png | 37.07 | 0.422 | 10.1/0.65 | 28.2/0.27 | 72.8/0.34 | REVIEW |
 | sponsor | 62b-sponsor-sheet.png | 33.78 | 0.484 | 44.4/0.56 | 44.1/0.34 | 12.8/0.56 | REVIEW |
 | notify | 61-bell.png | 40.97 | 0.544 | 27.3/0.42 | 14.6/0.78 | 81.1/0.44 | REVIEW |
 | done | 64-subscribe-success.png | 30.84 | 0.603 | 32.1/0.60 | 32.9/0.56 | 27.5/0.65 | REVIEW |

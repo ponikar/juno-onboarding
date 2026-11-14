@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     borderRadius: radius.pill,
     borderWidth: 1.5,
     borderColor: 'rgba(255,236,200,0.7)',
-    backgroundColor: 'rgba(255,255,255,0.16)',
+    backgroundColor: 'rgba(40,104,190,0.92)', // near-solid blue: white text stays 4.5:1+ over the pale lower sky (A-02)
   },
   itemText: { flex: 1, fontSize: 17, lineHeight: 22, fontWeight: '600', color: colors.skyText },
 });

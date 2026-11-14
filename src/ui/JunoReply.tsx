@@ -1,4 +1,5 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { useEffect } from 'react';
+import { AccessibilityInfo, Image, Platform, StyleSheet, Text, View } from 'react-native';
 import Animated, { Easing, FadeIn } from 'react-native-reanimated';
 
 import { REPLY_DELAY_MS, REPLY_FADE_MS } from '@/motion/tokens';
@@ -8,6 +9,10 @@ import { avatar } from './art';
 // One line from Juno beside her avatar. Fades in (no movement) ~200 ms after an answer. Never blocks Continue.
 // Pass a changing `id` to replay the fade when the reply changes.
 export function JunoReply({ text, id, onSky }: { text: string | null; id?: string; onSky?: boolean }) {
+  // accessibilityLiveRegion is Android-only; VoiceOver needs an explicit announcement (eval A-05).
+  useEffect(() => {
+    if (text && Platform.OS === 'ios') AccessibilityInfo.announceForAccessibility(text);
+  }, [text, id]);
   if (!text) return <View style={styles.placeholder} />;
   return (
     <Animated.View

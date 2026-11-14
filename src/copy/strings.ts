@@ -54,7 +54,7 @@ export const S = {
     q: 'What would make the biggest difference for you?',
     noneSelected: 'None selected yet',
     selected: '{n} selected',
-    reply: 'That’s a realistic goal. Let’s build around it.',
+    reply: 'That’s a realistic goal. I’ll build around it.',
     options: [
       'Manage flare days',
       'Understand my symptoms',
@@ -70,7 +70,7 @@ export const S = {
     why: 'So I can show what’s common with it.',
     search: 'Search for a condition',
     reply: '{condition} is exhausting. I’ll keep a close eye on it.',
-    replyNone: 'Not having a name for it is hard. We’ll track it anyway.',
+    replyNone: 'Not having a name for it is hard. I’ll track it anyway.',
     seeking: 'Still looking for answers',
     addN: 'Add {n} diagnoses',
     add1: 'Add 1 diagnosis',
@@ -92,7 +92,7 @@ export const S = {
   },
   symptoms: {
     q: 'What has your body been doing lately?',
-    why: 'I’ve ticked what you just told me. Add anything I missed.',
+    why: 'I’ve ticked what you told me, so add anything I missed.',
     search: 'Search symptoms',
     reply: 'Got it. I’ll look for what sets these off.',
     groupFor: 'For {condition}',
@@ -156,7 +156,7 @@ export const S = {
   energy: {
     q: 'How much energy do you have on a normal day?',
     why: 'This helps me suggest when to rest.',
-    reply: 'Thanks. We’ll plan around that, not against it.',
+    reply: 'Thanks. I’ll plan around that, not against it.',
     low: 'Running\non empty',
     high: 'Charged\nand steady',
     a11y: 'Energy on a normal day, {n} of 7',
@@ -221,6 +221,7 @@ export const S = {
     rowToday: 'Today',
     todayAsWritten: '“{entry}”',
     rowMeds: 'Medicines',
+    rowAppt: 'Next appointment', // NEW: screen 14 shows it, so screen 15 repeats it (eval A-08)
     noMeds: 'None added yet',
     rowEnergy: 'Energy on a normal day',
     energyValue: '{n} of 7',
@@ -322,9 +323,9 @@ export const S = {
     cta: 'Claim the sponsored plan',
   },
   notify: {
-    trial: 'Can I remind you before your trial ends, and check in once a day?',
+    trial: 'Can I remind you before your trial ends?', // eval D-01: was 14 words
     free: 'Can I check in with you once a day?',
-    allow: 'Continue',
+    allow: 'Turn on reminders', // eval T-02: says what happens
     later: 'Not now', // existing "Not now" wording from screen 35
     mockTitle: '“Juno” Would Like to Send You Notifications', // MOCK system prompt (1:2015)
     mockBody: 'Notifications may include alerts, sounds and icon badges. These can be configured in Settings.',
@@ -352,7 +353,7 @@ export const S = {
     ], // NEW in strings, wording from next-first-chat
     attach: 'Add attachment', // NEW
     replies: {
-      flare: 'I’m sorry today is hard. I’ve marked it as a flare day. What’s worst right now?',
+      flare: 'I’m sorry today is hard. I’ve marked it as a flare day.',
       log: 'Sure. Tell me how you feel in your own words and I’ll log it.',
       vent: 'I’m here. Say as much or as little as you like.',
       skip: 'No problem. I’m here whenever you want to talk.',

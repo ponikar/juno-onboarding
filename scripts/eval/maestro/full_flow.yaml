@@ -1,0 +1,96 @@
+# J-01, J-04, J-08, J-11, T-07, T-08: one full run typing the test entry and taking every escape option.
+# Start state: open exp://127.0.0.1:8082/--/welcome?preset=empty&fresh=1 first (scripts/eval/maestro/run.sh does it).
+appId: host.exp.Exponent
+---
+- tapOn: "Try it now"
+- waitForAnimationToEnd
+- repeat:
+    times: 4
+    while:
+      notVisible:
+        id: "consent-continue"
+        enabled: true
+    commands:
+      - waitForAnimationToEnd
+      - tapOn: ".*I agree to the.*"
+- tapOn:
+    id: "consent-continue"
+- waitForAnimationToEnd
+- inputText: "tired and my head hurts"
+- tapOn:
+    id: "try-continue"
+- waitForAnimationToEnd
+- assertVisible: "Fatigue"
+- assertVisible: "Headaches"
+- takeScreenshot: docs/evals/e2e/04-heard
+- tapOn:
+    id: "heard-continue"
+- waitForAnimationToEnd
+- repeat:
+    times: 4
+    while:
+      notVisible: "1 selected"
+    commands:
+      - waitForAnimationToEnd
+      - tapOn: "Manage flare days"
+- tapOn: "Continue"
+- waitForAnimationToEnd
+- repeat:
+    times: 4
+    while:
+      notVisible: "Not having a name for it is hard.*"
+    commands:
+      - waitForAnimationToEnd
+      - tapOn: "Still looking for answers"
+- tapOn: "Continue"
+- waitForAnimationToEnd
+- takeScreenshot: docs/evals/e2e/07-symptoms
+- assertVisible: "Add 2 symptoms"
+- tapOn: "None right now"
+- tapOn: "Continue"
+- waitForAnimationToEnd
+- tapOn: "Add later"
+- waitForAnimationToEnd
+- tapOn: "None booked"
+- waitForAnimationToEnd
+- takeScreenshot: docs/evals/e2e/09-after-none-booked
+- tapOn: "Continue"
+- waitForAnimationToEnd
+- tapOn: "Continue"
+- waitForAnimationToEnd
+- tapOn: "No one right now"
+- takeScreenshot: docs/evals/e2e/11-support-no-one
+- tapOn: "Continue"
+- waitForAnimationToEnd
+- tapOn: "Prefer not to say"
+- tapOn: "Continue"
+- waitForAnimationToEnd
+- tapOn: "Maybe later"
+- extendedWaitUntil:
+    visible: "Continue"
+    timeout: 10000
+- waitForAnimationToEnd
+- takeScreenshot: docs/evals/e2e/15-snapshot
+- tapOn: "Continue"
+- waitForAnimationToEnd
+- takeScreenshot: docs/evals/e2e/16-report
+- tapOn: "Continue"
+- waitForAnimationToEnd
+- tapOn: "Continue with Apple"
+- extendedWaitUntil:
+    visible: "See my plan"
+    timeout: 10000
+- tapOn: "See my plan"
+- waitForAnimationToEnd
+- takeScreenshot: docs/evals/e2e/19-plans
+- tapOn: "Continue with the free plan"
+- waitForAnimationToEnd
+- takeScreenshot: docs/evals/e2e/20-notify
+- tapOn: "Not now"
+- waitForAnimationToEnd
+- takeScreenshot: docs/evals/e2e/21-done-free
+- tapOn: "Let’s go"
+- waitForAnimationToEnd
+- assertVisible: "Fatigue"
+- assertVisible: "Headaches"
+- takeScreenshot: docs/evals/e2e/21-chat

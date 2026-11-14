@@ -1,5 +1,4 @@
 const DAY = 24 * 60 * 60 * 1000;
-const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 export function startOfDay(d: Date) {
   return new Date(d.getFullYear(), d.getMonth(), d.getDate());
@@ -30,5 +29,5 @@ export function daysUntil(iso: string, today: Date) {
 }
 
 export function formatDate(d: Date) {
-  return `${MONTHS[d.getMonth()]} ${d.getDate()}`;
+  return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' }); // device format (eval D-12)
 }

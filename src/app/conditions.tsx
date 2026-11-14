@@ -100,10 +100,10 @@ export default function Conditions() {
 const styles = StyleSheet.create({
   pickedRow: { marginTop: 18, flexGrow: 0, minHeight: size.chip },
   pickedContent: { paddingHorizontal: space.gutter, gap: 9 },
-  list: { marginTop: 32 },
+  list: { marginTop: 14 },
   seeking: {
     minHeight: 44,
-    marginTop: 20,
+    marginTop: 4,
     alignSelf: 'center',
     flexDirection: 'row',
     alignItems: 'center',

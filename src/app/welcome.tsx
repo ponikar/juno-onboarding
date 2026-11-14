@@ -117,10 +117,10 @@ const styles = StyleSheet.create({
   proofRow: { position: 'absolute', top: 584, left: 22, right: 22, flexDirection: 'row', alignItems: 'center' },
   laurel: { width: 30, height: 62 },
   proof: { flex: 1, alignItems: 'center' },
-  proofBig: { fontSize: 32, lineHeight: 38, fontWeight: '700', color: '#868485' },
-  proofSmall: { fontSize: 14.5, lineHeight: 18, color: '#868485', textAlign: 'center' },
+  proofBig: { fontSize: 32, lineHeight: 38, fontWeight: '700', color: colors.muted },
+  proofSmall: { fontSize: 14.5, lineHeight: 18, color: colors.muted, textAlign: 'center' },
   bottom: { position: 'absolute', left: 0, right: 0, top: 688, alignItems: 'center' },
   cta: { width: 234, marginBottom: 10 },
-  terms: { marginTop: 12, fontSize: 14, lineHeight: 19, color: '#868485', textAlign: 'center' },
+  terms: { marginTop: 12, fontSize: 14, lineHeight: 19, color: colors.muted, textAlign: 'center' },
   termsStrong: { color: '#5E534D', fontWeight: '500' },
 });

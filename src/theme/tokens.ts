@@ -6,10 +6,11 @@ export const colors = {
   surface: '#FFFFFF',
   ink: '#261910',
   inkSoft: '#5E534D', // estimated from body text on 56-honesty
-  muted: '#8A8584', // estimated from placeholder text
+  muted: '#6E6867', // darkened from Figma's #8A8584 to reach 4.5:1 on bg and white (A-02)
   hairline: '#DCDDE1',
-  radio: '#BCBCBC',
+  radio: '#8F8A89', // darkened from #BCBCBC: the empty ring needs 3:1 (A-02)
   orange: '#FC7B44',
+  orangeStrong: '#C2531E', // orange behind white text or as text on white (4.6:1+)
   orangeTick: '#FF824A',
   orangeBorder: '#FFC4A6',
   orangeFill: '#FFF3EB',
@@ -22,7 +23,7 @@ export const colors = {
   skyTop: '#3685D4',
   skyText: '#FFFFFF',
   skyGlass: 'rgba(255,255,255,0.28)', // back/close button on sky screens, estimated
-  userBubble: '#0A7AFF', // 35-tracking-demo user bubble
+  userBubble: '#0064D6', // 35-tracking-demo blue, darkened for white text at 4.5:1
   replyBubble: '#F1EFF0', // estimated
   success: '#27AE60', // estimated
   link: '#261910',

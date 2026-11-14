@@ -22,7 +22,11 @@ function FlowWatcher() {
   }, [ready]);
 
   useEffect(() => {
-    if (!ready || !preset) return;
+    if (!ready) return;
+    if (!preset) {
+      applied.current = null; // so the same debug link applies again next time
+      return;
+    }
     const k = `${pathname}?${preset}`;
     if (applied.current === k) return;
     applied.current = k;

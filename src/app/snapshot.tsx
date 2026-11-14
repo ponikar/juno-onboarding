@@ -5,6 +5,7 @@ import Animated, { useAnimatedStyle, useReducedMotion, useSharedValue, withDelay
 
 import { fill, joinList, S } from '@/copy/strings';
 import { nextRoute } from '@/flow';
+import { formatDate, fromISODate } from '@/lib/dates';
 import { EASE_OUT, ENTER_FROM_SCALE, ENTER_MS, staggerAt } from '@/motion/tokens';
 import { OnboardingState, useOnboarding } from '@/state/onboarding';
 import { FONT_CAP } from '@/theme/tokens';
@@ -28,6 +29,7 @@ function rows(s: OnboardingState) {
         ]
       : []),
     { label: S.snapshot.rowMeds, value: s.medicines.length ? joinList(s.medicines) : S.snapshot.noMeds },
+    ...(s.nextAppointment ? [{ label: S.snapshot.rowAppt, value: formatDate(fromISODate(s.nextAppointment)) }] : []),
     { label: S.snapshot.rowEnergy, value: s.energy !== null ? fill(S.snapshot.energyValue, { n: s.energy }) : S.snapshot.noEnergy },
     { label: null, value: symptom ? fill(S.snapshot.watch, { symptom: symptom.toLowerCase() }) : S.snapshot.watchDefault },
   ];
@@ -87,12 +89,12 @@ const styles = StyleSheet.create({
     borderRadius: 22,
     borderWidth: 1.5,
     borderColor: 'rgba(255,255,255,0.55)',
-    backgroundColor: 'rgba(38,108,196,0.32)', // blue-tinted glass keeps white text readable on the pale lower sky
+    backgroundColor: 'rgba(40,104,190,0.92)', // near-solid blue: white text stays 4.5:1+ over the pale lower sky (A-02)
     paddingHorizontal: 18,
     paddingVertical: 10,
     gap: 2,
   },
-  label: { fontSize: 13, lineHeight: 17, fontWeight: '600', color: 'rgba(255,255,255,0.8)' },
+  label: { fontSize: 13, lineHeight: 17, fontWeight: '600', color: '#FFFFFF' },
   value: { fontSize: 16, lineHeight: 21, fontWeight: '600', color: '#FFFFFF' },
   watch: { fontSize: 16, lineHeight: 21, fontWeight: '600', color: '#FFFFFF' },
 });

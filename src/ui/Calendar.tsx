@@ -68,7 +68,7 @@ export function Calendar({ value, onChange, today }: { value: string | null; onC
               <View
                 style={[
                   styles.disc,
-                  { backgroundColor: selected ? colors.orange : 'transparent', transitionProperty: 'backgroundColor', transitionDuration: STATE_MS } as object,
+                  { backgroundColor: selected ? colors.orangeStrong : 'transparent', transitionProperty: 'backgroundColor', transitionDuration: STATE_MS } as object,
                 ]}>
                 <Text maxFontSizeMultiplier={FONT_CAP} style={[styles.day, past && styles.past, isToday && styles.today, selected && styles.selected]}>{day}</Text>
               </View>
@@ -92,6 +92,6 @@ const styles = StyleSheet.create({
   disc: { width: 38, height: 38, borderRadius: 19, alignItems: 'center', justifyContent: 'center' },
   day: { fontSize: 20, color: colors.ink, fontVariant: ['tabular-nums'] },
   past: { color: '#BDBBBC' },
-  today: { color: colors.orange, fontWeight: '600' },
+  today: { color: colors.orangeStrong, fontWeight: '600' },
   selected: { color: '#FFFFFF', fontWeight: '600' },
 });

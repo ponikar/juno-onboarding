@@ -11,6 +11,7 @@ import { STATE_MS } from '@/motion/tokens';
 import { OnboardingState, Plan, useOnboarding } from '@/state/onboarding';
 import { colors, radius, shadow, type, FONT_CAP } from '@/theme/tokens';
 import { bg, key, mascotCardPeek, shield, sparkle } from '@/ui/art';
+import { Tick } from '@/ui/Chip';
 import { haptic } from '@/ui/haptics';
 import { PressableScale } from '@/ui/PressableScale';
 import { PrimaryButton, TextLink } from '@/ui/PrimaryButton';
@@ -153,7 +154,7 @@ function PlanCard({ selected, onPress, title, sub, children }: {
   return (
     <PressableScale
       accessibilityRole="radio"
-      accessibilityState={{ selected }}
+      accessibilityState={{ checked: selected }}
       accessibilityLabel={`${title}, ${sub}`}
       onPress={onPress}
       style={[
@@ -162,7 +163,10 @@ function PlanCard({ selected, onPress, title, sub, children }: {
         { transitionProperty: ['borderTopColor', 'borderRightColor', 'borderBottomColor', 'borderLeftColor'], transitionDuration: STATE_MS } as object,
       ]}>
       <View style={styles.cardTop}>
-        <Text maxFontSizeMultiplier={FONT_CAP} style={styles.cardTitle}>{title}</Text>
+        <View style={styles.cardName}>
+          <Tick selected={selected} />
+          <Text maxFontSizeMultiplier={FONT_CAP} style={styles.cardTitle}>{title}</Text>
+        </View>
         {children}
       </View>
       <Text maxFontSizeMultiplier={FONT_CAP} style={styles.cardSub}>{sub}</Text>
@@ -185,10 +189,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
-    backgroundColor: '#E8783E',
+    backgroundColor: colors.orangeStrong,
     justifyContent: 'center',
   },
   tabText: { color: '#FFFFFF', fontSize: 13, fontWeight: '700', letterSpacing: 1.2 },
+  cardName: { flexDirection: 'row', alignItems: 'center', gap: 10 }, // the tick shows the choice without colour (A-06)
   card: { backgroundColor: colors.surface, borderRadius: radius.card - 6, borderWidth: 2.5, paddingHorizontal: 18, paddingVertical: 14 },
   cardOn: { borderLeftColor: '#8F8BF3', borderTopColor: '#C79BE6', borderRightColor: '#F4B272', borderBottomColor: '#E79CC0' },
   cardOff: { borderLeftColor: '#E8E6E7', borderTopColor: '#E8E6E7', borderRightColor: '#E8E6E7', borderBottomColor: '#E8E6E7' },
