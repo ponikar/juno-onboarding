@@ -62,6 +62,6 @@ export default function Commit() {
 }
 
 const styles = StyleSheet.create({
-  mascot: { alignSelf: 'center', width: 120, height: 90, marginTop: 12, marginBottom: -18 },
+  mascot: { alignSelf: 'flex-start', marginLeft: 12, width: 120, height: 90, marginTop: 12, marginBottom: -18 },
   list: { gap: 13, marginBottom: 8 },
 });

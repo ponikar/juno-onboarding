@@ -65,7 +65,7 @@ export default function Snapshot() {
       variant="sky"
       route="/snapshot"
       footer={<PrimaryButton label={S.snapshot.cta} onPress={() => router.push(nextRoute('/snapshot'))} />}>
-      <Title onSky sub={S.snapshot.sub}>{name ? fill(S.snapshot.title, { name }) : S.snapshot.titleAnon}</Title>
+      <Title onSky>{name ? fill(S.snapshot.title, { name }) : S.snapshot.titleAnon}</Title>
       <Animated.View style={[styles.card, cardStyle]}>
         {list.map((r, i) => (
           <Row key={i} label={r.label} value={r.value} index={i} last={i === list.length - 1} />

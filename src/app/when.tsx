@@ -34,7 +34,7 @@ export default function When() {
     <ScreenShell
       route="/when"
       footer={<PrimaryButton label={S.when.cta} disabled={!state.checkInTime} onPress={() => router.push(nextRoute('/when'))} testID="when-cta" />}>
-      <Title why={S.when.sub}>{S.when.q}</Title>
+      <Title>{S.when.q}</Title>
       <View style={styles.list}>
         {TIMES.map((t) => (
           <TimeRow key={t.id} label={t.label} hint={t.hint} selected={state.checkInTime === t.id} onPress={() => pick(t.id)} testID={`time-${t.id}`} />

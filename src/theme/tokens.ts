@@ -49,8 +49,8 @@ export const font = {
 };
 
 export const type = {
-  titleSky: { fontSize: 28, lineHeight: 34, ...font.bold, color: colors.skyText },
-  title: { fontSize: 26, lineHeight: 31, ...font.bold, color: colors.ink },
+  titleSky: { fontSize: 26, lineHeight: 32, ...font.bold, color: colors.skyText },
+  title: { fontSize: 24, lineHeight: 30, ...font.bold, color: colors.ink },
   subtitle: { fontSize: 15, lineHeight: 20, ...font.regular },
   body: { fontSize: 17, lineHeight: 22, ...font.regular, color: colors.ink },
   label: { fontSize: 18, lineHeight: 23, ...font.medium, color: colors.ink },

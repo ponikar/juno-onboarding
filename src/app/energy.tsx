@@ -18,7 +18,7 @@ export default function Energy() {
       route="/energy"
       reply={<JunoReply text={state.energy !== null ? S.energy.reply : null} />}
       footer={<PrimaryButton label={S.common.continue} onPress={() => router.push(nextRoute('/energy'))} />}>
-      <Title why={S.energy.why}>{S.energy.q}</Title>
+      <Title>{S.energy.q}</Title>
       <View style={styles.slider}>
         <EnergySlider
           value={state.energy}

@@ -62,7 +62,7 @@ export default function Health() {
       }>
       <View style={styles.fill}>
         {clusterY !== null && <View style={[StyleSheet.absoluteFill, { experimental_backgroundImage: backdrop(clusterY) }]} />}
-        <Title onSky why={S.health.why}>{S.health.q}</Title>
+        <Title onSky>{S.health.q}</Title>
         <Image
           source={healthCluster}
           style={styles.cluster}

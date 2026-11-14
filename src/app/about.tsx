@@ -33,6 +33,7 @@ export default function About() {
       footer={<PrimaryButton label={S.common.continue} onPress={() => router.push(nextRoute('/about'))} />}>
       <Title>{S.about.q}</Title>
       <TextField
+        autoFocus={!state.name}
         value={state.name}
         onChangeText={(t) => set({ name: t })}
         onBlur={() => {

@@ -158,7 +158,7 @@ const NOTIFY_IN = new Keyframe({
 }).duration(NOTIFY_LANDS_MS);
 
 const styles = StyleSheet.create({
-  mascot: { alignSelf: 'center', width: 96, height: 72, marginTop: 8, marginBottom: -22 },
+  mascot: { alignSelf: 'flex-start', marginLeft: 12, width: 96, height: 72, marginTop: 8, marginBottom: -22 },
   stage: { marginHorizontal: 16, padding: 12, borderRadius: radius.card, backgroundColor: colors.replyBubble, gap: 12 },
   notify: { backgroundColor: colors.surface, borderRadius: radius.panel, padding: 14, gap: 4 },
   notifyHead: { flexDirection: 'row', alignItems: 'center', gap: 8 },

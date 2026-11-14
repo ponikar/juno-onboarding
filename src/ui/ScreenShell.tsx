@@ -156,11 +156,11 @@ export function Title({ children, onSky, sub, why }: { children: string; onSky?:
   const rise = useTitleEnter();
   return (
     <View style={styles.titleWrap}>
-      <Animated.Text maxFontSizeMultiplier={TITLE_CAP} accessibilityRole="header" style={[onSky ? [type.titleSky, shadow.titleSky] : type.title, styles.center, rise]}>
+      <Animated.Text maxFontSizeMultiplier={TITLE_CAP} accessibilityRole="header" style={[onSky ? [type.titleSky, shadow.titleSky] : type.title, styles.left, rise]}>
         {children}
       </Animated.Text>
-      {sub ? <Text maxFontSizeMultiplier={FONT_CAP} style={[type.subtitle, styles.center, { color: onSky ? 'rgba(255,255,255,0.9)' : colors.inkSoft, marginTop: 10 }]}>{sub}</Text> : null}
-      {why ? <Text maxFontSizeMultiplier={FONT_CAP} style={[type.subtitle, styles.center, { color: onSky ? 'rgba(255,255,255,0.9)' : colors.inkSoft, marginTop: 8 }]}>{why}</Text> : null}
+      {sub ? <Text maxFontSizeMultiplier={FONT_CAP} style={[type.subtitle, styles.left, { color: onSky ? 'rgba(255,255,255,0.9)' : colors.inkSoft, marginTop: 6 }]}>{sub}</Text> : null}
+      {why ? <Text maxFontSizeMultiplier={FONT_CAP} style={[type.subtitle, styles.left, { color: onSky ? 'rgba(255,255,255,0.9)' : colors.inkSoft, marginTop: 6 }]}>{why}</Text> : null}
     </View>
   );
 }
@@ -183,6 +183,7 @@ const styles = StyleSheet.create({
   dock: { backgroundColor: colors.bg, paddingTop: 6, gap: 10 },
   dockFade: { position: 'absolute', left: 0, right: 0, top: -32, height: 32, experimental_backgroundImage: `linear-gradient(180deg, ${colors.bg}00 0%, ${colors.bg} 100%)` } as object,
   dockFooter: { paddingHorizontal: space.buttonGutter, gap: 4 },
-  titleWrap: { marginTop: 30, marginBottom: 24, paddingHorizontal: 36 },
+  titleWrap: { marginTop: 24, marginBottom: 20, paddingHorizontal: space.gutter + 2 }, // left edge lines up with the cards below
+  left: { textAlign: 'left' },
   center: { textAlign: 'center' },
 });

@@ -62,7 +62,7 @@ export default function Heard() {
     <ScreenShell
       route="/heard"
       footer={<PrimaryButton label={S.card.cta} onPress={() => router.push(nextRoute('/heard'))} testID="heard-continue" />}>
-      <Title sub={S.heard.sub}>{S.heard.title}</Title>
+      <Title>{S.heard.title}</Title>
 
       <View style={styles.userRow}>
         <View style={styles.userBubble}>

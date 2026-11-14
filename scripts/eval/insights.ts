@@ -36,13 +36,13 @@ check('4 flag on, unanswered -> F5', daysInsight({ support: null }, true).id, 'F
 
 // Check 5: copied from docs/specs/narration-v2.md section 6.
 const spec: [Insight, string, string, string, string][] = [
-  [F3, '8 years 10 months', 'is the average wait for an endometriosis diagnosis in the UK.', 'Source: Endometriosis UK, 2024', 'A long wait is common. It is not your fault.'],
-  [F4, '4 doctors', 'is the average seen before an autoimmune diagnosis.', 'Source: Autoimmune Association', 'A long road is common. It is not your fault.'],
-  [F8, '14 years', 'is how long Isaac, who co-built Juno, waited for his diagnosis.', "Source: Juno's founders", 'Still looking is common. It is not your fault.'],
-  [F2, '1 in 4', 'adults in England live with two or more long-term conditions.', 'Source: Richmond Group of Charities', 'You are far from the only one.'],
-  [F1, '6 in 10', 'US adults live with at least one chronic condition.', 'Source: CDC', 'You are far from the only one.'],
-  [F6, '3 in 4', 'people starting Juno said the same about support.', 'Source: Juno onboarding data', 'You have one more now.'],
-  [F5, '11 seconds', 'is how long patients spoke before the doctor cut in, in one US study.', 'Source: Journal of General Internal Medicine', "Your page speaks first, so you don't have to rush."],
+  [F3, '8 years 10 months', 'average wait for an endometriosis diagnosis in the UK.', 'Source: Endometriosis UK, 2024', 'A long wait is common. It is not your fault.'],
+  [F4, '4 doctors', 'seen on average before an autoimmune diagnosis.', 'Source: Autoimmune Association', 'A long road is common. It is not your fault.'],
+  [F8, '14 years', 'Isaac, who co-built Juno, waited for a diagnosis.', "Source: Juno's founders", 'Still looking is common. It is not your fault.'],
+  [F2, '1 in 4', 'adults in England have two or more long-term conditions.', 'Source: Richmond Group of Charities', 'You are far from the only one.'],
+  [F1, '6 in 10', 'US adults have a chronic condition.', 'Source: CDC', 'You are far from the only one.'],
+  [F6, '3 in 4', 'people starting Juno said the same.', 'Source: Juno onboarding data', 'You have one more now.'],
+  [F5, '11 seconds', 'before the doctor cut in, in one US study.', 'Source: Journal of General Internal Medicine', "Your page speaks first, so you don't have to rush."],
 ];
 for (const [f, stat, label, source, kind] of spec) {
   check(`5 ${f.id} matches spec`, [f.stat, f.label, f.source, f.kind], [stat, label, source, kind]);

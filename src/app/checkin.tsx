@@ -105,15 +105,15 @@ export default function CheckIn() {
 
 const styles = StyleSheet.create({
   body: { flex: 1, justifyContent: 'center', paddingBottom: 8 },
-  mascot: { alignSelf: 'center', width: 112, height: 84, marginBottom: 4 },
+  mascot: { alignSelf: 'flex-start', marginLeft: 12, width: 112, height: 84, marginBottom: 4 },
   group: { marginTop: 22, gap: 22 },
   groupCompact: { marginTop: 10, gap: 14 },
-  list: { gap: 12, alignSelf: 'center' },
+  list: { gap: 12, paddingHorizontal: 16 },
   listCompact: { gap: 6 },
   row: { flexDirection: 'row', alignItems: 'center', gap: 12 },
   icon: { width: 32, height: 32, borderRadius: 16, backgroundColor: 'rgba(255,255,255,0.22)', alignItems: 'center', justifyContent: 'center' },
   rowText: { fontSize: 17, lineHeight: 22, fontWeight: '600', color: colors.skyText },
   remind: { gap: 10 },
   remindCompact: { gap: 8 },
-  remindLabel: { fontSize: 15, lineHeight: 20, fontWeight: '600', color: colors.skyText, marginLeft: 22 },
+  remindLabel: { fontSize: 15, lineHeight: 20, fontWeight: '600', color: colors.skyText, marginLeft: 16 },
 });
