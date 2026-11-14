@@ -7,7 +7,7 @@ const last = (k: string) => k.split('.').pop()!.replace(/\[\d+\]$/, '');
 // D-01 headlines and questions
 const HEAD = /^(q|title|titleAnon|trialTitle|freeTitle|exitQ|headline)$/;
 const heads = all.filter(
-  (e) => !EXEMPT.has(e.key) && (HEAD.test(last(e.key)) || e.key.startsWith('plans.headline.') || e.key === 'notify.trial' || e.key === 'notify.free') && !e.key.startsWith('how.rows'),
+  (e) => !EXEMPT.has(e.key) && (HEAD.test(last(e.key)) || e.key.startsWith('plans.headline.') || e.key === 'notify.withTime' || e.key === 'notify.free') && !e.key.startsWith('how.rows'),
 );
 for (const e of heads) {
   const w = words(e.value).length, c = e.value.length;

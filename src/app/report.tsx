@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { fill, joinList, S } from '@/copy/strings';
@@ -37,9 +37,15 @@ export default function Report() {
   const plan = useFlag('projection') ? projection(state, new Date()) : null;
   const nodes = projectionTimeline(state.nextAppointment, new Date());
 
-  const check = (offset: number, h = viewH, y = timelineY) => {
-    if (!seen && h > 0 && y !== null && y + VISIBLE_PT <= offset + h) setSeen(true);
+  const offset = useRef(0);
+  const check = (o: number, h = viewH, y = timelineY) => {
+    offset.current = o;
+    if (!seen && h > 0 && y !== null && y + VISIBLE_PT <= o + h) setSeen(true);
   };
+  // Both layouts land in separate renders; check again once both are known (timeline already in view on tall phones).
+  useEffect(() => {
+    if (!seen && viewH > 0 && timelineY !== null && timelineY + VISIBLE_PT <= offset.current + viewH) setSeen(true);
+  }, [seen, viewH, timelineY]);
 
   return (
     <ScreenShell route="/report" scroll={false} footer={<PrimaryButton label={S.project.cta} onPress={() => router.push('/save')} />}>

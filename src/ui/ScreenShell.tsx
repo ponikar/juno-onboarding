@@ -30,6 +30,9 @@ type Props = {
   headerRight?: ReactNode;
 };
 
+// Height the flow bar row adds under the nav (marginTop 6 + label 18 + gap 5 + bar 3), for screens that size art from the nav.
+export const FLOW_BAR_ROW = 32;
+
 export function ScreenShell({ children, variant = 'plain', background, backgroundHeight, backgroundTop = 0, route, back = true, close, footer, scroll = true, headerRight }: Props) {
   const insets = useSafeAreaInsets();
   const keyboard = useKeyboardOpen();
@@ -58,11 +61,16 @@ export function ScreenShell({ children, variant = 'plain', background, backgroun
       )}
       <View style={[styles.nav, { marginTop: insets.top + 10 }]}>
         <View style={styles.navSide}>{back ? <NavButton icon="arrow.left" label={S.common.back} onSky={onSky} onPress={onBack} /> : null}</View>
-        <View style={styles.navMid}>{bar && <FlowBar seg={bar.seg} fraction={bar.fraction} done={bar.done} onSky={onSky} />}</View>
+        <View style={styles.navMid} />
         <View style={[styles.navSide, { alignItems: 'flex-end' }]}>
           {close ? <NavButton icon="xmark" label={S.common.close} onSky={onSky} onPress={close} /> : headerRight}
         </View>
       </View>
+      {bar && (
+        <View style={styles.barRow}>
+          <FlowBar seg={bar.seg} fraction={bar.fraction} done={bar.done} onSky={onSky} />
+        </View>
+      )}
       <Animated.View style={[styles.body, enter]}>
         <Body
           style={styles.body}
@@ -135,7 +143,8 @@ const styles = StyleSheet.create({
   bgArt: { position: 'absolute', top: 0, left: 0, right: 0, width: '100%' },
   nav: { height: size.nav, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 15 },
   navSide: { width: 60 },
-  navMid: { flex: 1, alignItems: 'center', paddingHorizontal: 8 },
+  navMid: { flex: 1 },
+  barRow: { paddingHorizontal: 16, marginTop: 6 }, // spec 7.1: full width, under the nav row
   navBtn: { width: size.nav, height: size.nav, borderRadius: size.nav / 2, alignItems: 'center', justifyContent: 'center' },
   navBtnPlain: { backgroundColor: '#FCFAFB' },
   navBtnSky: { backgroundColor: colors.skyGlass },

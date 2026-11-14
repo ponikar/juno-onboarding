@@ -4,7 +4,7 @@ import { ActivityIndicator, Image, ImageSourcePropType, StyleSheet, Text, View }
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { S } from '@/copy/strings';
-import { flowBarFor, nextRoute } from '@/flow';
+import { flowBarFor, nextRoute, prevRoute } from '@/flow';
 import { track } from '@/lib/track';
 import { useOnboarding } from '@/state/onboarding';
 import { colors, radius, size, type, FONT_CAP } from '@/theme/tokens';
@@ -51,7 +51,7 @@ export default function Save() {
       <View style={[StyleSheet.absoluteFill, styles.dim]} />
       <View style={[styles.nav, { marginTop: insets.top + 10 }]}>
         <View style={styles.navSide}>
-          <NavButton icon="arrow.left" label={S.common.back} onSky onPress={() => (router.canGoBack() ? router.back() : router.replace('/snapshot'))} />
+          <NavButton icon="arrow.left" label={S.common.back} onSky onPress={() => (router.canGoBack() ? router.back() : router.replace(prevRoute('/save')))} />
         </View>
         <View style={styles.navMid}>
           {bar && <FlowBar seg={bar.seg} fraction={bar.fraction} done={bar.done} onSky />}

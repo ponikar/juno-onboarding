@@ -2,7 +2,14 @@
 # Start state: open exp://127.0.0.1:8082/--/welcome?preset=empty&fresh=1 first (scripts/eval/maestro/run.sh does it).
 appId: host.exp.Exponent
 ---
-- tapOn: "Try it now"
+- repeat:
+    times: 4
+    while:
+      notVisible:
+        id: "story-cta"
+    commands:
+      - waitForAnimationToEnd
+      - tapOn: "Try it now"
 - waitForAnimationToEnd
 - tapOn:
     id: "story-cta"

@@ -42,7 +42,7 @@ export default function Consent() {
               <Text maxFontSizeMultiplier={FONT_CAP} style={styles.strong}>{S.consent.terms}</Text>
             </Text>
           </PressableScale>
-          <PrimaryButton label={S.common.continue} disabled={!agreed} onPress={() => router.push(nextRoute('/consent'))} testID="consent-continue" />
+          <PrimaryButton label={S.card.cta} disabled={!agreed} onPress={() => router.push(nextRoute('/consent'))} testID="consent-continue" />
         </View>
       </View>
     </ScreenShell>

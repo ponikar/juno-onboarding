@@ -83,6 +83,7 @@ export default function Plans() {
 
   return (
     <ScreenShell
+      route="/plans"
       variant="sky"
       background={bg.plans}
       backgroundHeight={385}

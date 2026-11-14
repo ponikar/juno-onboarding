@@ -12,7 +12,7 @@ import { colors, shadow, size, type, FONT_CAP } from '@/theme/tokens';
 import { bg, honestyIcons } from '@/ui/art';
 import { Icon } from '@/ui/Icon';
 import { PrimaryButton } from '@/ui/PrimaryButton';
-import { ScreenShell } from '@/ui/ScreenShell';
+import { FLOW_BAR_ROW, ScreenShell } from '@/ui/ScreenShell';
 
 const ART_H = 362;
 const CROP = 70; // empty sky above the title; keeps the charge date above the fold
@@ -32,6 +32,7 @@ export default function How() {
 
   return (
     <ScreenShell
+      route="/how"
       variant="sky"
       background={bg.honesty}
       backgroundHeight={ART_H}
@@ -45,7 +46,7 @@ export default function How() {
           <PrimaryButton label={S.how.cta} onPress={() => router.push(nextRoute('/how'))} />
         </>
       }>
-      <View style={{ height: ART_H - CROP - insets.top - 10 - size.nav }}>
+      <View style={{ height: ART_H - CROP - insets.top - 10 - size.nav - FLOW_BAR_ROW }}>
         <Text maxFontSizeMultiplier={FONT_CAP} accessibilityRole="header" style={[type.titleSky, shadow.titleSky, styles.title]}>{S.how.title}</Text>
       </View>
 

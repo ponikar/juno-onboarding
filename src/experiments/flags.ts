@@ -1,11 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useSyncExternalStore } from 'react';
 
-// Experiment switches for the debug menu. All default on; switching one off shows the screen as before.
+// Experiment switches for the debug menu. Switching one off shows the screen as before.
 export const FLAGS = {
-  projection: 'Personal projection (15, 16)',
-  actionEnding: 'Sleep reply in first chat (21)',
-  activationTracking: 'Activation tracking (4)',
+  projection: 'Personal projection (19, 20)',
+  actionEnding: 'Sleep reply in first chat (25)',
+  activationTracking: 'Activation tracking (5)',
 } as const;
 export type Flag = keyof typeof FLAGS;
 

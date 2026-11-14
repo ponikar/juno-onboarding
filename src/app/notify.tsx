@@ -28,6 +28,7 @@ export default function Notify() {
 
   return (
     <ScreenShell
+      route="/notify"
       variant="sky"
       background={bg.bell}
       scroll={false}

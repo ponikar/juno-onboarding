@@ -46,12 +46,12 @@ export function FlowBar({ seg, fraction, done, onSky }: { seg: Seg; fraction: nu
       <View>
         {oldLabel ? (
           <Animated.View style={[styles.labelRow, styles.old, outAnim]}>
-            <Text maxFontSizeMultiplier={FONT_CAP} numberOfLines={1} style={[styles.label, { color: ink }]}>{oldLabel}</Text>
+            <Text maxFontSizeMultiplier={FONT_CAP} style={[styles.label, { color: ink }]}>{oldLabel}</Text>
           </Animated.View>
         ) : null}
         <Animated.View style={[styles.labelRow, inAnim]}>
           {done ? <Icon name="checkmark" size={11} color={ink} weight="bold" /> : null}
-          <Text maxFontSizeMultiplier={FONT_CAP} numberOfLines={1} style={[styles.label, { color: ink }]}>{label}</Text>
+          <Text maxFontSizeMultiplier={FONT_CAP} style={[styles.label, { color: ink }]}>{label}</Text>
         </Animated.View>
       </View>
       <View style={[styles.bar, { backgroundColor: track }]}>

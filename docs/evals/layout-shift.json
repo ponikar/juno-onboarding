@@ -1,5 +1,117 @@
 {
+ "welcome": {
+  "load": {},
+  "tap": {}
+ },
+ "consent-tick": {
+  "load": {},
+  "tap": {}
+ },
+ "try-chip": {
+  "load": {},
+  "tap": {}
+ },
+ "heard": {
+  "load": {},
+  "tap": {}
+ },
+ "goals-pick": {
+  "load": {},
+  "tap": {}
+ },
+ "conditions-pick": {
+  "load": {},
+  "tap": {}
+ },
+ "conditions-seeking": {
+  "load": {},
+  "tap": {}
+ },
+ "symptoms-pick": {
+  "load": {},
+  "tap": {}
+ },
+ "meds-pick": {
+  "load": {},
+  "tap": {}
+ },
+ "appointment-date": {
+  "load": {},
+  "tap": {}
+ },
+ "appointment-none": {
+  "load": {},
+  "tap": {}
+ },
+ "energy": {
+  "load": {},
+  "tap": {}
+ },
+ "support-pick": {
+  "load": {},
+  "tap": {}
+ },
+ "about-pick": {
+  "load": {},
+  "tap": {}
+ },
+ "health": {
+  "load": {},
+  "tap": {}
+ },
+ "snapshot": {
+  "load": {},
+  "tap": {}
+ },
+ "save": {
+  "load": {},
+  "tap": {}
+ },
+ "how": {
+  "load": {},
+  "tap": {}
+ },
+ "plans-monthly": {
+  "load": {},
+  "tap": {}
+ },
+ "notify": {
+  "load": {},
+  "tap": {}
+ },
+ "done": {
+  "load": {},
+  "tap": {}
+ },
+ "chat-suggestion": {
+  "load": {},
+  "tap": {}
+ },
+ "conditions-A-pick": {
+  "load": {},
+  "tap": {}
+ },
+ "conditions-B-pick": {
+  "load": {},
+  "tap": {}
+ },
  "conditions-C-pick": {
+  "load": {},
+  "tap": {}
+ },
+ "story": {
+  "load": {},
+  "tap": {}
+ },
+ "insight-health": {
+  "load": {},
+  "tap": {}
+ },
+ "insight-days": {
+  "load": {},
+  "tap": {}
+ },
+ "promise-pick": {
   "load": {},
   "tap": {}
  }
