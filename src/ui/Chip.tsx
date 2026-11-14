@@ -1,12 +1,15 @@
-import { useEffect } from 'react';
+import { createContext, useContext, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Animated, { useAnimatedStyle, useReducedMotion, useSharedValue, withDelay, withTiming } from 'react-native-reanimated';
 
 import { EASE_OUT, STATE_MS } from '@/motion/tokens';
-import { colors, radius, size, type, FONT_CAP } from '@/theme/tokens';
+import { colors, radius, shadow, size, type, FONT_CAP } from '@/theme/tokens';
 import { haptic } from './haptics';
 import { Icon } from './Icon';
 import { PressableScale } from './PressableScale';
+
+// On the sky, chips are white cards with a soft shadow and no outline (Figma 14 goals / 45 support cards).
+const OnSky = createContext(false);
 
 // Pill chip with a radio/tick, as on Figma 17 conditions and 20 symptoms.
 export function Chip({ label, selected, onToggle, preTicked, testID }: {
@@ -16,6 +19,7 @@ export function Chip({ label, selected, onToggle, preTicked, testID }: {
   preTicked?: boolean; // ticked by Juno from screen 4: fades from 60% to full once
   testID?: string;
 }) {
+  const onSky = useContext(OnSky);
   return (
     <PressableScale
       testID={testID}
@@ -29,9 +33,10 @@ export function Chip({ label, selected, onToggle, preTicked, testID }: {
       }}
       style={[
         styles.chip,
+        onSky && !selected && shadow.card,
         {
           backgroundColor: selected ? colors.orangeFill : colors.surface,
-          borderColor: selected ? colors.orangeBorder : colors.hairline,
+          borderColor: selected ? colors.orangeBorder : onSky ? colors.surface : colors.hairline,
           transitionProperty: ['backgroundColor', 'borderColor'],
           transitionDuration: STATE_MS,
         } as object,
@@ -66,8 +71,12 @@ export function Tick({ selected, preTicked, big, ringless }: { selected: boolean
   );
 }
 
-export function ChipWrap({ children }: { children: React.ReactNode }) {
-  return <View style={styles.wrap}>{children}</View>;
+export function ChipWrap({ children, onSky = false }: { children: React.ReactNode; onSky?: boolean }) {
+  return (
+    <OnSky.Provider value={onSky}>
+      <View style={styles.wrap}>{children}</View>
+    </OnSky.Provider>
+  );
 }
 
 const styles = StyleSheet.create({

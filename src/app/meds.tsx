@@ -51,6 +51,7 @@ export default function Meds() {
 
   return (
     <ScreenShell
+      variant="sky"
       route="/meds"
       reply={<JunoReply text={changed ? S.meds.reply : null} />}
       footer={
@@ -64,13 +65,13 @@ export default function Meds() {
           </View>
         </>
       }>
-      <Title why={S.meds.why}>{S.meds.q}</Title>
+      <Title onSky why={S.meds.why}>{S.meds.q}</Title>
       <SearchField placeholder={S.meds.search} value={query} onChangeText={setQuery} accessibilityLabel={S.meds.search} />
       <View style={styles.group}>
         <Text maxFontSizeMultiplier={FONT_CAP} style={styles.groupText}>{group}</Text>
         <View style={styles.rule} />
       </View>
-      <ChipWrap>
+      <ChipWrap onSky>
         {custom && (
           <Chip
             label={fill(S.common.addCustom, { text: custom })}
@@ -94,8 +95,8 @@ export default function Meds() {
 
 const styles = StyleSheet.create({
   group: { flexDirection: 'row', alignItems: 'center', gap: 12, paddingLeft: space.gutter, marginTop: 30, marginBottom: 18 },
-  groupText: { fontSize: 16, lineHeight: 21, fontWeight: '600', color: colors.muted },
-  rule: { flex: 1, height: 1.5, backgroundColor: '#C9CFDA' },
+  groupText: { fontSize: 16, lineHeight: 21, fontWeight: '600', color: colors.skyText },
+  rule: { flex: 1, height: 1.5, backgroundColor: 'rgba(255,255,255,0.5)' },
   escapeRow: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', columnGap: 4 },
   escapeDivider: { width: 1, height: 18, backgroundColor: colors.hairline },
 });

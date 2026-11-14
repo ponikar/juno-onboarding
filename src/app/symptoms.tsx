@@ -52,6 +52,7 @@ export default function Symptoms() {
 
   return (
     <ScreenShell
+      variant="sky"
       route="/symptoms"
       reply={<JunoReply text={changed ? S.symptoms.reply : null} />}
       footer={
@@ -60,13 +61,13 @@ export default function Symptoms() {
           <EscapeButton label={S.symptoms.none} selected={state.noSymptoms} onPress={toggleNone} />
         </>
       }>
-      <Title why={S.symptoms.why}>{S.symptoms.q}</Title>
+      <Title onSky why={S.symptoms.why}>{S.symptoms.q}</Title>
       <SearchField placeholder={S.symptoms.search} value={query} onChangeText={setQuery} accessibilityLabel={S.symptoms.search} />
       <View style={styles.group}>
         <Text maxFontSizeMultiplier={FONT_CAP} style={styles.groupText}>{group}</Text>
         <View style={styles.rule} />
       </View>
-      <ChipWrap>
+      <ChipWrap onSky>
         {custom && (
           <Chip
             label={fill(S.common.addCustom, { text: custom })}
@@ -96,6 +97,6 @@ export default function Symptoms() {
 
 const styles = StyleSheet.create({
   group: { flexDirection: 'row', alignItems: 'center', gap: 12, paddingLeft: space.gutter, marginTop: 30, marginBottom: 18 },
-  groupText: { fontSize: 16, lineHeight: 21, fontWeight: '600', color: colors.muted },
-  rule: { flex: 1, height: 1.5, backgroundColor: '#C9CFDA' },
+  groupText: { fontSize: 16, lineHeight: 21, fontWeight: '600', color: colors.skyText },
+  rule: { flex: 1, height: 1.5, backgroundColor: 'rgba(255,255,255,0.5)' },
 });

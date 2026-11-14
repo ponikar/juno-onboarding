@@ -47,6 +47,7 @@ export function ConditionsCurrent() {
 
   return (
     <ScreenShell
+      variant="sky"
       route="/conditions"
       reply={<JunoReply text={reply} />}
       footer={
@@ -59,10 +60,10 @@ export function ConditionsCurrent() {
           <EscapeButton label={S.conditions.seeking} selected={state.seekingDiagnosis} onPress={toggleSeeking} />
         </>
       }>
-      <Title why={S.conditions.why}>{S.conditions.q}</Title>
+      <Title onSky why={S.conditions.why}>{S.conditions.q}</Title>
       <SearchField placeholder={S.conditions.search} value={query} onChangeText={setQuery} accessibilityLabel={S.conditions.search} />
       <View style={styles.list}>
-        <ChipWrap>
+        <ChipWrap onSky>
           {custom && (
             <Chip
               label={fill(S.common.addCustom, { text: custom })}
