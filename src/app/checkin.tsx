@@ -1,14 +1,13 @@
 import { router } from 'expo-router';
 import { useState } from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
-import Animated, { Easing, FadeIn, Keyframe } from 'react-native-reanimated';
+import { StyleSheet, Text, useWindowDimensions, View } from 'react-native';
+import Animated, { Keyframe } from 'react-native-reanimated';
 
-import { fill, S } from '@/copy/strings';
+import { S } from '@/copy/strings';
 import { track } from '@/lib/track';
 import { EASE_OUT, STATE_MS } from '@/motion/tokens';
 import { useOnboarding } from '@/state/onboarding';
-import { colors, radius, shadow, type, FONT_CAP } from '@/theme/tokens';
-import { avatar, chatIcons } from '@/ui/art';
+import { colors, radius, FONT_CAP } from '@/theme/tokens';
 import { haptic } from '@/ui/haptics';
 import { Icon } from '@/ui/Icon';
 import { Mascot } from '@/ui/Mascot';
@@ -20,22 +19,23 @@ import { ScreenShell, Title } from '@/ui/ScreenShell';
 type Time = 'morning' | 'afternoon' | 'evening';
 const TIMES: Time[] = ['morning', 'afternoon', 'evening'];
 const LABEL: Record<Time, string> = { morning: S.commit.morning, afternoon: S.commit.afternoon, evening: S.commit.evening };
-const YOU_ICONS = [avatar, chatIcons.log, chatIcons.vent];
+const ICONS = ['bubble.left.fill', 'hand.tap.fill', 'cloud.rain.fill'];
+const TIME_ICON: Record<Time, string> = { morning: 'sunrise.fill', afternoon: 'sun.max.fill', evening: 'moon.fill' };
 
-// Cards arrive in reading order: "What you do" then "What Juno does" overlapping it (choreograph: overlap, one lead).
-const cardIn = (delay: number) =>
-  new Keyframe({
-    0: { opacity: 0, transform: [{ translateY: 10 }] },
-    100: { opacity: 1, transform: [{ translateY: 0 }], easing: EASE_OUT },
-  })
-    .duration(280)
-    .delay(delay);
+// The list and the time picker arrive together just after the title (choreograph: one lead, the rest as one).
+const groupIn = new Keyframe({
+  0: { opacity: 0, transform: [{ translateY: 8 }] },
+  100: { opacity: 1, transform: [{ translateY: 0 }], easing: EASE_OUT },
+})
+  .duration(260)
+  .delay(80);
 
-// The commitment, right before the first chat: what the user does each day, when Juno checks in, then the reminder permission.
+// The commitment, right before the first chat: what the user does, when Juno reminds them, then the permission.
 export default function CheckIn() {
   const { state, set } = useOnboarding();
   const [time, setTime] = useState<Time>(state.checkInTime ?? 'evening');
   const [prompt, setPrompt] = useState(false);
+  const compact = useWindowDimensions().height < 740; // iPhone SE and similar: keep everything above the buttons
 
   const pick = (t: Time) => {
     if (t === time) return;
@@ -60,63 +60,60 @@ export default function CheckIn() {
   return (
     <ScreenShell
       route="/checkin"
+      scroll={false}
       footer={
         <>
           <PrimaryButton label={S.checkin.cta} onPress={commit} testID="checkin-cta" />
           <TextLink label={S.checkin.later} onPress={() => finish(false)} />
         </>
       }>
-      <Mascot style={styles.mascot} />
-      <Title sub={S.checkin.sub}>{S.checkin.title}</Title>
+      <View style={styles.body}>
+        <Mascot style={[styles.mascot, compact && styles.mascotCompact]} />
+        <Title sub={S.checkin.sub}>{S.checkin.title}</Title>
 
-      <Animated.View entering={cardIn(120)} style={[styles.card, shadow.card]}>
-        <Text maxFontSizeMultiplier={FONT_CAP} style={styles.cardTitle}>{S.checkin.youTitle}</Text>
-        {S.checkin.you.map((line, i) => (
-          <View key={line} style={styles.row}>
-            <Image source={YOU_ICONS[i]} style={styles.rowIcon} />
-            <Text maxFontSizeMultiplier={FONT_CAP} style={styles.rowText}>{line}</Text>
+        <Animated.View entering={groupIn} style={[styles.group, compact && styles.groupCompact]}>
+          <View style={[styles.list, compact && styles.listCompact]}>
+            {S.checkin.you.map((line, i) => (
+              <View key={line} style={styles.row}>
+                <View style={styles.icon}>
+                  <Icon name={ICONS[i]} size={17} color={colors.orangeStrong} />
+                </View>
+                <Text maxFontSizeMultiplier={FONT_CAP} style={styles.rowText}>{line}</Text>
+              </View>
+            ))}
           </View>
-        ))}
-      </Animated.View>
 
-      <Animated.View entering={cardIn(200)} style={[styles.card, styles.junoCard, shadow.card]}>
-        <View style={styles.junoHead}>
-          <View style={styles.bell}>
-            <Icon name="bell.fill" size={16} color="#FFFFFF" />
+          <View style={styles.remind}>
+            <Text maxFontSizeMultiplier={FONT_CAP} style={styles.remindLabel}>{S.checkin.remind}</Text>
+            <View style={styles.times} accessibilityRole="radiogroup">
+              {TIMES.map((t) => {
+                const on = t === time;
+                return (
+                  <PressableScale
+                    key={t}
+                    accessibilityRole="radio"
+                    accessibilityState={{ checked: on }}
+                    accessibilityLabel={`${LABEL[t]}, ${S.checkin.clock[t]}`}
+                    selected={on}
+                    onPress={() => pick(t)}
+                    style={[
+                      styles.time,
+                      {
+                        backgroundColor: on ? colors.orangeFill : colors.surface,
+                        borderColor: on ? colors.orangeBorder : colors.hairline,
+                        transitionProperty: ['backgroundColor', 'borderColor'],
+                        transitionDuration: STATE_MS,
+                      } as object,
+                    ]}>
+                    <Icon name={TIME_ICON[t]} size={16} color={on ? colors.orangeStrong : colors.muted} />
+                    <Text maxFontSizeMultiplier={FONT_CAP} style={[styles.timeLabel, on && styles.timeOn]}>{S.checkin.clock[t]}</Text>
+                  </PressableScale>
+                );
+              })}
+            </View>
           </View>
-          <Text maxFontSizeMultiplier={FONT_CAP} style={styles.cardTitle}>{S.checkin.junoTitle}</Text>
-        </View>
-        <Animated.Text key={time} entering={FadeIn.duration(STATE_MS).easing(Easing.out(Easing.quad))} maxFontSizeMultiplier={FONT_CAP} style={styles.junoLine}>
-          {fill(S.checkin.junoLine, { time: LABEL[time].toLowerCase(), clock: S.checkin.clock[time] })}
-        </Animated.Text>
-        <View style={styles.times} accessibilityRole="radiogroup">
-          {TIMES.map((t) => {
-            const on = t === time;
-            return (
-              <PressableScale
-                key={t}
-                accessibilityRole="radio"
-                accessibilityState={{ checked: on }}
-                accessibilityLabel={`${LABEL[t]}, ${S.checkin.clock[t]}`}
-                selected={on}
-                onPress={() => pick(t)}
-                style={[
-                  styles.time,
-                  {
-                    backgroundColor: on ? colors.orangeFill : colors.surface,
-                    borderColor: on ? colors.orangeBorder : colors.hairline,
-                    transitionProperty: ['backgroundColor', 'borderColor'],
-                    transitionDuration: STATE_MS,
-                  } as object,
-                ]}>
-                <Text maxFontSizeMultiplier={FONT_CAP} style={[styles.timeLabel, on && styles.timeOn]}>{LABEL[t]}</Text>
-                <Text maxFontSizeMultiplier={FONT_CAP} style={styles.timeClock}>{S.checkin.clock[t]}</Text>
-              </PressableScale>
-            );
-          })}
-        </View>
-        <Text maxFontSizeMultiplier={FONT_CAP} style={styles.junoLine2}>{S.checkin.junoLine2}</Text>
-      </Animated.View>
+        </Animated.View>
+      </View>
 
       <NotificationPrompt visible={prompt} onAnswer={finish} />
     </ScreenShell>
@@ -124,20 +121,20 @@ export default function CheckIn() {
 }
 
 const styles = StyleSheet.create({
-  mascot: { alignSelf: 'center', width: 96, height: 72 },
-  card: { marginHorizontal: 16, marginTop: 14, backgroundColor: colors.surface, borderRadius: radius.card, paddingHorizontal: 16, paddingVertical: 14, gap: 10 },
-  junoCard: { gap: 10 },
-  cardTitle: { ...type.label, fontWeight: '700' },
-  row: { flexDirection: 'row', alignItems: 'center', gap: 12 },
-  rowIcon: { width: 28, height: 28, borderRadius: 14 },
-  rowText: { flex: 1, fontSize: 15, lineHeight: 20, color: colors.ink },
-  junoHead: { flexDirection: 'row', alignItems: 'center', gap: 10 },
-  bell: { width: 28, height: 28, borderRadius: 14, backgroundColor: colors.orange, alignItems: 'center', justifyContent: 'center' },
-  junoLine: { fontSize: 17, lineHeight: 23, fontWeight: '600', color: colors.ink },
-  junoLine2: { fontSize: 15, lineHeight: 20, color: colors.inkSoft },
-  times: { flexDirection: 'row', gap: 8 },
-  time: { flex: 1, minHeight: 52, borderRadius: radius.pill, borderWidth: 1.5, alignItems: 'center', justifyContent: 'center', paddingVertical: 6 },
-  timeLabel: { fontSize: 15, lineHeight: 19, fontWeight: '600', color: colors.inkSoft },
+  body: { flex: 1, justifyContent: 'center', paddingBottom: 12 },
+  mascot: { alignSelf: 'center', width: 120, height: 90, marginBottom: 6 },
+  mascotCompact: { width: 80, height: 60, marginBottom: 0 },
+  group: { marginTop: 32, paddingHorizontal: 24, gap: 36 },
+  groupCompact: { marginTop: 16, gap: 18 },
+  list: { gap: 18, alignSelf: 'center' },
+  listCompact: { gap: 10 },
+  row: { flexDirection: 'row', alignItems: 'center', gap: 14 },
+  icon: { width: 36, height: 36, borderRadius: 18, backgroundColor: colors.orangeFill, alignItems: 'center', justifyContent: 'center' },
+  rowText: { fontSize: 18, lineHeight: 23, fontWeight: '500', color: colors.ink },
+  remind: { gap: 12 },
+  remindLabel: { fontSize: 15, lineHeight: 20, fontWeight: '600', color: colors.inkSoft, textAlign: 'center' },
+  times: { flexDirection: 'row', gap: 10 },
+  time: { flex: 1, minHeight: 48, borderRadius: radius.pill, borderWidth: 1.5, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6 },
+  timeLabel: { fontSize: 16, lineHeight: 20, fontWeight: '600', color: colors.inkSoft },
   timeOn: { color: colors.ink },
-  timeClock: { fontSize: 13, lineHeight: 17, color: colors.muted },
 });

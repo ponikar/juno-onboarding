@@ -7,12 +7,11 @@ import { nextRoute } from '@/flow';
 import { customEntry } from '@/lib/search';
 import { track } from '@/lib/track';
 import { useOnboarding } from '@/state/onboarding';
-import { colors, space, type, FONT_CAP } from '@/theme/tokens';
-import { Chip, ChipWrap, Tick } from '@/ui/Chip';
+import { colors, space, FONT_CAP } from '@/theme/tokens';
+import { Chip, ChipWrap } from '@/ui/Chip';
+import { EscapeButton } from '@/ui/EscapeButton';
 import { SearchField } from '@/ui/Fields';
-import { haptic } from '@/ui/haptics';
 import { JunoReply } from '@/ui/JunoReply';
-import { PressableScale } from '@/ui/PressableScale';
 import { PrimaryButton } from '@/ui/PrimaryButton';
 import { ScreenShell, Title } from '@/ui/ScreenShell';
 
@@ -43,7 +42,6 @@ export default function Symptoms() {
     track('answer', { screen: 'symptoms', symptoms });
   };
   const toggleNone = () => {
-    haptic.selection();
     set({ noSymptoms: !state.noSymptoms, symptoms: [], symptomsSeeded: true });
     setChanged(true);
     track('answer', { screen: 'symptoms', noSymptoms: !state.noSymptoms });
@@ -58,15 +56,7 @@ export default function Symptoms() {
       reply={<JunoReply text={changed ? S.symptoms.reply : null} />}
       footer={
         <>
-          <PressableScale
-            accessibilityRole="checkbox"
-            accessibilityState={{ checked: state.noSymptoms }}
-            accessibilityLabel={S.symptoms.none}
-            onPress={toggleNone}
-            style={styles.escape}>
-            <Tick selected={state.noSymptoms} />
-            <Text maxFontSizeMultiplier={FONT_CAP} style={type.link}>{S.symptoms.none}</Text>
-          </PressableScale>
+          <EscapeButton label={S.symptoms.none} selected={state.noSymptoms} onPress={toggleNone} />
           <PrimaryButton label={label} disabled={picked.length === 0 && !state.noSymptoms} onPress={() => router.push(nextRoute('/symptoms'))} />
         </>
       }>
@@ -108,12 +98,4 @@ const styles = StyleSheet.create({
   group: { flexDirection: 'row', alignItems: 'center', gap: 12, paddingLeft: space.gutter, marginTop: 30, marginBottom: 18 },
   groupText: { fontSize: 16, lineHeight: 21, fontWeight: '600', color: colors.muted },
   rule: { flex: 1, height: 1.5, backgroundColor: '#C9CFDA' },
-  escape: {
-    minHeight: 44,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 10,
-    paddingHorizontal: 12,
-  },
 });

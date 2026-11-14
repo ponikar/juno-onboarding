@@ -13,13 +13,23 @@ appId: host.exp.Exponent
 - waitForAnimationToEnd
 - assertVisible: "Months to get an appointment. Then 15 minutes."
 - takeScreenshot: docs/evals/e2e/02-story-1
-- tapOn:
-    id: "story-next"
-- waitForAnimationToEnd
+- repeat:
+    times: 4
+    while:
+      notVisible: "We know because we lived it."
+    commands:
+      - waitForAnimationToEnd
+      - tapOn:
+          id: "story-next"
 - assertVisible: "We know because we lived it."
-- tapOn:
-    id: "story-next"
-- waitForAnimationToEnd
+- repeat:
+    times: 4
+    while:
+      notVisible: "So we built Juno to keep the record."
+    commands:
+      - waitForAnimationToEnd
+      - tapOn:
+          id: "story-next"
 - assertVisible: "So we built Juno to keep the record."
 - takeScreenshot: docs/evals/e2e/02-story-3
 - tapOn: "Show me how"
@@ -97,7 +107,13 @@ appId: host.exp.Exponent
 - waitForAnimationToEnd
 - tapOn: "Maybe later"
 - waitForAnimationToEnd
-- tapOn: "Not sure yet"
+- repeat:
+    times: 4
+    while:
+      notVisible: "Keep going"
+    commands:
+      - waitForAnimationToEnd
+      - tapOn: "Not sure yet"
 - takeScreenshot: docs/evals/e2e/17-promise
 - tapOn: "Keep going"
 - extendedWaitUntil:

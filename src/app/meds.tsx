@@ -7,12 +7,11 @@ import { nextRoute } from '@/flow';
 import { customEntry } from '@/lib/search';
 import { track } from '@/lib/track';
 import { useOnboarding } from '@/state/onboarding';
-import { colors, space, type, FONT_CAP } from '@/theme/tokens';
-import { Chip, ChipWrap, Tick } from '@/ui/Chip';
+import { colors, space, FONT_CAP } from '@/theme/tokens';
+import { Chip, ChipWrap } from '@/ui/Chip';
+import { EscapeButton } from '@/ui/EscapeButton';
 import { SearchField } from '@/ui/Fields';
-import { haptic } from '@/ui/haptics';
 import { JunoReply } from '@/ui/JunoReply';
-import { PressableScale } from '@/ui/PressableScale';
 import { PrimaryButton, TextLink } from '@/ui/PrimaryButton';
 import { ScreenShell, Title } from '@/ui/ScreenShell';
 
@@ -37,7 +36,6 @@ export default function Meds() {
     track('answer', { screen: 'meds', medicines });
   };
   const toggleNone = () => {
-    haptic.selection();
     set({ noMedicines: !state.noMedicines, medicines: [], medicinesSkipped: false });
     setChanged(true);
     track('answer', { screen: 'meds', noMedicines: !state.noMedicines });
@@ -59,15 +57,7 @@ export default function Meds() {
         <>
           {/* Both ways out on one row, so the list keeps its room on small phones. */}
           <View style={styles.escapeRow}>
-            <PressableScale
-              accessibilityRole="checkbox"
-              accessibilityState={{ checked: state.noMedicines }}
-              accessibilityLabel={S.meds.none}
-              onPress={toggleNone}
-              style={styles.escape}>
-              <Tick selected={state.noMedicines} />
-              <Text maxFontSizeMultiplier={FONT_CAP} style={type.link}>{S.meds.none}</Text>
-            </PressableScale>
+            <EscapeButton label={S.meds.none} selected={state.noMedicines} onPress={toggleNone} />
             <View style={styles.escapeDivider} />
             <TextLink label={S.meds.later} onPress={later} />
           </View>
@@ -108,12 +98,4 @@ const styles = StyleSheet.create({
   rule: { flex: 1, height: 1.5, backgroundColor: '#C9CFDA' },
   escapeRow: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', columnGap: 4 },
   escapeDivider: { width: 1, height: 18, backgroundColor: colors.hairline },
-  escape: {
-    minHeight: 44,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 10,
-    paddingHorizontal: 12,
-  },
 });

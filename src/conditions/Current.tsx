@@ -1,18 +1,16 @@
 import { router } from 'expo-router';
 import { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { fill, S } from '@/copy/strings';
 import { nextRoute } from '@/flow';
 import { customEntry } from '@/lib/search';
 import { track } from '@/lib/track';
 import { useOnboarding } from '@/state/onboarding';
-import { type, FONT_CAP } from '@/theme/tokens';
-import { Chip, ChipWrap, Tick } from '@/ui/Chip';
+import { Chip, ChipWrap } from '@/ui/Chip';
+import { EscapeButton } from '@/ui/EscapeButton';
 import { SearchField } from '@/ui/Fields';
-import { haptic } from '@/ui/haptics';
 import { JunoReply } from '@/ui/JunoReply';
-import { PressableScale } from '@/ui/PressableScale';
 import { PrimaryButton } from '@/ui/PrimaryButton';
 import { ScreenShell, Title } from '@/ui/ScreenShell';
 
@@ -35,7 +33,6 @@ export function ConditionsCurrent() {
     track('answer', { screen: 'conditions', conditions });
   };
   const toggleSeeking = () => {
-    haptic.selection();
     set({ seekingDiagnosis: !state.seekingDiagnosis });
     track('answer', { screen: 'conditions', seekingDiagnosis: !state.seekingDiagnosis });
   };
@@ -54,15 +51,7 @@ export function ConditionsCurrent() {
       reply={<JunoReply text={reply} />}
       footer={
         <>
-          <PressableScale
-            accessibilityRole="checkbox"
-            accessibilityState={{ checked: state.seekingDiagnosis }}
-            accessibilityLabel={S.conditions.seeking}
-            onPress={toggleSeeking}
-            style={styles.escape}>
-            <Tick selected={state.seekingDiagnosis} />
-            <Text maxFontSizeMultiplier={FONT_CAP} style={type.link}>{S.conditions.seeking}</Text>
-          </PressableScale>
+          <EscapeButton label={S.conditions.seeking} selected={state.seekingDiagnosis} onPress={toggleSeeking} />
           <PrimaryButton
             label={label}
             disabled={picked.length === 0 && !state.seekingDiagnosis}
@@ -98,12 +87,4 @@ export function ConditionsCurrent() {
 
 const styles = StyleSheet.create({
   list: { marginTop: 14 },
-  escape: {
-    minHeight: 44,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 10,
-    paddingHorizontal: 12,
-  },
 });
