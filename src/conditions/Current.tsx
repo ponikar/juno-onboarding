@@ -1,13 +1,13 @@
 import { router } from 'expo-router';
 import { useState } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 import { fill, S } from '@/copy/strings';
 import { nextRoute } from '@/flow';
 import { customEntry } from '@/lib/search';
 import { track } from '@/lib/track';
 import { useOnboarding } from '@/state/onboarding';
-import { space, type, FONT_CAP, size } from '@/theme/tokens';
+import { type, FONT_CAP } from '@/theme/tokens';
 import { Chip, ChipWrap, Tick } from '@/ui/Chip';
 import { SearchField } from '@/ui/Fields';
 import { haptic } from '@/ui/haptics';
@@ -26,6 +26,8 @@ export function ConditionsCurrent() {
   const q = query.trim().toLowerCase();
   const options = S.conditions.options.filter((c) => c.toLowerCase().includes(q));
   const custom = customEntry(query, S.conditions.options, picked);
+  // Picked items the user added themselves; they sit at the end of the one list, ticked.
+  const extras = picked.filter((x) => !(S.conditions.options as readonly string[]).includes(x) && x.toLowerCase().includes(q));
 
   const toggle = (c: string) => {
     const conditions = picked.includes(c) ? picked.filter((x) => x !== c) : [...picked, c];
@@ -58,26 +60,23 @@ export function ConditionsCurrent() {
       }>
       <Title why={S.conditions.why}>{S.conditions.q}</Title>
       <SearchField placeholder={S.conditions.search} value={query} onChangeText={setQuery} accessibilityLabel={S.conditions.search} />
-      {/* Always reserves the row (as in Figma), so picking never pushes the list down. */}
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} keyboardShouldPersistTaps="handled" style={styles.pickedRow} contentContainerStyle={styles.pickedContent}>
-        {custom && (
-          <Chip
-            label={fill(S.common.addCustom, { text: custom })}
-            selected={false}
-            onToggle={() => {
-              toggle(custom);
-              setQuery('');
-            }}
-          />
-        )}
-          {picked.map((c) => (
-            <Chip key={c} label={shortName(c)} selected onToggle={() => toggle(c)} />
-          ))}
-      </ScrollView>
       <View style={styles.list}>
         <ChipWrap>
+          {custom && (
+            <Chip
+              label={fill(S.common.addCustom, { text: custom })}
+              selected={false}
+              onToggle={() => {
+                toggle(custom);
+                setQuery('');
+              }}
+            />
+          )}
           {options.map((c) => (
             <Chip key={c} label={c} selected={picked.includes(c)} onToggle={() => toggle(c)} />
+          ))}
+          {extras.map((x) => (
+            <Chip key={x} label={x} selected onToggle={() => toggle(x)} />
           ))}
         </ChipWrap>
       </View>
@@ -98,8 +97,6 @@ export function ConditionsCurrent() {
 }
 
 const styles = StyleSheet.create({
-  pickedRow: { marginTop: 18, flexGrow: 0, minHeight: size.chip },
-  pickedContent: { paddingHorizontal: space.gutter, gap: 9 },
   list: { marginTop: 14 },
   seeking: {
     minHeight: 44,

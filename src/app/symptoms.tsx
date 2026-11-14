@@ -1,13 +1,13 @@
 import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 import { fill, S } from '@/copy/strings';
 import { nextRoute } from '@/flow';
 import { customEntry } from '@/lib/search';
 import { track } from '@/lib/track';
 import { useOnboarding } from '@/state/onboarding';
-import { colors, space, type, FONT_CAP, size } from '@/theme/tokens';
+import { colors, space, type, FONT_CAP } from '@/theme/tokens';
 import { Chip, ChipWrap, Tick } from '@/ui/Chip';
 import { SearchField } from '@/ui/Fields';
 import { haptic } from '@/ui/haptics';
@@ -33,6 +33,8 @@ export default function Symptoms() {
   const q = query.trim().toLowerCase();
   const options = S.symptoms.options.filter((s) => s.toLowerCase().includes(q));
   const custom = customEntry(query, S.symptoms.options, picked);
+  // Picked items the user added themselves; they sit at the end of the one list, ticked.
+  const extras = picked.filter((x) => !(S.symptoms.options as readonly string[]).includes(x) && x.toLowerCase().includes(q));
 
   const toggle = (s: string) => {
     const symptoms = picked.includes(s) ? picked.filter((x) => x !== s) : [...picked, s];
@@ -58,8 +60,11 @@ export default function Symptoms() {
       }>
       <Title why={S.symptoms.why}>{S.symptoms.q}</Title>
       <SearchField placeholder={S.symptoms.search} value={query} onChangeText={setQuery} accessibilityLabel={S.symptoms.search} />
-      {/* Always reserves the row (as in Figma), so picking never pushes the list down. */}
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} keyboardShouldPersistTaps="handled" style={styles.pickedRow} contentContainerStyle={styles.pickedContent}>
+      <View style={styles.group}>
+        <Text maxFontSizeMultiplier={FONT_CAP} style={styles.groupText}>{group}</Text>
+        <View style={styles.rule} />
+      </View>
+      <ChipWrap>
         {custom && (
           <Chip
             label={fill(S.common.addCustom, { text: custom })}
@@ -70,15 +75,6 @@ export default function Symptoms() {
             }}
           />
         )}
-          {picked.map((s) => (
-            <Chip key={s} label={s} selected onToggle={() => toggle(s)} />
-          ))}
-      </ScrollView>
-      <View style={styles.group}>
-        <Text maxFontSizeMultiplier={FONT_CAP} style={styles.groupText}>{group}</Text>
-        <View style={styles.rule} />
-      </View>
-      <ChipWrap>
         {options.map((s) => (
           <Chip
             key={s}
@@ -87,6 +83,9 @@ export default function Symptoms() {
             preTicked={seedingNow && state.todaySymptoms.includes(s)}
             onToggle={() => toggle(s)}
           />
+        ))}
+        {extras.map((x) => (
+          <Chip key={x} label={x} selected onToggle={() => toggle(x)} />
         ))}
       </ChipWrap>
       <PressableScale
@@ -106,8 +105,6 @@ export default function Symptoms() {
 }
 
 const styles = StyleSheet.create({
-  pickedRow: { marginTop: 18, flexGrow: 0, minHeight: size.chip },
-  pickedContent: { paddingHorizontal: space.gutter, gap: 9 },
   group: { flexDirection: 'row', alignItems: 'center', gap: 12, paddingLeft: space.gutter, marginTop: 30, marginBottom: 18 },
   groupText: { fontSize: 16, lineHeight: 21, fontWeight: '600', color: colors.muted },
   rule: { flex: 1, height: 1.5, backgroundColor: '#C9CFDA' },
