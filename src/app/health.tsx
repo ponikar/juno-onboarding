@@ -1,13 +1,14 @@
 import { router } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 import { Alert, Image, StyleSheet, Text, View } from 'react-native';
+import Animated, { FadeIn } from 'react-native-reanimated';
 
 import { S } from '@/copy/strings';
 import { nextRoute } from '@/flow';
 import { track } from '@/lib/track';
 import { TYPING_MS } from '@/motion/tokens';
 import { useOnboarding } from '@/state/onboarding';
-import { colors, FONT_CAP } from '@/theme/tokens';
+import { colors, FONT_CAP, radius, shadow, type } from '@/theme/tokens';
 import { healthCluster } from '@/ui/art';
 import { Icon } from '@/ui/Icon';
 import { JunoReply } from '@/ui/JunoReply';
@@ -49,11 +50,13 @@ export default function Health() {
       { text: S.health.mockAllow, onPress: allow },
     ]);
 
+  const synced = connected || state.healthDataConnected;
+
   return (
     <ScreenShell
       variant="sky"
       route="/health"
-      reply={<JunoReply text={connected || state.healthDataConnected ? S.health.reply : null} />}
+      reply={<JunoReply text={synced ? S.health.reply : null} />}
       footer={
         <>
           <TextLink label={S.health.later} onPress={later} />
@@ -63,13 +66,18 @@ export default function Health() {
       <View style={styles.fill}>
         {clusterY !== null && <View style={[StyleSheet.absoluteFill, { experimental_backgroundImage: backdrop(clusterY) }]} />}
         <Title onSky>{S.health.q}</Title>
-        <Image
-          source={healthCluster}
-          style={styles.cluster}
-          resizeMode="contain"
-          accessibilityIgnoresInvertColors
-          onLayout={(e) => setClusterY(e.nativeEvent.layout.y)}
-        />
+        <View style={styles.cluster} onLayout={(e) => setClusterY(e.nativeEvent.layout.y)}>
+          {synced ? (
+            <Animated.View entering={FadeIn.duration(200)} style={styles.synced}>
+              <View style={styles.check}>
+                <Icon name="checkmark" size={22} color="#FFFFFF" weight="bold" />
+              </View>
+              <Text maxFontSizeMultiplier={FONT_CAP} style={type.label}>{S.healthSynced}</Text>
+            </Animated.View>
+          ) : (
+            <Image source={healthCluster} style={StyleSheet.absoluteFill} resizeMode="contain" accessibilityIgnoresInvertColors />
+          )}
+        </View>
         <View style={styles.bullets}>
           <Bullet icon="heart.fill" text={S.health.bullet1} />
           <Bullet icon="arrow.up.arrow.down" text={S.health.bullet2} />
@@ -97,7 +105,9 @@ function Bullet({ icon, text }: { icon: string; text: string }) {
 
 const styles = StyleSheet.create({
   fill: { flexGrow: 1 },
-  cluster: { width: 334, height: 264, alignSelf: 'center', marginTop: -8 },
+  cluster: { width: 334, height: 264, alignSelf: 'center', marginTop: -8, alignItems: 'center', justifyContent: 'center' },
+  synced: { ...shadow.card, backgroundColor: colors.surface, borderRadius: radius.card, paddingVertical: 28, paddingHorizontal: 32, alignItems: 'center', gap: 14 },
+  check: { width: 48, height: 48, borderRadius: 24, backgroundColor: colors.success, alignItems: 'center', justifyContent: 'center' },
   bullets: { gap: 16, marginTop: 12, marginBottom: 16, paddingLeft: 39, paddingRight: 30 },
   row: { flexDirection: 'row', gap: 14 },
   dot: { width: 30, height: 30, borderRadius: 15, backgroundColor: 'rgba(38,25,16,0.06)', alignItems: 'center', justifyContent: 'center' },

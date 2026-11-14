@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Image, ImageSourcePropType, StyleSheet, Text, View } from 'react-native';
 import Animated, { useAnimatedStyle, useReducedMotion, useSharedValue, withDelay, withTiming } from 'react-native-reanimated';
 
 import { EASE_OUT, STATE_MS } from '@/motion/tokens';
@@ -12,8 +12,9 @@ import { PressableScale } from './PressableScale';
 const OnSky = createContext(false);
 
 // Pill chip with a radio/tick, as on Figma 17 conditions and 20 symptoms.
-export function Chip({ label, selected, onToggle, preTicked, testID }: {
+export function Chip({ label, icon, selected, onToggle, preTicked, testID }: {
   label: string;
+  icon?: ImageSourcePropType;
   selected: boolean;
   onToggle: () => void;
   preTicked?: boolean; // ticked by Juno from screen 4: fades from 60% to full once
@@ -42,6 +43,7 @@ export function Chip({ label, selected, onToggle, preTicked, testID }: {
         } as object,
       ]}>
       <Tick selected={selected} preTicked={preTicked} />
+      {icon ? <Image source={icon} style={styles.icon} resizeMode="contain" /> : null}
       <Text maxFontSizeMultiplier={FONT_CAP} style={[type.chip, { flexShrink: 1 }]}>{label}</Text>
     </PressableScale>
   );
@@ -92,6 +94,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 10,
   },
+  icon: { width: 20, height: 20 },
   ring: { borderWidth: 1.5, borderColor: colors.radio, backgroundColor: colors.surface },
   ringless: { borderColor: 'transparent', backgroundColor: 'transparent' }, // experiment variants: no empty circle
   tick: { margin: -1.5, backgroundColor: colors.orangeTick, alignItems: 'center', justifyContent: 'center' },

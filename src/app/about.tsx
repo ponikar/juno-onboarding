@@ -7,6 +7,7 @@ import { nextRoute } from '@/flow';
 import { track } from '@/lib/track';
 import { useOnboarding } from '@/state/onboarding';
 import { colors, FONT_CAP } from '@/theme/tokens';
+import { ageIcons, sexIcons } from '@/ui/art';
 import { Chip, ChipWrap } from '@/ui/Chip';
 import { TextField } from '@/ui/Fields';
 import { JunoReply } from '@/ui/JunoReply';
@@ -54,6 +55,7 @@ export default function About() {
           <Chip
             key={o.id}
             label={o.label}
+            icon={sexIcons[o.id]}
             selected={state.sexAtBirth === o.id}
             onToggle={() => {
               const next = state.sexAtBirth === o.id ? null : o.id;
@@ -69,6 +71,7 @@ export default function About() {
           <Chip
             key={a}
             label={a}
+            icon={ageIcons[a]}
             selected={state.ageRange === a}
             onToggle={() => {
               const next = state.ageRange === a ? null : a;

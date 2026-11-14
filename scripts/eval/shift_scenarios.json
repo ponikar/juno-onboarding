@@ -69,10 +69,21 @@
     "preset": "empty"
   },
   {
+    "id": "pacing",
+    "route": "/pacing",
+    "preset": "demo"
+  },
+  {
     "id": "support-pick",
     "route": "/support",
     "preset": "empty",
     "actions": "- tapOn: \"1 or 2\""
+  },
+  {
+    "id": "community-pick",
+    "route": "/community",
+    "preset": "empty",
+    "actions": "- tapOn: \"Fibro Friends\""
   },
   {
     "id": "about-pick",
@@ -84,6 +95,12 @@
     "id": "health",
     "route": "/health",
     "preset": "demo"
+  },
+  {
+    "id": "source-pick",
+    "route": "/source",
+    "preset": "empty",
+    "actions": "- tapOn: \"Google\""
   },
   {
     "id": "snapshot",
@@ -172,15 +189,6 @@
     "actions": "- tapOn: \"Not sure yet\"",
     "ignore": [
       "selected"
-    ]
-  },
-  {
-    "id": "when-pick",
-    "route": "/when",
-    "preset": "empty",
-    "actions": "- tapOn: \"Evening.*\"",
-    "ignore": [
-      "Evening.*"
     ]
   },
   {

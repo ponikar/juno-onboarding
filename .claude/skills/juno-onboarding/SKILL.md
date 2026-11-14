@@ -5,7 +5,7 @@ description: Rules for building or changing the Juno onboarding flow (src/app sc
 
 # Juno onboarding
 
-Source of truth: `docs/specs/onboarding-v3.md` (wins over `narration-v2.md`). Route order lives in `src/flow.ts`. Read both before changing a screen.
+Source of truth: `docs/specs/onboarding-v4.md`, built on `onboarding-v3.md` (both win over `narration-v2.md`). Route order lives in `src/flow.ts`. Read both before changing a screen.
 
 ## 1. Narrative arc: problem, founders, fix
 - Open with the problem, then the founders, then the fix. Story is 3 beats on one route (`/story`).
@@ -18,11 +18,16 @@ Source of truth: `docs/specs/onboarding-v3.md` (wins over `narration-v2.md`). Ro
 - Insight cards (`/insight-health`, `/insight-days`) sit on the sky: mascot (110 pt), white stat card (stat 34 pt, label, source), kind line in white, the "What I know so far" list in a white panel, the doctor page meter, the next line, then the button.
 - Every stat carries its source line.
 
-## 3. Commitment chain
-- Order: commit (`/promise`) -> when (`/when`) -> demo (`/demo`) -> reminders permission (`/notify`). All of it comes before sign-up and before the price.
-- "Not sure yet" skips `/when` in both directions; the demo then says "tomorrow" and reminders ask `notify.free`.
-- One question per screen. `/when` is the only place a time is picked.
-- The demo rehearses tomorrow's check-in; chat still shows "Day 1 of 7".
+## 3. Order and commitment chain
+- Order (`src/flow.ts`): welcome, story, consent | try, heard | goals, conditions, symptoms, meds, insight-health | appointment, energy, pacing, support, community, insight-days | about, health, source | promise, demo | building, snapshot, report, save | how, plans | done, checkin, chat.
+- Give-back picks sit right after the answer they build on: pacing after energy, community after support.
+- Commitment chain: commit (`/promise`) -> demo (`/demo`). Both come before sign-up and before the price.
+- The time is picked once, on `/checkin`. The reminders permission is asked on `/checkin`, before the first chat.
+- One question per screen. The demo says "Tomorrow" and rehearses tomorrow's check-in; chat still shows "Day 1 of 7".
+
+## 3b. Picking screens
+- Icons: every choice screen shows icons; Figma assets first, else cut from the Juno app recording in the same 3D style.
+- Cherry-pick rule: a production screen joins only if it gives back right after the answer it builds on, adds no unsourced number, and repeats no existing question.
 
 ## 4. Visible progress
 - Flow bar: part name left, "Part n of 7" right, bar below. Parts: Today, Your health, Your days, You, Your routine, Your snapshot, Your plan.

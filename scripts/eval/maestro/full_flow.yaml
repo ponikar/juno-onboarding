@@ -93,19 +93,30 @@ appId: host.exp.Exponent
 - waitForAnimationToEnd
 - tapOn: "Continue"
 - waitForAnimationToEnd
-- tapOn: "No one right now"
-- takeScreenshot: docs/evals/e2e/13-support-no-one
+- assertVisible: "Juno helps you pace your week"
+- takeScreenshot: docs/evals/e2e/13-pacing
 - tapOn: "Continue"
+- waitForAnimationToEnd
+- tapOn: "No one right now"
+- takeScreenshot: docs/evals/e2e/14-support-no-one
+- tapOn: "Continue"
+- waitForAnimationToEnd
+- takeScreenshot: docs/evals/e2e/15-community
+- tapOn: "Not now"
 - waitForAnimationToEnd
 - assertVisible: "What I know so far"
 - assertVisible: "Your doctor page"
-- takeScreenshot: docs/evals/e2e/14-insight-days
+- takeScreenshot: docs/evals/e2e/16-insight-days
 - tapOn: "Keep going"
 - waitForAnimationToEnd
 - tapOn: "Prefer not to say"
 - tapOn: "Continue"
 - waitForAnimationToEnd
 - tapOn: "Maybe later"
+- waitForAnimationToEnd
+- assertVisible: "Where did you find Juno?"
+- takeScreenshot: docs/evals/e2e/19-source
+- tapOn: "Skip"
 - waitForAnimationToEnd
 - repeat:
     times: 4
@@ -114,25 +125,25 @@ appId: host.exp.Exponent
     commands:
       - waitForAnimationToEnd
       - tapOn: "Not sure yet"
-- takeScreenshot: docs/evals/e2e/17-promise
+- takeScreenshot: docs/evals/e2e/20-promise
 - tapOn: "Keep going"
 - extendedWaitUntil:
     visible: "Got it"
     timeout: 10000
 - assertVisible: "Here's tomorrow's check.in"
-- takeScreenshot: docs/evals/e2e/19-demo
+- takeScreenshot: docs/evals/e2e/21-demo
 - tapOn: "Got it"
 - extendedWaitUntil:
     visible: "See my doctor page"
     timeout: 10000
 - waitForAnimationToEnd
-- takeScreenshot: docs/evals/e2e/21-snapshot
+- takeScreenshot: docs/evals/e2e/23-snapshot
 - tapOn: "See my doctor page"
 - waitForAnimationToEnd
-- takeScreenshot: docs/evals/e2e/22-report
+- takeScreenshot: docs/evals/e2e/24-report
 - scrollUntilVisible:
     element: "What this page becomes"
-- takeScreenshot: docs/evals/e2e/22-report-projection
+- takeScreenshot: docs/evals/e2e/24-report-projection
 - tapOn: "Save my snapshot"
 - waitForAnimationToEnd
 - tapOn: "Continue with Apple"
@@ -141,14 +152,14 @@ appId: host.exp.Exponent
     timeout: 10000
 - tapOn: "See my plan"
 - waitForAnimationToEnd
-- takeScreenshot: docs/evals/e2e/25-plans
+- takeScreenshot: docs/evals/e2e/27-plans
 - tapOn: "Continue with the free plan"
 - waitForAnimationToEnd
-- takeScreenshot: docs/evals/e2e/26-done-free
+- takeScreenshot: docs/evals/e2e/28-done-free
 - tapOn: "Let’s go"
 - waitForAnimationToEnd
 - assertVisible: "Your daily check-in"
-- takeScreenshot: docs/evals/e2e/27-checkin
+- takeScreenshot: docs/evals/e2e/29-checkin
 - tapOn:
     id: "checkin-cta"
 - waitForAnimationToEnd
@@ -157,4 +168,4 @@ appId: host.exp.Exponent
 - assertVisible: "Fatigue"
 - assertVisible: "Headaches"
 - assertVisible: "Day 1 of 7"
-- takeScreenshot: docs/evals/e2e/28-chat
+- takeScreenshot: docs/evals/e2e/29-chat
