@@ -1,6 +1,10 @@
-import { ScreenShell } from '@/ui/ScreenShell';
+import { S } from '@/copy/strings';
+import { deviceRegion, healthInsight, healthKnown } from '@/lib/insights';
+import { useOnboarding } from '@/state/onboarding';
+import { InsightCard } from '@/ui/InsightCard';
 
-// Placeholder: built in the v2 narration pass.
-export default function Placeholder() {
-  return <ScreenShell route="/insight-health">{null}</ScreenShell>;
+// Screen 10 (spec 5 and 6).
+export default function InsightHealth() {
+  const { state } = useOnboarding();
+  return <InsightCard route="/insight-health" insight={healthInsight(state, deviceRegion())} known={healthKnown(state)} next={S.card.healthNext} />;
 }

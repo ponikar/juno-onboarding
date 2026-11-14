@@ -12,6 +12,7 @@ import Animated, {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { S } from '@/copy/strings';
+import { nextRoute } from '@/flow';
 import { track } from '@/lib/track';
 import { EASE_OUT, SPRING_SETTLE } from '@/motion/tokens';
 import { colors, shadow } from '@/theme/tokens';
@@ -59,6 +60,7 @@ export default function Welcome() {
         <Animated.View style={headStyle}>
           <Text maxFontSizeMultiplier={1.15} style={[styles.title, shadow.titleSky]}>{S.welcome.title}</Text>
           <Text maxFontSizeMultiplier={1.15} style={[styles.sub, shadow.titleSky]}>{S.welcome.sub}</Text>
+          <Text maxFontSizeMultiplier={1.15} style={[styles.time, shadow.titleSky]}>{S.welcome.time}</Text>
         </Animated.View>
       </View>
 
@@ -86,7 +88,7 @@ export default function Welcome() {
             label={S.welcome.cta}
             onPress={() => {
               track('welcome_cta');
-              router.push('/consent');
+              router.push(nextRoute('/welcome'));
             }}
             testID="welcome-cta"
           />
@@ -112,6 +114,7 @@ const styles = StyleSheet.create({
   brand: { fontSize: 33, lineHeight: 40, fontWeight: '700', color: '#FFFFFF', textAlign: 'center' },
   title: { marginTop: 36, fontSize: 34, lineHeight: 40, fontWeight: '700', color: '#FFFFFF', textAlign: 'center' },
   sub: { marginTop: 12, fontSize: 18, lineHeight: 23, fontWeight: '500', color: '#FFFFFF', textAlign: 'center' },
+  time: { marginTop: 8, fontSize: 15, lineHeight: 20, fontWeight: '400', color: 'rgba(255,255,255,0.9)', textAlign: 'center' },
   mascotClip: { position: 'absolute', top: 414, left: 0, right: 0, height: 150, alignItems: 'center', overflow: 'hidden' },
   mascot: { width: 200, height: 150 },
   proofRow: { position: 'absolute', top: 584, left: 22, right: 22, flexDirection: 'row', alignItems: 'center' },

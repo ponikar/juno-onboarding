@@ -61,7 +61,7 @@ export default function Heard() {
   return (
     <ScreenShell
       route="/heard"
-      footer={<PrimaryButton label={S.common.continue} onPress={() => router.push(nextRoute('/heard'))} testID="heard-continue" />}>
+      footer={<PrimaryButton label={S.card.cta} onPress={() => router.push(nextRoute('/heard'))} testID="heard-continue" />}>
       <Title sub={S.heard.sub}>{S.heard.title}</Title>
 
       <View style={styles.userRow}>
@@ -107,6 +107,14 @@ export default function Heard() {
       <View style={styles.replyWrap}>
         <JunoReply text={settled ? reply : null} id="heard" />
       </View>
+
+      <View style={styles.progressRow}>
+        <View style={styles.logged}>
+          <Icon name="checkmark" size={11} color="#FFFFFF" weight="bold" />
+        </View>
+        <Text maxFontSizeMultiplier={FONT_CAP} style={[type.body, styles.progressText]}>{S.heard.progress}</Text>
+      </View>
+      <Text maxFontSizeMultiplier={FONT_CAP} style={[type.subtitle, styles.next]}>{S.heard.next}</Text>
     </ScreenShell>
   );
 }
@@ -177,5 +185,8 @@ const styles = StyleSheet.create({
   asWritten: { flexDirection: 'row', alignItems: 'center', gap: 10, width: '100%' },
   logged: { width: 22, height: 22, borderRadius: 11, backgroundColor: colors.success, alignItems: 'center', justifyContent: 'center' },
   replyWrap: { marginTop: 18 },
+  progressRow: { flexDirection: 'row', alignItems: 'center', gap: 10, marginTop: 18, paddingHorizontal: 20 },
+  progressText: { flex: 1 },
+  next: { color: colors.inkSoft, marginTop: 6, paddingHorizontal: 20, paddingLeft: 52 },
 });
 

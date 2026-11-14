@@ -4,14 +4,14 @@ import { ActivityIndicator, Image, ImageSourcePropType, StyleSheet, Text, View }
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { S } from '@/copy/strings';
-import { nextRoute, progressFor } from '@/flow';
+import { flowBarFor, nextRoute } from '@/flow';
 import { track } from '@/lib/track';
 import { useOnboarding } from '@/state/onboarding';
 import { colors, radius, size, type, FONT_CAP } from '@/theme/tokens';
 import { authIcons, bg, mascotPeek } from '@/ui/art';
+import { FlowBar } from '@/ui/FlowBar';
 import { PressableScale } from '@/ui/PressableScale';
 import { NavButton } from '@/ui/ScreenShell';
-import { ProgressBar } from '@/ui/ProgressBar';
 import { sheetStyles } from '@/ui/Sheet';
 
 type Method = 'google' | 'apple' | 'email';
@@ -39,7 +39,7 @@ export default function Save() {
     }, 900);
   };
 
-  const progress = progressFor('/save');
+  const bar = flowBarFor('/save');
   return (
     <View style={styles.root}>
       <Image source={bg.welcome} style={StyleSheet.absoluteFill} resizeMode="cover" />
@@ -54,7 +54,7 @@ export default function Save() {
           <NavButton icon="arrow.left" label={S.common.back} onSky onPress={() => (router.canGoBack() ? router.back() : router.replace('/snapshot'))} />
         </View>
         <View style={styles.navMid}>
-          <ProgressBar act={progress.act} fraction={progress.fraction} onSky />
+          {bar && <FlowBar seg={bar.seg} fraction={bar.fraction} done={bar.done} onSky />}
         </View>
         <View style={styles.navSide} />
       </View>
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   dim: { backgroundColor: 'rgba(0,0,0,0.25)' },
   nav: { position: 'absolute', top: 0, left: 15, right: 15, height: size.nav, flexDirection: 'row', alignItems: 'center' },
   navSide: { width: 60 },
-  navMid: { flex: 1, alignItems: 'center' },
+  navMid: { flex: 1, alignItems: 'center', paddingHorizontal: 8 },
   sheet: { ...sheetStyles.panel, height: 437, margin: 6, marginTop: 0, borderRadius: 34, paddingHorizontal: 22, paddingTop: 8 },
   behind: { position: 'absolute', top: 0, left: 0, right: 0, alignItems: 'center', paddingHorizontal: 32 },
   brand: { fontSize: 33, lineHeight: 40, fontWeight: '700', color: '#FFFFFF', textAlign: 'center' },

@@ -58,7 +58,7 @@ function FlowWatcher() {
   useEffect(() => {
     if (!ready || pathname === '/' || pathname === '/debug') return;
     track('screen_view', { screen: pathname });
-    if (pathname !== '/sponsor' && pathname !== '/report') set({ lastRoute: pathname }); // never resume on a sheet
+    if (pathname !== '/sponsor') set({ lastRoute: pathname }); // never resume on a sheet
   }, [ready, pathname, set]);
 
   return null;
@@ -70,8 +70,7 @@ export default function RootLayout() {
       <OnboardingProvider>
         <StatusBar style="dark" />
         <FlowWatcher />
-        <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.bg } }}>
-          <Stack.Screen name="report" options={{ presentation: 'formSheet', sheetAllowedDetents: [0.92], sheetGrabberVisible: true, sheetCornerRadius: 28 }} />
+        <Stack screenOptions={{ headerShown: false, animation: 'fade', animationDuration: 280, contentStyle: { backgroundColor: colors.bg } }}>
           <Stack.Screen name="sponsor" options={{ presentation: 'formSheet', sheetAllowedDetents: [0.82], sheetGrabberVisible: true, sheetCornerRadius: 28 }} />
           <Stack.Screen name="debug" options={{ presentation: 'modal' }} />
           <Stack.Screen name="energy" options={{ gestureEnabled: false }} />

@@ -11,6 +11,7 @@ export const bg = {
 };
 
 export const mascotPeek = require('@/assets/juno/mascot-peek.png');
+export const mascotPeekSky = require('@/assets/juno/mascot-peek-sky.png'); // mascot-peek with the pale band removed and a soft bottom fade, for plain sky
 export const mascotCardPeek = require('@/assets/juno/mascot-card-peek.png');
 export const laurelLeft = require('@/assets/juno/laurel-left.png');
 export const laurelRight = require('@/assets/juno/laurel-right.png');

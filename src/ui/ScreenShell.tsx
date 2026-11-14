@@ -1,14 +1,16 @@
 import { router, usePathname } from 'expo-router';
 import { ReactNode, useEffect, useState } from 'react';
 import { Image, ImageSourcePropType, Keyboard, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
+import Animated, { useAnimatedStyle, useReducedMotion, useSharedValue, withTiming } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { S } from '@/copy/strings';
-import { FlowRoute, prevRoute, progressFor } from '@/flow';
+import { flowBarFor, FlowRoute, prevRoute } from '@/flow';
+import { EASE_OUT } from '@/motion/tokens';
 import { colors, shadow, size, space, type, FONT_CAP, TITLE_CAP } from '@/theme/tokens';
+import { FlowBar } from './FlowBar';
 import { Icon } from './Icon';
 import { PressableScale } from './PressableScale';
-import { ProgressBar } from './ProgressBar';
 
 // Sky gradient sampled from Figma 14-goals (see theme/tokens skyStops).
 export const SKY_GRADIENT =
@@ -20,7 +22,7 @@ type Props = {
   background?: ImageSourcePropType; // full-bleed art cut from Figma, drawn over the variant colour
   backgroundHeight?: number;
   backgroundTop?: number; // negative crops empty sky off the top of partial art // pt; omit for full screen
-  route?: FlowRoute; // shows the progress bar
+  route?: FlowRoute; // shows the flow bar
   back?: boolean | (() => void);
   close?: () => void;
   footer?: ReactNode;
@@ -32,7 +34,8 @@ export function ScreenShell({ children, variant = 'plain', background, backgroun
   const insets = useSafeAreaInsets();
   const keyboard = useKeyboardOpen();
   const onSky = variant === 'sky';
-  const progress = route ? progressFor(route) : null;
+  const bar = route ? flowBarFor(route) : null;
+  const enter = useEnter();
   const pathname = usePathname();
   // After a resume the stack holds one screen, so back walks the flow instead.
   const onBack = typeof back === 'function' ? back : () => (router.canGoBack() ? router.back() : router.replace(prevRoute(pathname) as never));
@@ -55,21 +58,38 @@ export function ScreenShell({ children, variant = 'plain', background, backgroun
       )}
       <View style={[styles.nav, { marginTop: insets.top + 10 }]}>
         <View style={styles.navSide}>{back ? <NavButton icon="arrow.left" label={S.common.back} onSky={onSky} onPress={onBack} /> : null}</View>
-        <View style={styles.navMid}>{progress && <ProgressBar act={progress.act} fraction={progress.fraction} onSky={onSky} />}</View>
+        <View style={styles.navMid}>{bar && <FlowBar seg={bar.seg} fraction={bar.fraction} done={bar.done} onSky={onSky} />}</View>
         <View style={[styles.navSide, { alignItems: 'flex-end' }]}>
           {close ? <NavButton icon="xmark" label={S.common.close} onSky={onSky} onPress={close} /> : headerRight}
         </View>
       </View>
-      <Body
-        style={styles.body}
-        contentContainerStyle={scroll ? styles.scrollContent : undefined}
-        keyboardShouldPersistTaps="handled"
-        showsVerticalScrollIndicator={false}>
-        {children}
-      </Body>
-      {footer && <View style={[styles.footer, { paddingBottom: keyboard ? 12 : Math.max(insets.bottom, 16) }]}>{footer}</View>}
+      <Animated.View style={[styles.body, enter]}>
+        <Body
+          style={styles.body}
+          contentContainerStyle={scroll ? styles.scrollContent : undefined}
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}>
+          {children}
+        </Body>
+        {footer && <View style={[styles.footer, { paddingBottom: keyboard ? 12 : Math.max(insets.bottom, 16) }]}>{footer}</View>}
+      </Animated.View>
     </KeyboardAvoidingView>
   );
+}
+
+const ENTER_SCREEN_MS = 280;
+
+// Spec 10: screen content fades in and rises 8 pt; the native stack cross-fades underneath.
+function useEnter() {
+  const reduced = useReducedMotion();
+  const p = useSharedValue(0);
+  useEffect(() => {
+    p.value = withTiming(1, { duration: ENTER_SCREEN_MS, easing: EASE_OUT });
+  }, [p]);
+  return useAnimatedStyle(() => ({
+    opacity: p.value,
+    transform: reduced ? [] : [{ translateY: (1 - p.value) * 8 }],
+  }));
 }
 
 export function useKeyboardOpen() {
@@ -115,7 +135,7 @@ const styles = StyleSheet.create({
   bgArt: { position: 'absolute', top: 0, left: 0, right: 0, width: '100%' },
   nav: { height: size.nav, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 15 },
   navSide: { width: 60 },
-  navMid: { flex: 1, alignItems: 'center' },
+  navMid: { flex: 1, alignItems: 'center', paddingHorizontal: 8 },
   navBtn: { width: size.nav, height: size.nav, borderRadius: size.nav / 2, alignItems: 'center', justifyContent: 'center' },
   navBtnPlain: { backgroundColor: '#FCFAFB' },
   navBtnSky: { backgroundColor: colors.skyGlass },

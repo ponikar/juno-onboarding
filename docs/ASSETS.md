@@ -90,3 +90,4 @@ Methods: `crop` keeps the card/tile background; `alpha vs flat bg` = alpha from 
 Notes:
 - juno-avatar is the round avatar from 35-tracking-demo (light-blue circle, mascot over a cloud), circular alpha. The next-first-chat header avatar has a green online dot over it and was not used.
 - Bubbles keep a faint sky-blue tint inside the glass (it is translucent in the source); bubble-pill has a faint cloud smear at its bottom edge.
+| mascot-peek-sky | from mascot-peek | same size | pale band above the hair flood-filled to transparent, bottom 30% faded out; for the plain sky on screen 2 |

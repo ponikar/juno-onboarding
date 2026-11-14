@@ -1,6 +1,10 @@
-import { ScreenShell } from '@/ui/ScreenShell';
+import { S } from '@/copy/strings';
+import { daysInsight, daysKnown } from '@/lib/insights';
+import { useOnboarding } from '@/state/onboarding';
+import { InsightCard } from '@/ui/InsightCard';
 
-// Placeholder: built in the v2 narration pass.
-export default function Placeholder() {
-  return <ScreenShell route="/insight-days">{null}</ScreenShell>;
+// Screen 14 (spec 5 and 6).
+export default function InsightDays() {
+  const { state } = useOnboarding();
+  return <InsightCard route="/insight-days" insight={daysInsight(state)} known={daysKnown(state)} next={S.card.daysNext} />;
 }

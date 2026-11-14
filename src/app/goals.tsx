@@ -15,8 +15,10 @@ import { ScreenShell, Title } from '@/ui/ScreenShell';
 export default function Goals() {
   const { state, set } = useOnboarding();
   const picked = state.goals;
+  const full = picked.length >= MAX_GOALS;
 
   const toggle = (goal: string) => {
+    if (full && !picked.includes(goal)) return;
     const goals = picked.includes(goal) ? picked.filter((g) => g !== goal) : [...picked, goal];
     set({ goals });
     track('answer', { screen: 'goals', goals });
@@ -27,13 +29,25 @@ export default function Goals() {
       variant="sky"
       route="/goals"
       footer={<PrimaryButton label={S.common.continue} disabled={picked.length === 0} onPress={() => router.push(nextRoute('/goals'))} />}>
-      <Title onSky sub={picked.length ? fill(S.goals.selected, { n: picked.length }) : S.goals.noneSelected}>
+      <Title onSky sub={S.goals.limit} why={picked.length ? fill(S.goals.selected, { n: picked.length }) : S.goals.noneSelected}>
         {S.goals.q}
       </Title>
       <View style={styles.list}>
-        {S.goals.options.map((goal) => (
-          <OptionCard key={goal} label={goal} icon={goalIcons[goal]} selected={picked.includes(goal)} onPress={() => toggle(goal)} />
-        ))}
+        {S.goals.options.map((goal) => {
+          const off = full && !picked.includes(goal);
+          return (
+            <View
+              key={goal}
+              style={off && styles.off}
+              pointerEvents={off ? 'none' : 'auto'}
+              accessible={off}
+              accessibilityRole={off ? 'checkbox' : undefined}
+              accessibilityLabel={off ? goal : undefined}
+              accessibilityState={off ? { disabled: true, checked: false } : undefined}>
+              <OptionCard label={goal} icon={goalIcons[goal]} selected={picked.includes(goal)} onPress={() => toggle(goal)} />
+            </View>
+          );
+        })}
       </View>
       <View style={styles.reply}>
         <JunoReply text={picked.length ? S.goals.reply : null} onSky />
@@ -42,7 +56,10 @@ export default function Goals() {
   );
 }
 
+const MAX_GOALS = 3;
+
 const styles = StyleSheet.create({
   list: { gap: 14 },
+  off: { opacity: 0.4 },
   reply: { marginTop: 16 },
 });
