@@ -1,22 +1,25 @@
 import { router } from 'expo-router';
-import { useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useEffect, useState } from 'react';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { fill, joinList, S } from '@/copy/strings';
 import { useFlag } from '@/experiments/flags';
-import { daysUntil } from '@/lib/dates';
 import { projection } from '@/lib/projection';
+import { projectionTimeline } from '@/lib/projectionTimeline';
 import { useOnboarding } from '@/state/onboarding';
-import { colors, radius, shadow, type, FONT_CAP } from '@/theme/tokens';
+import { colors, radius, shadow, type, FONT_CAP, TITLE_CAP } from '@/theme/tokens';
 import { DayMarkers } from '@/ui/DayMarkers';
 import { haptic } from '@/ui/haptics';
 import { PrimaryButton } from '@/ui/PrimaryButton';
+import { ProjectionTimeline } from '@/ui/ProjectionTimeline';
+import { ScreenShell } from '@/ui/ScreenShell';
 
-// Screen 16 (from 09 story-report + 29 reply-care-team): a sample one-page summary, shown as a native sheet.
+// Screen 20 (from 09 story-report + 29 reply-care-team, projection from 60 pw-trial): a sample one-page summary and what it becomes.
 export default function Report() {
-  const insets = useSafeAreaInsets();
   const { state } = useOnboarding();
+  const [viewH, setViewH] = useState(0);
+  const [timelineY, setTimelineY] = useState<number | null>(null);
+  const [seen, setSeen] = useState(false);
 
   useEffect(() => {
     const t = setTimeout(() => haptic.light(), 350);
@@ -28,35 +31,41 @@ export default function Report() {
     : state.seekingDiagnosis
       ? S.report.seeking
       : S.report.none;
-  const days = state.nextAppointment ? Math.max(0, daysUntil(state.nextAppointment, new Date())) : null;
-  const countdown =
-    days === null ? null : days === 0 ? S.report.countdown0 : days === 1 ? S.report.countdown1 : fill(S.report.countdown, { days });
+  const sex = state.sexAtBirth && state.sexAtBirth !== 'undisclosed' ? S.about.sex.find((o) => o.id === state.sexAtBirth)?.label : null;
+  const details = [state.ageRange ? fill(S.report.age, { age: state.ageRange }) : null, sex].filter(Boolean).join(' · ');
 
   const plan = useFlag('projection') ? projection(state, new Date()) : null;
+  const nodes = projectionTimeline(state.nextAppointment, new Date());
 
-  const onContinue = () => {
-    if (router.canGoBack()) router.dismiss();
-    router.push('/save');
+  const check = (offset: number, h = viewH, y = timelineY) => {
+    if (!seen && h > 0 && y !== null && y + VISIBLE_PT <= offset + h) setSeen(true);
   };
 
   return (
-    <View style={styles.root}>
-      <View style={[styles.fill, styles.scroll]}>
-        <Text maxFontSizeMultiplier={FONT_CAP} accessibilityRole="header" style={[type.title, styles.center]}>{S.report.title}</Text>
+    <ScreenShell route="/report" scroll={false} footer={<PrimaryButton label={S.project.cta} onPress={() => router.push('/save')} />}>
+      <ScrollView
+        style={styles.fill}
+        contentContainerStyle={styles.scroll}
+        showsVerticalScrollIndicator={false}
+        scrollEventThrottle={32}
+        onLayout={(e) => {
+          setViewH(e.nativeEvent.layout.height);
+          check(0, e.nativeEvent.layout.height);
+        }}
+        onScroll={(e) => check(e.nativeEvent.contentOffset.y)}>
+        <View style={styles.titleRow}>
+          <Text maxFontSizeMultiplier={TITLE_CAP} accessibilityRole="header" style={[type.title, styles.center]}>{S.report.title}</Text>
+          <View style={styles.badge}>
+            <Text maxFontSizeMultiplier={FONT_CAP} style={styles.badgeText}>{S.report.badge}</Text>
+          </View>
+        </View>
 
         <View style={[styles.doc, shadow.card]}>
-          <View style={styles.docHead}>
-            <View style={{ flex: 1 }}>
-              {state.name || state.ageRange ? <Text maxFontSizeMultiplier={FONT_CAP} style={styles.label}>{S.report.patient}</Text> : null}
-              {state.name ? <Text maxFontSizeMultiplier={FONT_CAP} style={styles.name}>{state.name}</Text> : null}
-              {state.ageRange ? <Text maxFontSizeMultiplier={FONT_CAP} style={styles.value}>{fill(S.report.age, { age: state.ageRange })}</Text> : null}
-            </View>
-            <View style={styles.badge}>
-              <Text maxFontSizeMultiplier={FONT_CAP} style={styles.badgeText}>{S.report.badge}</Text>
-            </View>
-          </View>
+          {state.name || details ? <Text maxFontSizeMultiplier={FONT_CAP} style={styles.label}>{S.report.patient}</Text> : null}
+          {state.name ? <Text maxFontSizeMultiplier={FONT_CAP} style={styles.name}>{state.name}</Text> : null}
+          {details ? <Text maxFontSizeMultiplier={FONT_CAP} style={styles.value}>{details}</Text> : null}
 
-          <View style={styles.rule} />
+          {state.name || details ? <View style={styles.rule} /> : null}
           <Text maxFontSizeMultiplier={FONT_CAP} style={styles.label}>{S.report.conditions}</Text>
           <Text maxFontSizeMultiplier={FONT_CAP} style={styles.value}>{conditions}</Text>
 
@@ -90,24 +99,30 @@ export default function Report() {
           )}
         </View>
 
-        {countdown ? <Text maxFontSizeMultiplier={FONT_CAP} style={styles.countdown}>{countdown}</Text> : null}
-        <Text maxFontSizeMultiplier={FONT_CAP} style={[type.subtitle, styles.center, styles.footerText]}>{S.report.footer}</Text>
-      </View>
-      <View style={[styles.footer, { paddingBottom: Math.max(insets.bottom, 16) }]}>
-        <PrimaryButton label={S.report.cta} onPress={onContinue} />
-      </View>
-    </View>
+        <Text maxFontSizeMultiplier={TITLE_CAP} accessibilityRole="header" style={styles.section}>{S.project.title}</Text>
+        <View
+          style={styles.timeline}
+          onLayout={(e) => {
+            setTimelineY(e.nativeEvent.layout.y);
+            check(0, viewH, e.nativeEvent.layout.y);
+          }}>
+          <ProjectionTimeline nodes={nodes} play={seen} />
+        </View>
+        <Text maxFontSizeMultiplier={FONT_CAP} style={styles.projectNote}>{S.project.note}</Text>
+      </ScrollView>
+    </ScreenShell>
   );
 }
 
+const VISIBLE_PT = 40;
+
 const styles = StyleSheet.create({
-  root: { flex: 1, backgroundColor: colors.bg },
   fill: { flex: 1 },
-  scroll: { paddingTop: 36, paddingHorizontal: 20, paddingBottom: 24 },
+  scroll: { paddingTop: 24, paddingHorizontal: 20, paddingBottom: 24 },
+  titleRow: { alignItems: 'center', gap: 10, paddingHorizontal: 16 },
   center: { textAlign: 'center' },
   doc: { marginTop: 24, backgroundColor: colors.surface, borderRadius: radius.panel, padding: 20 },
   markers: { marginTop: 14 },
-  docHead: { flexDirection: 'row', alignItems: 'flex-start', gap: 12 },
   badge: { backgroundColor: colors.orangeStrong, borderRadius: 8, paddingHorizontal: 10, paddingVertical: 4 },
   badgeText: { color: '#FFFFFF', fontSize: 13, fontWeight: '700', letterSpacing: 0.5 },
   label: { fontSize: 13, lineHeight: 17, fontWeight: '600', color: colors.muted, textTransform: 'uppercase', letterSpacing: 0.6, marginBottom: 4 },
@@ -120,7 +135,7 @@ const styles = StyleSheet.create({
   chip: { backgroundColor: colors.orangeFill, borderColor: colors.orangeBorder, borderWidth: 1, borderRadius: radius.pill, paddingHorizontal: 10, paddingVertical: 4 },
   chipText: { fontSize: 14, lineHeight: 18, color: colors.ink },
   note: { marginTop: 14, fontSize: 13, lineHeight: 17, color: colors.muted },
-  countdown: { marginTop: 20, textAlign: 'center', fontSize: 17, lineHeight: 22, fontWeight: '600', color: colors.ink },
-  footerText: { color: colors.inkSoft, marginTop: 10, paddingHorizontal: 12 },
-  footer: { paddingHorizontal: 29, paddingTop: 8 },
+  section: { marginTop: 32, fontSize: 20, lineHeight: 25, fontWeight: '700', color: colors.ink },
+  timeline: { marginTop: 16 },
+  projectNote: { marginTop: 20, fontSize: 13, lineHeight: 17, color: colors.muted },
 });

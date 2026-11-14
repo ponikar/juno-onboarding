@@ -4,6 +4,9 @@ appId: host.exp.Exponent
 ---
 - tapOn: "Try it now"
 - waitForAnimationToEnd
+- tapOn:
+    id: "story-cta"
+- waitForAnimationToEnd
 - repeat:
     times: 4
     while:
@@ -51,6 +54,10 @@ appId: host.exp.Exponent
 - waitForAnimationToEnd
 - tapOn: "Add later"
 - waitForAnimationToEnd
+- assertVisible: "What I know so far"
+- takeScreenshot: docs/evals/e2e/10-insight-health
+- tapOn: "Keep going"
+- waitForAnimationToEnd
 - tapOn: "None booked"
 - waitForAnimationToEnd
 - takeScreenshot: docs/evals/e2e/09-after-none-booked
@@ -59,22 +66,33 @@ appId: host.exp.Exponent
 - tapOn: "Continue"
 - waitForAnimationToEnd
 - tapOn: "No one right now"
-- takeScreenshot: docs/evals/e2e/11-support-no-one
+- takeScreenshot: docs/evals/e2e/13-support-no-one
 - tapOn: "Continue"
+- waitForAnimationToEnd
+- assertVisible: "What I know so far"
+- takeScreenshot: docs/evals/e2e/14-insight-days
+- tapOn: "Keep going"
 - waitForAnimationToEnd
 - tapOn: "Prefer not to say"
 - tapOn: "Continue"
 - waitForAnimationToEnd
 - tapOn: "Maybe later"
+- waitForAnimationToEnd
+- tapOn: "Not sure yet"
+- takeScreenshot: docs/evals/e2e/17-promise
+- tapOn: "Keep going"
 - extendedWaitUntil:
-    visible: "Continue"
+    visible: "See my doctor page"
     timeout: 10000
 - waitForAnimationToEnd
-- takeScreenshot: docs/evals/e2e/15-snapshot
-- tapOn: "Continue"
+- takeScreenshot: docs/evals/e2e/19-snapshot
+- tapOn: "See my doctor page"
 - waitForAnimationToEnd
-- takeScreenshot: docs/evals/e2e/16-report
-- tapOn: "Continue"
+- takeScreenshot: docs/evals/e2e/20-report
+- scrollUntilVisible:
+    element: "What this page becomes"
+- takeScreenshot: docs/evals/e2e/20-report-projection
+- tapOn: "Save my snapshot"
 - waitForAnimationToEnd
 - tapOn: "Continue with Apple"
 - extendedWaitUntil:
@@ -82,15 +100,16 @@ appId: host.exp.Exponent
     timeout: 10000
 - tapOn: "See my plan"
 - waitForAnimationToEnd
-- takeScreenshot: docs/evals/e2e/19-plans
+- takeScreenshot: docs/evals/e2e/23-plans
 - tapOn: "Continue with the free plan"
 - waitForAnimationToEnd
-- takeScreenshot: docs/evals/e2e/20-notify
+- takeScreenshot: docs/evals/e2e/24-notify
 - tapOn: "Not now"
 - waitForAnimationToEnd
-- takeScreenshot: docs/evals/e2e/21-done-free
+- takeScreenshot: docs/evals/e2e/25-done-free
 - tapOn: "Let’s go"
 - waitForAnimationToEnd
 - assertVisible: "Fatigue"
 - assertVisible: "Headaches"
-- takeScreenshot: docs/evals/e2e/21-chat
+- assertVisible: "Day 1 of 7"
+- takeScreenshot: docs/evals/e2e/25-chat

@@ -15,6 +15,7 @@ import { haptic } from '@/ui/haptics';
 import { Icon } from '@/ui/Icon';
 import { PressableScale } from '@/ui/PressableScale';
 import { useKeyboardOpen } from '@/ui/ScreenShell';
+import { WeekDots } from '@/ui/WeekDots';
 
 type Msg = { id: number; from: 'me' | 'juno'; text: string };
 type SuggestionId = keyof typeof S.chat.replies;
@@ -113,6 +114,9 @@ export default function Chat() {
             <Text maxFontSizeMultiplier={FONT_CAP} style={styles.skipText}>{S.chat.skip}</Text>
           </PressableScale>
         )}
+      </View>
+      <View style={styles.week}>
+        <WeekDots caption={S.chat.day} center />
       </View>
 
       <ScrollView
@@ -239,6 +243,7 @@ export default function Chat() {
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: '#F4F4F7' },
   header: { height: 44, alignItems: 'center', justifyContent: 'center' },
+  week: { marginTop: 10 },
   junoPill: {
     flexDirection: 'row',
     alignItems: 'center',

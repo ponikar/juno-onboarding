@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Modal, StyleSheet, Text, View } from 'react-native';
 import Animated, { FadeIn, Keyframe } from 'react-native-reanimated';
 
-import { S } from '@/copy/strings';
+import { fill, S } from '@/copy/strings';
 import { nextRoute } from '@/flow';
 import { track } from '@/lib/track';
 import { EASE_OUT } from '@/motion/tokens';
@@ -14,11 +14,10 @@ import { PressableScale } from '@/ui/PressableScale';
 import { PrimaryButton, TextLink } from '@/ui/PrimaryButton';
 import { ScreenShell, Title } from '@/ui/ScreenShell';
 
-// Screen 20 (from 61 bell + 63 bell-after-plans): one notification ask, after the plan choice.
+// Screen 24 (from 61 bell + 63 bell-after-plans): one notification ask, after the plan choice.
 export default function Notify() {
   const { state, set } = useOnboarding();
   const [prompt, setPrompt] = useState(false);
-  const paid = state.plan === 'trial_yearly' || state.plan === 'monthly';
 
   const finish = (allowed: boolean) => {
     set({ notificationsAllowed: allowed });
@@ -38,7 +37,9 @@ export default function Notify() {
           <TextLink label={S.notify.later} onPress={() => finish(false)} />
         </>
       }>
-      <Title onSky>{S.notify.free}</Title>
+      <Title onSky sub={state.plan === 'trial_yearly' ? S.notify.trialLine : undefined}>
+        {state.checkInTime ? fill(S.notify.withTime, { time: state.checkInTime }) : S.notify.free}
+      </Title>
 
       {/* MOCK system prompt, styled after the iOS alert in 61-more-bell--os-notification-prompt */}
       <Modal visible={prompt} transparent animationType="none" onRequestClose={() => finish(false)} statusBarTranslucent>

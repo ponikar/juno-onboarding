@@ -117,12 +117,12 @@
     "preset": "demo"
   },
   {
-    "id": "chat-sleep-reply",
+    "id": "chat-suggestion",
     "route": "/chat",
     "preset": "demo",
-    "actions": "- tapOn: \"Okay\"",
+    "actions": "- tapOn: \"I just need to vent\"",
     "ignore": [
-      "Okay"
+      "I just need to vent"
     ]
   },
   {
@@ -145,5 +145,26 @@
     "preset": "empty",
     "actions": "- tapOn: \"POTS\"",
     "variant": "C"
+  },
+  {
+    "id": "story",
+    "route": "/story",
+    "preset": "demo"
+  },
+  {
+    "id": "insight-health",
+    "route": "/insight-health",
+    "preset": "demo"
+  },
+  {
+    "id": "insight-days",
+    "route": "/insight-days",
+    "preset": "demo"
+  },
+  {
+    "id": "promise-pick",
+    "route": "/promise",
+    "preset": "empty",
+    "actions": "- tapOn: \"Yes, most days\"\n- tapOn: \"Evening\""
   }
 ]
