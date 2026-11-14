@@ -372,7 +372,21 @@ export const S = {
     typing: 'Juno is typing', // NEW
     send: 'Send', // NEW
   },
+  projection: {
+    appointment: 'Your appointment is in {n} days. Log once a day and your doctor sees {n} days of how you’ve felt, not just what you remember.', // NEW (experiment)
+    week: 'Log once a day this week and I’ll have 7 days to look for what affects your {symptom}.', // NEW (experiment)
+    weekNoSymptom: 'Log once a day this week and I’ll have 7 days to look for what affects how you feel.', // NEW (experiment)
+    soon: 'Your appointment is very soon. Today’s entry is already in your summary.', // NEW (experiment)
+    loggedN: '1 of {n} days logged', // NEW (experiment)
+    logged1: '1 of 1 day logged', // NEW (experiment)
+    more: '+{n} more', // NEW (experiment)
+  },
+  sleep: {
+    options: ['Badly', 'Okay', 'Well'], // NEW (experiment): one-tap answers to chat.open
+    reply: 'Logged. That’s two entries today. I’ll check in tomorrow.', // NEW (experiment)
+  },
   debug: {
+    flags: 'Experiments (on = new)', // NEW
     experiment: 'Experiment: conditions screen (6)', // NEW
     title: 'Jump to a screen',
     reset: 'Reset and start over',

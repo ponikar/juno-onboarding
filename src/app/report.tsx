@@ -4,9 +4,12 @@ import { StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { fill, joinList, S } from '@/copy/strings';
+import { useFlag } from '@/experiments/flags';
 import { daysUntil } from '@/lib/dates';
+import { projection } from '@/lib/projection';
 import { useOnboarding } from '@/state/onboarding';
 import { colors, radius, shadow, type, FONT_CAP } from '@/theme/tokens';
+import { DayMarkers } from '@/ui/DayMarkers';
 import { haptic } from '@/ui/haptics';
 import { PrimaryButton } from '@/ui/PrimaryButton';
 
@@ -28,6 +31,8 @@ export default function Report() {
   const days = state.nextAppointment ? Math.max(0, daysUntil(state.nextAppointment, new Date())) : null;
   const countdown =
     days === null ? null : days === 0 ? S.report.countdown0 : days === 1 ? S.report.countdown1 : fill(S.report.countdown, { days });
+
+  const plan = useFlag('projection') ? projection(state, new Date()) : null;
 
   const onContinue = () => {
     if (router.canGoBack()) router.dismiss();
@@ -76,7 +81,13 @@ export default function Report() {
               )}
             </View>
           </View>
-          <Text maxFontSizeMultiplier={FONT_CAP} style={styles.note}>{S.report.sampleNote}</Text>
+          {plan ? (
+            <View style={styles.markers}>
+              <DayMarkers markers={plan.markers} more={plan.more} label={plan.label} />
+            </View>
+          ) : (
+            <Text maxFontSizeMultiplier={FONT_CAP} style={styles.note}>{S.report.sampleNote}</Text>
+          )}
         </View>
 
         {countdown ? <Text maxFontSizeMultiplier={FONT_CAP} style={styles.countdown}>{countdown}</Text> : null}
@@ -95,6 +106,7 @@ const styles = StyleSheet.create({
   scroll: { paddingTop: 36, paddingHorizontal: 20, paddingBottom: 24 },
   center: { textAlign: 'center' },
   doc: { marginTop: 24, backgroundColor: colors.surface, borderRadius: radius.panel, padding: 20 },
+  markers: { marginTop: 14 },
   docHead: { flexDirection: 'row', alignItems: 'flex-start', gap: 12 },
   badge: { backgroundColor: colors.orangeStrong, borderRadius: 8, paddingHorizontal: 10, paddingVertical: 4 },
   badgeText: { color: '#FFFFFF', fontSize: 13, fontWeight: '700', letterSpacing: 0.5 },

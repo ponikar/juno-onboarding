@@ -4,6 +4,7 @@ import Animated, { Easing, FadeIn, FadeInDown, FadeOut } from 'react-native-rean
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { fill, joinList, S } from '@/copy/strings';
+import { useFlag } from '@/experiments/flags';
 import { track } from '@/lib/track';
 import { extractSymptoms } from '@/mocks/extractSymptoms';
 import { ENTER_MS } from '@/motion/tokens';
@@ -31,7 +32,8 @@ function replyTo(text: string, id?: SuggestionId) {
 export default function Chat() {
   const insets = useSafeAreaInsets();
   const keyboard = useKeyboardOpen();
-  const { state } = useOnboarding();
+  const { state, set } = useOnboarding();
+  const sleepOn = useFlag('actionEnding');
   const logged = state.todayEntry || state.todaySymptoms.length > 0;
   const [messages, setMessages] = useState<Msg[]>([]);
   const [draft, setDraft] = useState('');
@@ -57,6 +59,17 @@ export default function Chat() {
       if (Platform.OS === 'ios') AccessibilityInfo.announceForAccessibility(text);
       haptic.light();
     }, TYPING_MS);
+  };
+
+  // Experiment (action ending): one-tap answer to "How did you sleep last night?".
+  const logSleep = (answer: (typeof S.sleep.options)[number]) => {
+    if (typing) return;
+    haptic.selection();
+    set({ sleepLastNight: answer });
+    setShowSuggestions(false);
+    push('me', answer);
+    track('second_log', { sleep: answer });
+    junoSays(S.sleep.reply);
   };
 
   const send = (text: string, id?: SuggestionId) => {
@@ -129,7 +142,17 @@ export default function Chat() {
           </View>
         </View>
 
-        {showSuggestions && (
+        {sleepOn && !state.sleepLastNight && (
+          <Animated.View exiting={FadeOut.duration(150)} style={styles.sleepRow}>
+            {S.sleep.options.map((o) => (
+              <PressableScale key={o} accessibilityRole="button" accessibilityLabel={o} onPress={() => logSleep(o)} style={[styles.suggestion, styles.sleepChip, shadow.card]}>
+                <Text maxFontSizeMultiplier={FONT_CAP} style={styles.suggestionText}>{o}</Text>
+              </PressableScale>
+            ))}
+          </Animated.View>
+        )}
+
+        {!sleepOn && showSuggestions && (
           <Animated.View exiting={FadeOut.duration(150)} style={styles.suggestions}>
             {S.chat.suggestions.map((s) => (
               <PressableScale
@@ -246,6 +269,8 @@ const styles = StyleSheet.create({
     paddingRight: 22,
     height: 52,
   },
+  sleepRow: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: 10, marginTop: 6, paddingLeft: 38 },
+  sleepChip: { paddingLeft: 22, minWidth: 88, justifyContent: 'center' },
   suggestionIcon: { width: 36, height: 36, borderRadius: 18 },
   suggestionText: { fontSize: 17, fontWeight: '500', color: '#111111' },
   inputWrap: { paddingHorizontal: 24, paddingTop: 8 },

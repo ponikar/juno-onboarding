@@ -4,6 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { S } from '@/copy/strings';
 import { CONDITIONS_VARIANTS, setConditionsVariant, useConditionsVariant } from '@/experiments/conditionsVariant';
+import { Flag, FLAGS, setFlag, useFlag } from '@/experiments/flags';
 import { FLOW } from '@/flow';
 import { presetState, useOnboarding } from '@/state/onboarding';
 import { colors, radius, type, FONT_CAP } from '@/theme/tokens';
@@ -41,6 +42,11 @@ export default function Debug() {
           </PressableScale>
         ))}
       </View>
+      <Text maxFontSizeMultiplier={FONT_CAP} style={[type.small, { color: colors.inkSoft, marginBottom: 6 }]}>{S.debug.flags}</Text>
+      {(Object.keys(FLAGS) as Flag[]).map((f) => (
+        <FlagRow key={f} flag={f} />
+      ))}
+      <View style={{ height: 12 }} />
       {FLOW.map((s) => (
         <PressableScale key={s.route} onPress={() => go(s.route)} style={styles.item} accessibilityRole="button">
           <Text maxFontSizeMultiplier={FONT_CAP} style={type.body}>{`${s.n}. ${s.route.slice(1)}`}</Text>
@@ -48,6 +54,23 @@ export default function Debug() {
         </PressableScale>
       ))}
     </ScrollView>
+  );
+}
+
+function FlagRow({ flag }: { flag: Flag }) {
+  const on = useFlag(flag);
+  return (
+    <PressableScale
+      accessibilityRole="switch"
+      accessibilityState={{ checked: on }}
+      accessibilityLabel={FLAGS[flag]}
+      onPress={() => setFlag(flag, !on)}
+      style={[styles.item, styles.flag]}>
+      <Text maxFontSizeMultiplier={FONT_CAP} style={[type.body, { flex: 1 }]}>{FLAGS[flag]}</Text>
+      <View style={[styles.pill, on && styles.pillOn]}>
+        <Text maxFontSizeMultiplier={FONT_CAP} style={[type.small, { fontWeight: '600', color: on ? '#fff' : colors.ink }]}>{on ? 'On' : 'Off'}</Text>
+      </View>
+    </PressableScale>
   );
 }
 
@@ -64,5 +87,8 @@ const styles = StyleSheet.create({
   btn: { backgroundColor: colors.button, borderRadius: radius.pill, paddingHorizontal: 14, minHeight: 44, justifyContent: 'center' },
   seg: { minWidth: 56, minHeight: 44, borderRadius: radius.pill, borderWidth: 1.5, borderColor: colors.radio, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 12 },
   segOn: { backgroundColor: colors.button, borderColor: colors.button },
+  flag: { flexDirection: 'row', alignItems: 'center', gap: 12 },
+  pill: { minWidth: 52, paddingVertical: 4, borderRadius: radius.pill, borderWidth: 1.5, borderColor: colors.radio, alignItems: 'center' },
+  pillOn: { backgroundColor: colors.button, borderColor: colors.button },
   item: { backgroundColor: colors.surface, borderRadius: 14, padding: 12, marginBottom: 6, minHeight: 44 },
 });

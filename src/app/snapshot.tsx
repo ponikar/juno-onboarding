@@ -4,7 +4,9 @@ import { StyleSheet, Text } from 'react-native';
 import Animated, { useAnimatedStyle, useReducedMotion, useSharedValue, withDelay, withTiming } from 'react-native-reanimated';
 
 import { fill, joinList, S } from '@/copy/strings';
+import { useFlag } from '@/experiments/flags';
 import { nextRoute } from '@/flow';
+import { projection } from '@/lib/projection';
 import { formatDate, fromISODate } from '@/lib/dates';
 import { EASE_OUT, ENTER_FROM_SCALE, ENTER_MS, staggerAt } from '@/motion/tokens';
 import { OnboardingState, useOnboarding } from '@/state/onboarding';
@@ -13,7 +15,7 @@ import { haptic } from '@/ui/haptics';
 import { PrimaryButton } from '@/ui/PrimaryButton';
 import { ScreenShell, Title } from '@/ui/ScreenShell';
 
-function rows(s: OnboardingState) {
+function rows(s: OnboardingState, projected: boolean) {
   const symptom = s.todaySymptoms[0] ?? s.symptoms[0];
   return [
     {
@@ -31,7 +33,11 @@ function rows(s: OnboardingState) {
     { label: S.snapshot.rowMeds, value: s.medicines.length ? joinList(s.medicines) : S.snapshot.noMeds },
     ...(s.nextAppointment ? [{ label: S.snapshot.rowAppt, value: formatDate(fromISODate(s.nextAppointment)) }] : []),
     { label: S.snapshot.rowEnergy, value: s.energy !== null ? fill(S.snapshot.energyValue, { n: s.energy }) : S.snapshot.noEnergy },
-    { label: null, value: symptom ? fill(S.snapshot.watch, { symptom: symptom.toLowerCase() }) : S.snapshot.watchDefault },
+    {
+      label: null,
+      // Experiment: a line computed from the appointment date (or 7 days) instead of the generic watch line.
+      value: projected ? projection(s, new Date()).line : symptom ? fill(S.snapshot.watch, { symptom: symptom.toLowerCase() }) : S.snapshot.watchDefault,
+    },
   ];
 }
 
@@ -52,7 +58,8 @@ export default function Snapshot() {
     transform: reduced ? [] : [{ scale: ENTER_FROM_SCALE + (1 - ENTER_FROM_SCALE) * card.value }],
   }));
 
-  const list = rows(state);
+  const projected = useFlag('projection');
+  const list = rows(state, projected);
   return (
     <ScreenShell
       variant="sky"

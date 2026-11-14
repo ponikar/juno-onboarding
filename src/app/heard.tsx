@@ -12,7 +12,8 @@ import Animated, {
 
 import { fill, joinList, S } from '@/copy/strings';
 import { nextRoute } from '@/flow';
-import { track } from '@/lib/track';
+import { getFlag } from '@/experiments/flags';
+import { SESSION_STARTED_AT, track } from '@/lib/track';
 import { extractSymptoms } from '@/mocks/extractSymptoms';
 import { EASE_OUT, ENTER_FROM_SCALE, ENTER_MS } from '@/motion/tokens';
 import { useOnboarding } from '@/state/onboarding';
@@ -30,7 +31,7 @@ const START = 350;
 
 // Screen 4 (from Figma 35 tracking-demo, new content). Explanation: the words become a log.
 export default function Heard() {
-  const { state } = useOnboarding();
+  const { state, set } = useOnboarding();
   const entry = state.todayEntry;
   const { symptoms, matches } = useMemo(() => extractSymptoms(entry), [entry]);
   const [highlight, setHighlight] = useState(false);
@@ -46,6 +47,11 @@ export default function Heard() {
     setSettled(true);
     haptic.light();
     track('heard_logged', { symptoms });
+    // Activation: screen 4 fully shown with a logged entry. Once per install (stored flag).
+    if (getFlag('activationTracking') && !state.activated && state.todayEntry.trim()) {
+      track('activation', { secondsSinceOpen: Math.round((Date.now() - SESSION_STARTED_AT) / 1000), symptomCount: symptoms.length });
+      set({ activated: true });
+    }
   };
 
   const reply = symptoms.length

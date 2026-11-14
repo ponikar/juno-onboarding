@@ -35,6 +35,8 @@ export interface OnboardingState {
   paywallExitAsked: boolean;
   notificationsAllowed: boolean | null;
   lastRoute: string | null;
+  activated: boolean; // activation event already sent (once per install)
+  sleepLastNight: 'Badly' | 'Okay' | 'Well' | null; // first-chat one-tap log
 }
 
 export const initialState: OnboardingState = {
@@ -65,6 +67,8 @@ export const initialState: OnboardingState = {
   paywallExitAsked: false,
   notificationsAllowed: null,
   lastRoute: null,
+  activated: false,
+  sleepLastNight: null,
 };
 
 // Presets let the debug menu and the screenshot evals open any screen in a known state.

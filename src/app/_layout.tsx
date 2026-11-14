@@ -5,6 +5,7 @@ import { useEffect, useRef } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { CONDITIONS_VARIANTS, ConditionsVariant, setConditionsVariant } from '@/experiments/conditionsVariant';
+import { addDays, toISODate } from '@/lib/dates';
 import { track } from '@/lib/track';
 import { OnboardingProvider, presetState, useOnboarding } from '@/state/onboarding';
 import { colors } from '@/theme/tokens';
@@ -15,7 +16,7 @@ SplashScreen.preventAutoHideAsync();
 function FlowWatcher() {
   const { ready, reset, set } = useOnboarding();
   const pathname = usePathname();
-  const { preset, fresh, variant } = useGlobalSearchParams<{ preset?: string; fresh?: string; variant?: string }>();
+  const { preset, fresh, variant, appt } = useGlobalSearchParams<{ preset?: string; fresh?: string; variant?: string; appt?: string }>();
   const applied = useRef<string | null>(null);
 
   useEffect(() => {
@@ -36,13 +37,16 @@ function FlowWatcher() {
     const k = `${pathname}?${preset}`;
     if (applied.current === k) return;
     applied.current = k;
-    reset(presetState(preset));
+    const s = presetState(preset);
+    // ?appt=<days>|none (screenshots): appointment that many days from today.
+    if (appt) s.nextAppointment = appt === 'none' ? null : toISODate(addDays(new Date(), Number(appt)));
+    reset(s);
     // ?fresh=1 (evals): drop every screen underneath, so the stack holds only this one.
     if (fresh && router.canDismiss()) {
       router.dismissAll();
       router.replace(pathname as never);
     }
-  }, [ready, preset, fresh, pathname, reset]);
+  }, [ready, preset, fresh, appt, pathname, reset]);
 
   useEffect(() => {
     if (!ready || pathname === '/' || pathname === '/debug') return;
