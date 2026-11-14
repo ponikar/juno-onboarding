@@ -23,6 +23,7 @@ export function OptionCard({ label, icon, iconNode, selected, onPress, multi = t
       accessibilityRole={multi ? 'checkbox' : 'radio'}
       accessibilityState={multi ? { checked: selected } : { selected }}
       accessibilityLabel={label}
+      selected={selected}
       onPress={() => {
         haptic.selection();
         onPress();

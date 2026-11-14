@@ -112,6 +112,12 @@
     "preset": "demo"
   },
   {
+    "id": "notify-allow",
+    "route": "/notify",
+    "preset": "demo",
+    "actions": "- tapOn: \"Turn on reminders\""
+  },
+  {
     "id": "done",
     "route": "/done",
     "preset": "demo"
@@ -165,9 +171,53 @@
     "id": "promise-pick",
     "route": "/promise",
     "preset": "empty",
-    "actions": "- tapOn: \"Yes, most days\"\n- tapOn: \"Evening\"",
+    "actions": "- tapOn: \"Yes, most days\"",
     "ignore": [
       "selected"
+    ]
+  },
+  {
+    "id": "promise-unsure",
+    "route": "/promise",
+    "preset": "empty",
+    "actions": "- tapOn: \"Not sure yet\"",
+    "ignore": [
+      "selected"
+    ]
+  },
+  {
+    "id": "when-pick",
+    "route": "/when",
+    "preset": "empty",
+    "actions": "- tapOn: \"Evening\"",
+    "ignore": [
+      "selected"
+    ]
+  },
+  {
+    "id": "demo",
+    "route": "/demo",
+    "preset": "demo",
+    "ignore": [
+      "Juno",
+      "Tomorrow",
+      "Tomorrow morning",
+      "Tomorrow afternoon",
+      "Tomorrow evening",
+      "How are you today? Tap to tell me in a few words.",
+      "Hi. How are you feeling today?",
+      "Better than yesterday",
+      "About the same",
+      "Rough day",
+      "Logged. That's day 2 on your doctor page.",
+      "Day 2 of 7",
+      "That's it. One line a day.",
+      "Your doctor page",
+      "Today",
+      "Health",
+      "Days",
+      "Routine",
+      "Skips to the next step"
     ]
   }
 ]

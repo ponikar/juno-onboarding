@@ -14,7 +14,7 @@ import { PressableScale } from '@/ui/PressableScale';
 import { PrimaryButton, TextLink } from '@/ui/PrimaryButton';
 import { ScreenShell, Title } from '@/ui/ScreenShell';
 
-// Screen 24 (from 61 bell + 63 bell-after-plans): one notification ask, after the plan choice.
+// Screen 20 Reminders (v3 R-06, from 61 bell): one notification ask, right after the demo.
 export default function Notify() {
   const { state, set } = useOnboarding();
   const [prompt, setPrompt] = useState(false);
@@ -38,7 +38,7 @@ export default function Notify() {
           <TextLink label={S.notify.later} onPress={() => finish(false)} />
         </>
       }>
-      <Title onSky sub={state.plan === 'trial_yearly' ? S.notify.trialLine : undefined}>
+      <Title onSky sub={S.notify.why}>
         {state.checkInTime ? fill(S.notify.withTime, { time: state.checkInTime }) : S.notify.free}
       </Title>
 

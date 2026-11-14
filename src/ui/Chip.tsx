@@ -22,6 +22,7 @@ export function Chip({ label, selected, onToggle, preTicked, testID }: {
       accessibilityRole="checkbox"
       accessibilityState={{ checked: selected }}
       accessibilityLabel={label}
+      selected={selected}
       onPress={() => {
         haptic.selection();
         onToggle();

@@ -21,7 +21,7 @@ export default function Sponsor() {
     set({ plan: 'sponsored' });
     track('answer', { screen: '/sponsor', reason });
     router.dismiss();
-    router.push('/notify');
+    router.push('/done');
   };
 
   return (

@@ -9,9 +9,15 @@ export const ENTER_MS = 300;
 export const ENTER_FROM_SCALE = 0.95;
 export const STAGGER_MS = [0, 50, 90, 120];
 export const SPRING_SETTLE = { duration: 400, dampingRatio: 1 };
+export const POP_FROM = 0.96;
+export const SPRING_POP = { duration: 350, dampingRatio: 0.7 };
+export const TITLE_ENTER_MS = 320;
+export const TITLE_RISE = 12;
+export const REST_DELAY_MS = 60;
+export const ENABLE_MS = 200;
 
 export const REPLY_FADE_MS = 200;
-export const REPLY_DELAY_MS = 200;
+export const TYPING_MS = 450;
 export const PROGRESS_MS = 250;
 
 export function staggerAt(i: number) {

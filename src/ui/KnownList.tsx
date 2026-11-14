@@ -41,7 +41,7 @@ function Row({ row, delay }: { row: KnownRow; delay: number }) {
 }
 
 const styles = StyleSheet.create({
-  wrap: { gap: space.m },
+  wrap: { gap: space.s },
   row: { flexDirection: 'row', alignItems: 'center', gap: 10 },
   text: { flexShrink: 1, color: colors.ink },
 });

@@ -412,7 +412,7 @@ export const S = {
     cta: 'Show me',
   },
   demo: { // v3 spec
-    title: "Here's tomorrow's check-in",
+    title: "Here's tomorrow's check‑in", // non-breaking hyphen keeps "check-in" on one line
     notifyTitle: 'Juno',
     notification: 'How are you today? Tap to tell me in a few words.',
     when: { morning: 'Tomorrow morning', afternoon: 'Tomorrow afternoon', evening: 'Tomorrow evening', none: 'Tomorrow' },

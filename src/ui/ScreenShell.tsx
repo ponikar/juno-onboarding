@@ -1,16 +1,17 @@
 import { router, usePathname } from 'expo-router';
-import { ReactNode, useEffect, useState } from 'react';
+import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 import { Image, ImageSourcePropType, Keyboard, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
-import Animated, { useAnimatedStyle, useReducedMotion, useSharedValue, withTiming } from 'react-native-reanimated';
+import Animated, { SharedValue, useAnimatedStyle, useReducedMotion, useSharedValue, withDelay, withTiming } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { S } from '@/copy/strings';
 import { flowBarFor, FlowRoute, prevRoute } from '@/flow';
-import { EASE_OUT } from '@/motion/tokens';
+import { EASE_OUT, REST_DELAY_MS, TITLE_ENTER_MS, TITLE_RISE } from '@/motion/tokens';
 import { colors, shadow, size, space, type, FONT_CAP, TITLE_CAP } from '@/theme/tokens';
 import { FlowBar } from './FlowBar';
 import { Icon } from './Icon';
 import { PressableScale } from './PressableScale';
+import { useTapHaptic } from './PrimaryButton';
 
 // Sky gradient sampled from Figma 14-goals (see theme/tokens skyStops).
 export const SKY_GRADIENT =
@@ -30,15 +31,15 @@ type Props = {
   headerRight?: ReactNode;
 };
 
-// Height the flow bar row adds under the nav (marginTop 6 + label 18 + gap 5 + bar 3), for screens that size art from the nav.
-export const FLOW_BAR_ROW = 32;
+// Height the flow bar row adds under the nav (marginTop 6 + label line 20 + gap 6 + bar 6), for screens that size art from the nav.
+export const FLOW_BAR_ROW = 38;
 
 export function ScreenShell({ children, variant = 'plain', background, backgroundHeight, backgroundTop = 0, route, back = true, close, footer, scroll = true, headerRight }: Props) {
   const insets = useSafeAreaInsets();
   const keyboard = useKeyboardOpen();
   const onSky = variant === 'sky';
   const bar = route ? flowBarFor(route) : null;
-  const enter = useEnter();
+  const { lead, body: enter, footer: footerEnter } = useEnter();
   const pathname = usePathname();
   // After a resume the stack holds one screen, so back walks the flow instead.
   const onBack = typeof back === 'function' ? back : () => (router.canGoBack() ? router.back() : router.replace(prevRoute(pathname) as never));
@@ -71,32 +72,45 @@ export function ScreenShell({ children, variant = 'plain', background, backgroun
           <FlowBar seg={bar.seg} fraction={bar.fraction} done={bar.done} onSky={onSky} />
         </View>
       )}
-      <Animated.View style={[styles.body, enter]}>
-        <Body
-          style={styles.body}
-          contentContainerStyle={scroll ? styles.scrollContent : undefined}
-          keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}>
-          {children}
-        </Body>
-        {footer && <View style={[styles.footer, { paddingBottom: keyboard ? 12 : Math.max(insets.bottom, 16) }]}>{footer}</View>}
-      </Animated.View>
+      <EnterContext value={lead}>
+        <Animated.View style={[styles.body, enter]}>
+          <Body
+            style={styles.body}
+            contentContainerStyle={scroll ? styles.scrollContent : undefined}
+            keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}>
+            {children}
+          </Body>
+          {footer && (
+            <Animated.View style={[styles.footer, { paddingBottom: keyboard ? 12 : Math.max(insets.bottom, 16) }, footerEnter]}>{footer}</Animated.View>
+          )}
+        </Animated.View>
+      </EnterContext>
     </KeyboardAvoidingView>
   );
 }
 
-const ENTER_SCREEN_MS = 280;
+const EnterContext = createContext<SharedValue<number> | null>(null);
 
-// Spec 10: screen content fades in and rises 8 pt; the native stack cross-fades underneath.
+// v3 R-13: the Title leads (fade + 12 pt rise, read from EnterContext); the footer fades in 60 ms later, no rise.
+// Body siblings share the Title's container, so they fade with it: a child cannot be more opaque than its parent.
 function useEnter() {
-  const reduced = useReducedMotion();
-  const p = useSharedValue(0);
+  const lead = useSharedValue(0);
+  const rest = useSharedValue(0);
   useEffect(() => {
-    p.value = withTiming(1, { duration: ENTER_SCREEN_MS, easing: EASE_OUT });
-  }, [p]);
+    lead.value = withTiming(1, { duration: TITLE_ENTER_MS, easing: EASE_OUT });
+    rest.value = withDelay(REST_DELAY_MS, withTiming(1, { duration: TITLE_ENTER_MS, easing: EASE_OUT }));
+  }, [lead, rest]);
+  const body = useAnimatedStyle(() => ({ opacity: lead.value }));
+  const footer = useAnimatedStyle(() => ({ opacity: rest.value }));
+  return { lead, body, footer };
+}
+
+function useTitleEnter() {
+  const reduced = useReducedMotion();
+  const lead = useContext(EnterContext);
   return useAnimatedStyle(() => ({
-    opacity: p.value,
-    transform: reduced ? [] : [{ translateY: (1 - p.value) * 8 }],
+    transform: reduced || !lead ? [] : [{ translateY: (1 - lead.value) * TITLE_RISE }],
   }));
 }
 
@@ -114,10 +128,12 @@ export function useKeyboardOpen() {
 }
 
 export function NavButton({ icon, label, onPress, onSky }: { icon: string; label: string; onPress: () => void; onSky?: boolean }) {
+  const tap = useTapHaptic();
   return (
     <PressableScale
       accessibilityRole="button"
       accessibilityLabel={label}
+      onPressIn={tap}
       onPress={onPress}
       hitSlop={8}
       style={[styles.navBtn, onSky ? styles.navBtnSky : [styles.navBtnPlain, shadow.nav]]}>
@@ -127,11 +143,12 @@ export function NavButton({ icon, label, onPress, onSky }: { icon: string; label
 }
 
 export function Title({ children, onSky, sub, why }: { children: string; onSky?: boolean; sub?: string; why?: string }) {
+  const rise = useTitleEnter();
   return (
     <View style={styles.titleWrap}>
-      <Text maxFontSizeMultiplier={TITLE_CAP} accessibilityRole="header" style={[onSky ? [type.titleSky, shadow.titleSky] : type.title, styles.center]}>
+      <Animated.Text maxFontSizeMultiplier={TITLE_CAP} accessibilityRole="header" style={[onSky ? [type.titleSky, shadow.titleSky] : type.title, styles.center, rise]}>
         {children}
-      </Text>
+      </Animated.Text>
       {sub ? <Text maxFontSizeMultiplier={FONT_CAP} style={[type.subtitle, styles.center, { color: onSky ? 'rgba(255,255,255,0.9)' : colors.inkSoft, marginTop: 10 }]}>{sub}</Text> : null}
       {why ? <Text maxFontSizeMultiplier={FONT_CAP} style={[type.subtitle, styles.center, { color: onSky ? 'rgba(255,255,255,0.9)' : colors.inkSoft, marginTop: 8 }]}>{why}</Text> : null}
     </View>

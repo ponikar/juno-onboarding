@@ -73,6 +73,8 @@ export default function RootLayout() {
         <Stack screenOptions={{ headerShown: false, animation: 'fade', animationDuration: 280, contentStyle: { backgroundColor: colors.bg } }}>
           <Stack.Screen name="sponsor" options={{ presentation: 'formSheet', sheetAllowedDetents: [0.82], sheetGrabberVisible: true, sheetCornerRadius: 28 }} />
           <Stack.Screen name="debug" options={{ presentation: 'modal' }} />
+          <Stack.Screen name="story" options={{ gestureEnabled: false }} />
+          <Stack.Screen name="demo" options={{ gestureEnabled: false }} />
           <Stack.Screen name="energy" options={{ gestureEnabled: false }} />
           <Stack.Screen name="building" options={{ gestureEnabled: false }} />
           <Stack.Screen name="chat" options={{ gestureEnabled: false }} />

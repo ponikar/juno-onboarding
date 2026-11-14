@@ -5,6 +5,7 @@ import { Alert, Image, StyleSheet, Text, View } from 'react-native';
 import { S } from '@/copy/strings';
 import { nextRoute } from '@/flow';
 import { track } from '@/lib/track';
+import { TYPING_MS } from '@/motion/tokens';
 import { useOnboarding } from '@/state/onboarding';
 import { colors, FONT_CAP } from '@/theme/tokens';
 import { healthCluster } from '@/ui/art';
@@ -13,7 +14,7 @@ import { JunoReply } from '@/ui/JunoReply';
 import { PrimaryButton, TextLink } from '@/ui/PrimaryButton';
 import { ScreenShell, Title } from '@/ui/ScreenShell';
 
-const CONTINUE_AFTER_REPLY_MS = 900;
+const CONTINUE_AFTER_REPLY_MS = 900 + TYPING_MS;
 
 // Screen 13 (from Figma 43 health-connect and 42 wearables).
 export default function Health() {
