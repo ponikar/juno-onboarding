@@ -68,7 +68,7 @@ export default function CheckIn() {
         </>
       }>
       <View style={styles.body}>
-        <Mascot style={[styles.mascot, compact && styles.mascotCompact]} />
+        {!compact && <Mascot style={styles.mascot} />}
         <Title sub={S.checkin.sub}>{S.checkin.title}</Title>
 
         <Animated.View entering={groupIn} style={[styles.group, compact && styles.groupCompact]}>
@@ -85,7 +85,7 @@ export default function CheckIn() {
 
           <View style={styles.remind}>
             <Text maxFontSizeMultiplier={FONT_CAP} style={styles.remindLabel}>{S.checkin.remind}</Text>
-            <View style={styles.times} accessibilityRole="radiogroup">
+            <View style={[styles.times, compact && styles.timesCompact]} accessibilityRole="radiogroup">
               {TIMES.map((t) => {
                 const on = t === time;
                 return (
@@ -98,6 +98,7 @@ export default function CheckIn() {
                     onPress={() => pick(t)}
                     style={[
                       styles.time,
+                      compact && styles.timeCompact,
                       {
                         backgroundColor: on ? colors.orangeFill : colors.surface,
                         borderColor: on ? colors.orangeBorder : colors.hairline,
@@ -105,8 +106,9 @@ export default function CheckIn() {
                         transitionDuration: STATE_MS,
                       } as object,
                     ]}>
-                    <Icon name={TIME_ICON[t]} size={16} color={on ? colors.orangeStrong : colors.muted} />
-                    <Text maxFontSizeMultiplier={FONT_CAP} style={[styles.timeLabel, on && styles.timeOn]}>{S.checkin.clock[t]}</Text>
+                    <Icon name={TIME_ICON[t]} size={18} color={on ? colors.orangeStrong : colors.muted} />
+                    <Text maxFontSizeMultiplier={FONT_CAP} style={[styles.timeLabel, on && styles.timeOn]}>{LABEL[t]}</Text>
+                    <Text maxFontSizeMultiplier={FONT_CAP} style={[styles.timeClock, on && styles.timeOn]}>{S.checkin.clock[t]}</Text>
                   </PressableScale>
                 );
               })}
@@ -123,9 +125,8 @@ export default function CheckIn() {
 const styles = StyleSheet.create({
   body: { flex: 1, justifyContent: 'center', paddingBottom: 12 },
   mascot: { alignSelf: 'center', width: 120, height: 90, marginBottom: 6 },
-  mascotCompact: { width: 80, height: 60, marginBottom: 0 },
-  group: { marginTop: 32, paddingHorizontal: 24, gap: 36 },
-  groupCompact: { marginTop: 16, gap: 18 },
+  group: { marginTop: 24, paddingHorizontal: 24, gap: 24 },
+  groupCompact: { marginTop: 14, gap: 16 },
   list: { gap: 18, alignSelf: 'center' },
   listCompact: { gap: 10 },
   row: { flexDirection: 'row', alignItems: 'center', gap: 14 },
@@ -133,8 +134,11 @@ const styles = StyleSheet.create({
   rowText: { fontSize: 18, lineHeight: 23, fontWeight: '500', color: colors.ink },
   remind: { gap: 12 },
   remindLabel: { fontSize: 15, lineHeight: 20, fontWeight: '600', color: colors.inkSoft, textAlign: 'center' },
-  times: { flexDirection: 'row', gap: 10 },
-  time: { flex: 1, minHeight: 48, borderRadius: radius.pill, borderWidth: 1.5, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6 },
-  timeLabel: { fontSize: 16, lineHeight: 20, fontWeight: '600', color: colors.inkSoft },
+  times: { gap: 8 },
+  timesCompact: { gap: 6 },
+  time: { minHeight: 48, borderRadius: radius.pill, borderWidth: 1.5, flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: 18 },
+  timeCompact: { minHeight: 44 },
+  timeLabel: { flex: 1, fontSize: 16, lineHeight: 20, fontWeight: '600', color: colors.inkSoft },
+  timeClock: { fontSize: 15, lineHeight: 20, color: colors.muted },
   timeOn: { color: colors.ink },
 });
