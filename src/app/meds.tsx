@@ -65,7 +65,7 @@ export default function Meds() {
           </View>
         </>
       }>
-      <Title onSky why={S.meds.why}>{S.meds.q}</Title>
+      <Title onSky>{S.meds.q}</Title>
       <SearchField placeholder={S.meds.search} value={query} onChangeText={setQuery} accessibilityLabel={S.meds.search} />
       <View style={styles.group}>
         <Text maxFontSizeMultiplier={FONT_CAP} style={styles.groupText}>{group}</Text>
