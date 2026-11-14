@@ -19,12 +19,12 @@ export function JunoReply({ text, id, onSky }: { text: string | null; id?: strin
   }, [text, id]);
   const docked = useContext(InReplyDock);
   if (!text) return docked ? null : <View style={styles.placeholder} />;
-  return <Reply key={id ?? text} text={text} onSky={onSky} />;
+  return <Reply key={id ?? text} text={text} onSky={onSky} bare={docked} />;
 }
 
 const fade = FadeIn.duration(REPLY_FADE_MS).easing(Easing.out(Easing.quad));
 
-function Reply({ text, onSky }: { text: string; onSky?: boolean }) {
+function Reply({ text, onSky, bare }: { text: string; onSky?: boolean; bare?: boolean }) {
   const reduced = useReducedMotion();
   const [typing, setTyping] = useState(!reduced);
   const shown = useSharedValue(reduced ? 1 : 0);
@@ -39,11 +39,12 @@ function Reply({ text, onSky }: { text: string; onSky?: boolean }) {
   const textStyle = useAnimatedStyle(() => ({ opacity: shown.value }));
 
   return (
-    <Animated.View entering={fade} accessibilityLiveRegion="polite" style={styles.row}>
-      <Image source={avatar} style={styles.avatar} />
+    <Animated.View entering={fade} accessibilityLiveRegion="polite" style={[styles.row, bare && styles.rowBare]}>
+      <Image source={avatar} style={[styles.avatar, bare && styles.avatarBare]} />
       {/* The text is laid out from the start (invisible while Juno types) so the bubble never changes size. */}
-      <View style={[styles.bubble, onSky && styles.bubbleSky]}>
-        <Animated.Text maxFontSizeMultiplier={FONT_CAP} style={[styles.text, textStyle]}>{text}</Animated.Text>
+      {/* In the bottom dock the line is plain text, no bubble: it reads as a quiet aside, not another card. */}
+      <View style={bare ? styles.bareWrap : [styles.bubble, onSky && styles.bubbleSky]}>
+        <Animated.Text maxFontSizeMultiplier={FONT_CAP} style={[styles.text, bare && styles.textBare, textStyle]}>{text}</Animated.Text>
         {typing && (
           <View style={styles.dots} pointerEvents="none">
             <TypingDots />
@@ -58,6 +59,10 @@ const styles = StyleSheet.create({
   placeholder: { minHeight: 56 },
   row: { flexDirection: 'row', alignItems: 'flex-end', gap: 8, paddingHorizontal: 16, minHeight: 56 },
   avatar: { width: 30, height: 30, borderRadius: 15 },
+  rowBare: { alignItems: 'center', justifyContent: 'center', minHeight: 0, paddingHorizontal: 28, gap: 8 },
+  avatarBare: { width: 22, height: 22, borderRadius: 11 },
+  bareWrap: { flexShrink: 1, paddingVertical: 2 },
+  textBare: { fontSize: 15, lineHeight: 20, color: colors.inkSoft, textAlign: 'center' },
   bubble: {
     flexShrink: 1,
     backgroundColor: colors.surface,

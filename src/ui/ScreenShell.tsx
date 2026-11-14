@@ -78,13 +78,14 @@ export function ScreenShell({ children, variant = 'plain', background, backgroun
         <Animated.View style={[styles.body, enter]}>
           <Body
             style={styles.body}
-            contentContainerStyle={scroll ? styles.scrollContent : undefined}
+            contentContainerStyle={scroll ? [styles.scrollContent, reply ? styles.scrollUnderDock : null] : undefined}
             keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}>
             {children}
           </Body>
           {reply ? (
             <Animated.View style={[styles.dock, { paddingBottom: keyboard ? 12 : Math.max(insets.bottom, 16) }, footerEnter]}>
+              <View pointerEvents="none" style={styles.dockFade} />
               <InReplyDock.Provider value>{reply}</InReplyDock.Provider>
               {footer && <View style={styles.dockFooter}>{footer}</View>}
             </Animated.View>
@@ -176,8 +177,11 @@ const styles = StyleSheet.create({
   navBtnSky: { backgroundColor: colors.skyGlass },
   body: { flex: 1 },
   scrollContent: { flexGrow: 1, paddingBottom: space.xl },
+  scrollUnderDock: { paddingBottom: space.xl + 24 }, // room to scroll the last row clear of the dock's fade
   footer: { paddingHorizontal: space.buttonGutter, paddingTop: 8, gap: 4 },
-  dock: { backgroundColor: colors.bg, borderTopWidth: 1, borderTopColor: colors.hairline, paddingTop: 12, gap: 8 },
+  // No card edge or divider: a solid page-colour area, with a short fade above it so the list slips away before the reply.
+  dock: { backgroundColor: colors.bg, paddingTop: 6, gap: 10 },
+  dockFade: { position: 'absolute', left: 0, right: 0, top: -32, height: 32, experimental_backgroundImage: `linear-gradient(180deg, ${colors.bg}00 0%, ${colors.bg} 100%)` } as object,
   dockFooter: { paddingHorizontal: space.buttonGutter, gap: 4 },
   titleWrap: { marginTop: 30, marginBottom: 24, paddingHorizontal: 36 },
   center: { textAlign: 'center' },
