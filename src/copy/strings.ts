@@ -15,6 +15,7 @@ export const S = {
     brand: 'Juno',
     title: 'Tired of explaining your illness again and again?',
     sub: 'Tell Juno once. It remembers.',
+    time: 'About 5 minutes. Be as honest as you like.', // v2 narration spec
     cta: 'Try it now',
     haveAccount: 'I have an account',
     proof1Big: '#1',
@@ -49,10 +50,13 @@ export const S = {
     reply: 'That sounds hard. I’ve logged {symptoms} for today.',
     replyNone: 'Thanks for telling me. I’ve saved that for today.',
     logged: 'Logged', // NEW
+    progress: "That's entry 1 on your doctor page.", // v2 narration spec
+    next: 'Next: your health.', // v2 narration spec
   },
   goals: {
     q: 'What would make the biggest difference for you?',
     noneSelected: 'None selected yet',
+    limit: 'Pick up to 3', // v2 narration spec
     selected: '{n} selected',
     reply: 'That’s a realistic goal. I’ll build around it.',
     options: [
@@ -182,7 +186,6 @@ export const S = {
   },
   about: {
     q: 'What should I call you?',
-    why: 'Age and sex at birth change what’s typical for some conditions.',
     reply: 'Good to meet you, {name}.',
     namePlaceholder: 'Your first name',
     sexLabel: 'Sex at birth', // NEW (section label; screen 31 question was "What's your sex at birth?")
@@ -237,7 +240,7 @@ export const S = {
     noEnergy: 'Not set yet', // NEW
     watch: 'This week I’ll watch what affects your {symptom}.',
     watchDefault: 'This week I’ll watch how your days go.', // NEW fallback when nothing was logged
-    cta: 'Continue',
+    cta: 'See my doctor page', // v2 narration spec
   },
   report: {
     title: 'What your doctor will see',
@@ -332,7 +335,8 @@ export const S = {
     cta: 'Claim the sponsored plan',
   },
   notify: {
-    trial: 'Can I remind you before your trial ends?', // eval D-01: was 14 words
+    withTime: 'Can I check in each {time}?', // v2 narration spec
+    trialLine: "I'll also remind you before your trial ends.", // v2 narration spec
     free: 'Can I check in with you once a day?',
     allow: 'Turn on reminders', // eval T-02: says what happens
     later: 'Not now', // existing "Not now" wording from screen 35
@@ -346,10 +350,11 @@ export const S = {
     trialSub: 'We are so happy to have you.',
     freeTitle: 'Welcome to Juno',
     freeSub: 'Let me show you how I can help.',
-    trialCta: 'Continue',
+    trialCta: 'Keep going', // v2 check 14: no bare "Continue" outside question screens (= card.cta)
     freeCta: 'Let’s go',
   },
   chat: {
+    day: 'Day 1 of 7', // v2 narration spec
     juno: 'Juno',
     skip: 'Skip',
     loggedToday: 'Logged today',
@@ -384,6 +389,65 @@ export const S = {
   sleep: {
     options: ['Badly', 'Okay', 'Well'], // NEW (experiment): one-tap answers to chat.open
     reply: 'Logged. That’s two entries today. I’ll check in tomorrow.', // NEW (experiment)
+  },
+  story: { // v2 narration spec, screen 2
+    title: 'We built Juno because we needed it.',
+    body1: 'Isaac waited 14 years for a diagnosis.', // insight F7 (facts.ts)
+    body2: 'Marshall lives with ME/CFS.',
+    close: 'So Juno listens first.',
+    cta: 'Show me how',
+  },
+  seg: { // v2: flow bar segment labels (spec keys seg.health.done -> seg.healthDone)
+    today: 'Today',
+    health: 'Your health',
+    healthDone: 'Your health, done',
+    days: 'Your days',
+    daysDone: 'Your days, done',
+    you: 'You',
+    snapshot: 'Your snapshot',
+    plan: 'Your plan',
+  },
+  known: { // v2 section 7.2
+    title: 'What I know so far',
+    today: "Today's entry",
+    conditions: 'Conditions: {n}',
+    conditionsNone: 'Conditions: still looking',
+    symptoms: 'Symptoms: {n}',
+    symptomsNone: 'Symptoms: none right now',
+    meds: 'Medicines: {n}',
+    medsNone: 'Medicines: add later',
+    appt: 'Next appointment: {date}',
+    apptNone: 'Next appointment: none booked',
+    energy: 'Energy on a normal day',
+  },
+  card: { // v2 insight cards
+    healthNext: 'Next: your days.',
+    daysNext: 'Next: a little about you.',
+    cta: 'Keep going',
+  },
+  commit: { // v2 screen 17
+    q: 'Can you tell me one line a day?',
+    sub: 'Like the one you wrote earlier.',
+    optMost: 'Yes, most days',
+    optGood: 'On good days',
+    optUnsure: 'Not sure yet',
+    whenQ: 'When suits you?',
+    morning: 'Morning',
+    afternoon: 'Afternoon',
+    evening: 'Evening',
+    reply: 'Deal. Bad days count too. Miss one and nothing breaks.',
+    replyUnsure: "That's fine. I'll be here when you are.",
+    cta: "I'm in",
+  },
+  project: { // v2 section 7.3; text before " · " is the node title, after it the sub-line
+    title: 'What this page becomes',
+    today: 'Today · 1 entry',
+    todayAppt: 'Today, your appointment · Your first entry is on the page',
+    week: 'Day 7 · 7 entries, side by side',
+    appt: '{date}, your appointment · Up to {entries} entries on one page',
+    month: 'Day 30 · A month on one page',
+    note: 'Counts assume one entry a day. Miss a day and nothing breaks.',
+    cta: 'Save my snapshot',
   },
   debug: {
     flags: 'Experiments (on = new)', // NEW

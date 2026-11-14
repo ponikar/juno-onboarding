@@ -37,6 +37,8 @@ export interface OnboardingState {
   lastRoute: string | null;
   activated: boolean; // activation event already sent (once per install)
   sleepLastNight: 'Badly' | 'Okay' | 'Well' | null; // first-chat one-tap log
+  commitment: 'most_days' | 'good_days' | 'unsure' | null; // v2 screen 17
+  checkInTime: 'morning' | 'afternoon' | 'evening' | null; // v2 screen 17
 }
 
 export const initialState: OnboardingState = {
@@ -69,6 +71,8 @@ export const initialState: OnboardingState = {
   lastRoute: null,
   activated: false,
   sleepLastNight: null,
+  commitment: null,
+  checkInTime: null,
 };
 
 // Presets let the debug menu and the screenshot evals open any screen in a known state.

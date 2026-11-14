@@ -30,7 +30,7 @@ export default function About() {
     <ScreenShell
       route="/about"
       footer={<PrimaryButton label={S.common.continue} onPress={() => router.push(nextRoute('/about'))} />}>
-      <Title why={S.about.why}>{S.about.q}</Title>
+      <Title>{S.about.q}</Title>
       <TextField
         value={state.name}
         onChangeText={(t) => set({ name: t })}

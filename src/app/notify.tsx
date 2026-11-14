@@ -38,7 +38,7 @@ export default function Notify() {
           <TextLink label={S.notify.later} onPress={() => finish(false)} />
         </>
       }>
-      <Title onSky>{paid ? S.notify.trial : S.notify.free}</Title>
+      <Title onSky>{S.notify.free}</Title>
 
       {/* MOCK system prompt, styled after the iOS alert in 61-more-bell--os-notification-prompt */}
       <Modal visible={prompt} transparent animationType="none" onRequestClose={() => finish(false)} statusBarTranslucent>
