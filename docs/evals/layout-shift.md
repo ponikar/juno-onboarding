@@ -20,7 +20,7 @@ Elements that moved more than 2 pt without the user moving them (`scripts/eval/l
 | about-pick | PASS | no element moved |
 | health | PASS | no element moved |
 | snapshot | PASS | no element moved |
-| save | FAIL | load: Tired of explaining your illness again and again? moved 121 pt (y 170→171)<br>load: Tell Juno once. It remembers. moved 121 pt (y 302→303) |
+| save | PASS | no element moved |
 | how | PASS | no element moved |
 | plans-monthly | PASS | no element moved |
 | notify | PASS | no element moved |

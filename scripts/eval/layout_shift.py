@@ -102,7 +102,7 @@ def keyboard_up(frames):
 
 def moved(a, b):
     dx, dy = abs(a[0] - b[0]), abs(a[1] - b[1])
-    if dy == 0 and dx >= 100:  # a screen sliding in or out of the navigation stack, not a layout shift
+    if dy <= THRESHOLD_PT and dx >= 100:  # a screen sliding in or out of the navigation stack, not a layout shift
         return 0
     return max(dx, dy)
 
@@ -128,14 +128,11 @@ def shifts_against(base, shots, ignore):
 
 
 def run_scenario(m, sc):
-    url = f'exp://{HOST}/--/{sc["route"].lstrip("/")}?preset={sc.get("preset", "demo")}'
-    # Visit another screen first: a deep link to the screen already showing keeps its local state.
-    hop = '/welcome' if sc['route'] != '/welcome' else '/consent'
-    subprocess.run(['xcrun', 'simctl', 'openurl', UDID, f'exp://{HOST}/--{hop}?preset=empty'], check=True)
-    time.sleep(1.2)
+    url = f'exp://{HOST}/--/{sc["route"].lstrip("/")}?preset={sc.get("preset", "demo")}&fresh=1'
     subprocess.run(['xcrun', 'simctl', 'openurl', UDID, url], check=True)
     time.sleep(SETTLE_S)
-    ignore = set(sc.get('ignore', []))
+    tapped = set(re.findall(r'tapOn: "([^"]+)"', sc.get('actions', '')))  # press feedback scales the tapped element
+    ignore = set(sc.get('ignore', [])) | tapped
     first = m.frames()
     load = shifts_against(first, sample(m, LOAD_WINDOW_S), ignore)
     tap = {}

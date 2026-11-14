@@ -64,18 +64,7 @@
   "tap": {}
  },
  "save": {
-  "load": {
-   "Tired of explaining your illness again and again?": [
-    121,
-    170,
-    171
-   ],
-   "Tell Juno once. It remembers.": [
-    121,
-    302,
-    303
-   ]
-  },
+  "load": {},
   "tap": {}
  },
  "how": {

@@ -1,4 +1,4 @@
-import { Stack, useGlobalSearchParams, usePathname } from 'expo-router';
+import { router, Stack, useGlobalSearchParams, usePathname } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useRef } from 'react';
@@ -14,7 +14,7 @@ SplashScreen.preventAutoHideAsync();
 function FlowWatcher() {
   const { ready, reset, set } = useOnboarding();
   const pathname = usePathname();
-  const { preset } = useGlobalSearchParams<{ preset?: string }>();
+  const { preset, fresh } = useGlobalSearchParams<{ preset?: string; fresh?: string }>();
   const applied = useRef<string | null>(null);
 
   useEffect(() => {
@@ -27,7 +27,12 @@ function FlowWatcher() {
     if (applied.current === k) return;
     applied.current = k;
     reset(presetState(preset));
-  }, [ready, preset, pathname, reset]);
+    // ?fresh=1 (evals): drop every screen underneath, so the stack holds only this one.
+    if (fresh && router.canDismiss()) {
+      router.dismissAll();
+      router.replace(pathname as never);
+    }
+  }, [ready, preset, fresh, pathname, reset]);
 
   useEffect(() => {
     if (!ready || pathname === '/' || pathname === '/debug') return;
