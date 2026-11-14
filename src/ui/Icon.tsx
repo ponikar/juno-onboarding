@@ -17,6 +17,12 @@ const FALLBACK: Record<string, string> = {
   'bell.fill': '🔔',
   'star.fill': '★',
   'bubble.left': '💬',
+  stethoscope: '+',
+  'text.bubble.fill': '💬',
+  'pills.fill': '💊',
+  calendar: '📅',
+  'battery.75': '🔋',
+  sparkles: '✨',
 };
 
 export function Icon({ name, size = 18, color = '#261910', weight = 'medium' }: {

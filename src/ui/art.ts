@@ -89,6 +89,7 @@ export const goalIcons: Record<string, number> = {
 // v4: cut from the Juno app (same 3D style as the Figma icons), transparent backgrounds.
 export const answerIcons = {
   yes: require('@/assets/juno/answer-yes.png'),
+  sun: require('@/assets/juno/age-35.png'), // same sunflower as the 35–44 age icon
   maybe: require('@/assets/juno/answer-maybe.png'),
 };
 export const groupIcons: Record<string, number> = {

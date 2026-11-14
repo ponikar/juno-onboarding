@@ -401,14 +401,7 @@ export const S = {
     next: 'Next',
     cta: 'Show me how',
   },
-  when: { // v3 spec
-    q: 'When should I check in?',
-    sub: 'One short message you can answer in a tap.',
-    morningHint: 'Before the day gets going',
-    afternoonHint: 'A quick pause midday',
-    eveningHint: 'Looking back on the day',
-    cta: 'Show me',
-  },
+
   demo: { // v3 spec
     title: "Here's tomorrow's check-in",
     notifyTitle: 'Juno',

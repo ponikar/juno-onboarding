@@ -45,7 +45,7 @@ export function nextRoute(route: FlowRoute): FlowRoute {
 
 const DONE_SCREENS: Partial<Record<FlowRoute, true>> = { '/insight-health': true, '/insight-days': true };
 
-// Flow bar: screens 4 to 27 (plans); fill = (n - 3) / 24; part = 1-based segment index of 7; "done" label on 10 and 14.
+// Flow bar: screens 4 to 27 (plans); fill = (n - 3) / 24; part = 1-based segment index of 7; "done" label on the two insight cards.
 export function flowBarFor(
   route: FlowRoute,
 ): { seg: Exclude<Segment, null>; part: number; fraction: number; done: boolean } | null {

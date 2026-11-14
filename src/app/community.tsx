@@ -30,7 +30,13 @@ export default function Community() {
       footer={
         <>
           <PrimaryButton label={label} onPress={next} />
-          <TextLink label={S.community.later} onPress={next} />
+          <TextLink
+            label={S.community.later}
+            onPress={() => {
+              set({ groups: [] });
+              next();
+            }}
+          />
         </>
       }>
       <Title sub={S.community.sub}>{S.community.title}</Title>

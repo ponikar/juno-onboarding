@@ -40,7 +40,10 @@ export default function Health() {
     set({ healthAnswered: true, healthDataConnected: true });
     track('answer', { screen: 'health', connected: true });
     setConnected(true);
-    timer.current = setTimeout(() => router.push(nextRoute('/health')), CONTINUE_AFTER_REPLY_MS);
+    timer.current = setTimeout(() => {
+      timer.current = null;
+      router.push(nextRoute('/health'));
+    }, CONTINUE_AFTER_REPLY_MS);
   };
 
   // MOCK: stands in for the HealthKit permission sheet.
@@ -59,8 +62,14 @@ export default function Health() {
       reply={<JunoReply text={synced ? S.health.reply : null} />}
       footer={
         <>
-          <TextLink label={S.health.later} onPress={later} />
-          <PrimaryButton label={S.health.connect} onPress={connect} />
+          {synced ? (
+            <PrimaryButton label={S.common.continue} onPress={() => router.push(nextRoute('/health'))} />
+          ) : (
+            <>
+              <TextLink label={S.health.later} onPress={later} />
+              <PrimaryButton label={S.health.connect} onPress={connect} />
+            </>
+          )}
         </>
       }>
       <View style={styles.fill}>

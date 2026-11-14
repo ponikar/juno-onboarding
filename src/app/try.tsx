@@ -1,6 +1,6 @@
 import { router } from 'expo-router';
 import { useRef, useState } from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Keyboard } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
 
 import { S } from '@/copy/strings';
@@ -31,6 +31,7 @@ export default function Try() {
     // A new entry re-seeds screen 7's pre-ticks.
     set((s) => ({ todayEntry: entry.trim(), todaySymptoms, symptomsSeeded: s.todaySymptoms.join('|') === todaySymptoms.join('|') ? s.symptomsSeeded : false }));
     track('answer', { screen: 'try', length: entry.trim().length, matched: todaySymptoms.length });
+    Keyboard.dismiss(); // close it before screen 5 lays out, so nothing there moves as it hides
     router.push(nextRoute('/try'));
   };
 

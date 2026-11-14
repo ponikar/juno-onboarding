@@ -6,7 +6,7 @@ import { S } from '@/copy/strings';
 import { nextRoute } from '@/flow';
 import { track } from '@/lib/track';
 import { OnboardingState, useOnboarding } from '@/state/onboarding';
-import { ageIcons, answerIcons } from '@/ui/art';
+import { answerIcons } from '@/ui/art';
 import { haptic } from '@/ui/haptics';
 import { JunoReply } from '@/ui/JunoReply';
 import { Mascot } from '@/ui/Mascot';
@@ -18,7 +18,7 @@ type Commitment = NonNullable<OnboardingState['commitment']>;
 
 const OPTIONS: { id: Commitment; label: string; icon: ImageSourcePropType }[] = [
   { id: 'most_days', label: S.commit.optMost, icon: answerIcons.yes },
-  { id: 'good_days', label: S.commit.optGood, icon: ageIcons['35–44'] },
+  { id: 'good_days', label: S.commit.optGood, icon: answerIcons.sun },
   { id: 'unsure', label: S.commit.optUnsure, icon: answerIcons.maybe },
 ];
 
