@@ -1,4 +1,4 @@
-import { router } from 'expo-router';
+import { router, useFocusEffect } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 import { BackHandler, StyleSheet, Text, View } from 'react-native';
 import Animated, { useAnimatedStyle, useReducedMotion, useSharedValue, withDelay, withTiming } from 'react-native-reanimated';
@@ -65,7 +65,8 @@ export default function Story() {
     else router.replace(prevRoute('/story') as never);
   };
 
-  useEffect(() => {
+  // Only while the story is on screen: it stays mounted under later screens.
+  useFocusEffect(() => {
     const sub = BackHandler.addEventListener('hardwareBackPress', () => {
       back();
       return true;

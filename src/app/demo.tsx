@@ -6,7 +6,7 @@ import Animated, { FadeIn, Keyframe, useReducedMotion } from 'react-native-reani
 import { fill, S } from '@/copy/strings';
 import { nextRoute } from '@/flow';
 import { track } from '@/lib/track';
-import { EASE_OUT, ENTER_MS } from '@/motion/tokens';
+import { EASE_OUT, ENTER_MS, TYPING_MS } from '@/motion/tokens';
 import { useOnboarding } from '@/state/onboarding';
 import { colors, radius, shadow, type, FONT_CAP } from '@/theme/tokens';
 import { avatar } from '@/ui/art';
@@ -22,7 +22,6 @@ import { TypingDots } from '@/ui/TypingDots';
 type Stage = 0 | 1 | 2 | 3 | 4;
 const NOTIFY_LANDS_MS = 320;
 const NOTIFY_HOLD_MS = 1400;
-const TYPING_MS = 450;
 const AUTO_PICK_MS = 1500;
 
 // Screen 19 Demo (v3 R-05): tomorrow's check-in, rehearsed in three automatic steps.
@@ -75,7 +74,7 @@ export default function Demo() {
   return (
     <ScreenShell route="/demo" back={back} footer={<PrimaryButton label={S.demo.cta} onPress={() => router.push(nextRoute('/demo'))} testID="demo-cta" />}>
       <Mascot style={styles.mascot} />
-      <Title>{S.demo.title}</Title>
+      <Title>{S.demo.title.replace('-', '\u2011')}</Title>
       <Pressable onPress={skip} accessible={false} style={styles.stage} testID="demo-stage">
         <Animated.View entering={reduced ? fade : NOTIFY_IN} style={[styles.notify, shadow.card]}>
           <View style={styles.notifyHead}>
@@ -88,7 +87,7 @@ export default function Demo() {
 
         {stage >= 1 && (
           <Animated.View entering={fade} style={styles.chat}>
-            {stage === 1 ? (
+            {stage === 1 && !reduced ? (
               <Typing />
             ) : (
               <Juno text={fill(S.demo.ask, { greet: S.demo.greet[time] })} />

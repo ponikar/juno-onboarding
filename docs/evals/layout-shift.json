@@ -79,6 +79,10 @@
   "load": {},
   "tap": {}
  },
+ "notify-allow": {
+  "load": {},
+  "tap": {}
+ },
  "done": {
   "load": {},
   "tap": {}
@@ -112,6 +116,18 @@
   "tap": {}
  },
  "promise-pick": {
+  "load": {},
+  "tap": {}
+ },
+ "promise-unsure": {
+  "load": {},
+  "tap": {}
+ },
+ "when-pick": {
+  "load": {},
+  "tap": {}
+ },
+ "demo": {
   "load": {},
   "tap": {}
  }

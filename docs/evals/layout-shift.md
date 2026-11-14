@@ -24,6 +24,7 @@ Elements that moved more than 2 pt without the user moving them (`scripts/eval/l
 | how | PASS | no element moved |
 | plans-monthly | PASS | no element moved |
 | notify | PASS | no element moved |
+| notify-allow | PASS | no element moved |
 | done | PASS | no element moved |
 | chat-suggestion | PASS | no element moved |
 | conditions-A-pick | PASS | no element moved |
@@ -33,3 +34,6 @@ Elements that moved more than 2 pt without the user moving them (`scripts/eval/l
 | insight-health | PASS | no element moved |
 | insight-days | PASS | no element moved |
 | promise-pick | PASS | no element moved |
+| promise-unsure | PASS | no element moved |
+| when-pick | PASS | no element moved |
+| demo | PASS | no element moved |

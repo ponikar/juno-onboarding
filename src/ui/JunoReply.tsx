@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { AccessibilityInfo, Image, Platform, StyleSheet, Text, View } from 'react-native';
-import Animated, { Easing, FadeIn, useReducedMotion } from 'react-native-reanimated';
+import { AccessibilityInfo, Image, Platform, StyleSheet, View } from 'react-native';
+import Animated, { Easing, FadeIn, useAnimatedStyle, useReducedMotion, useSharedValue, withTiming } from 'react-native-reanimated';
 
 import { REPLY_FADE_MS, TYPING_MS } from '@/motion/tokens';
 import { colors, FONT_CAP } from '@/theme/tokens';
@@ -23,22 +23,27 @@ const fade = FadeIn.duration(REPLY_FADE_MS).easing(Easing.out(Easing.quad));
 function Reply({ text, onSky }: { text: string; onSky?: boolean }) {
   const reduced = useReducedMotion();
   const [typing, setTyping] = useState(!reduced);
+  const shown = useSharedValue(reduced ? 1 : 0);
   useEffect(() => {
-    if (!typing) return;
+    if (!typing) {
+      shown.value = withTiming(1, { duration: REPLY_FADE_MS, easing: Easing.out(Easing.quad) });
+      return;
+    }
     const t = setTimeout(() => setTyping(false), TYPING_MS);
     return () => clearTimeout(t);
-  }, [typing]);
+  }, [typing, shown]);
+  const textStyle = useAnimatedStyle(() => ({ opacity: shown.value }));
 
   return (
     <Animated.View entering={fade} accessibilityLiveRegion="polite" style={styles.row}>
       <Image source={avatar} style={styles.avatar} />
+      {/* The text is laid out from the start (invisible while Juno types) so the bubble never changes size. */}
       <View style={[styles.bubble, onSky && styles.bubbleSky]}>
-        {typing ? (
-          <TypingDots />
-        ) : (
-          <Animated.View entering={reduced ? undefined : fade}>
-            <Text maxFontSizeMultiplier={FONT_CAP} style={styles.text}>{text}</Text>
-          </Animated.View>
+        <Animated.Text maxFontSizeMultiplier={FONT_CAP} style={[styles.text, textStyle]}>{text}</Animated.Text>
+        {typing && (
+          <View style={styles.dots} pointerEvents="none">
+            <TypingDots />
+          </View>
         )}
       </View>
     </Animated.View>
@@ -59,4 +64,5 @@ const styles = StyleSheet.create({
   },
   bubbleSky: { backgroundColor: 'rgba(255,255,255,0.95)' },
   text: { fontSize: 16, lineHeight: 21, color: colors.ink },
+  dots: { position: 'absolute', left: 14, top: 0, bottom: 0, justifyContent: 'center' },
 });

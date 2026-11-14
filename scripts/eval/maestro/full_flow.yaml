@@ -103,7 +103,7 @@ appId: host.exp.Exponent
 - extendedWaitUntil:
     visible: "Got it"
     timeout: 10000
-- assertVisible: "Here's tomorrow's check-in"
+- assertVisible: "Here's tomorrow's check.in"
 - takeScreenshot: docs/evals/e2e/19-demo
 - tapOn: "Got it"
 - waitForAnimationToEnd

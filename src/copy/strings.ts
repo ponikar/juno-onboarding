@@ -336,8 +336,7 @@ export const S = {
   },
   notify: {
     withTime: 'Can I check in each {time}?', // v2 narration spec
-    trialLine: "I'll also remind you before your trial ends.",
-    why: 'So I can check in at the time you picked. You can change it any time.', // v3 spec // v2 narration spec
+    why: 'So I can check in at the time you picked. You can change it any time.', // v3 spec
     free: 'Can I check in with you once a day?',
     allow: 'Turn on reminders', // eval T-02: says what happens
     later: 'Not now', // existing "Not now" wording from screen 35
@@ -412,7 +411,7 @@ export const S = {
     cta: 'Show me',
   },
   demo: { // v3 spec
-    title: "Here's tomorrow's check‑in", // non-breaking hyphen keeps "check-in" on one line
+    title: "Here's tomorrow's check-in",
     notifyTitle: 'Juno',
     notification: 'How are you today? Tap to tell me in a few words.',
     when: { morning: 'Tomorrow morning', afternoon: 'Tomorrow afternoon', evening: 'Tomorrow evening', none: 'Tomorrow' },
@@ -469,7 +468,6 @@ export const S = {
     optMost: 'Yes, most days',
     optGood: 'On good days',
     optUnsure: 'Not sure yet',
-    whenQ: 'When suits you?',
     morning: 'Morning',
     afternoon: 'Afternoon',
     evening: 'Evening',

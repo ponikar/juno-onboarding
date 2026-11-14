@@ -189,9 +189,9 @@
     "id": "when-pick",
     "route": "/when",
     "preset": "empty",
-    "actions": "- tapOn: \"Evening\"",
+    "actions": "- tapOn: \"Evening.*\"",
     "ignore": [
-      "selected"
+      "Evening.*"
     ]
   },
   {

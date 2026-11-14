@@ -1,0 +1,822 @@
+{
+ "welcome": {
+  "status": "PASS",
+  "mean": 8.7,
+  "ssim": 0.7649,
+  "bands": {
+   "top": {
+    "diff": 14.316,
+    "ssim": 0.637
+   },
+   "mid": {
+    "diff": 3.593,
+    "ssim": 0.866
+   },
+   "bot": {
+    "diff": 8.202,
+    "ssim": 0.791
+   }
+  },
+  "reference": "01-splash.png"
+ },
+ "consent": {
+  "status": "PASS",
+  "mean": 7.82,
+  "ssim": 0.8157,
+  "bands": {
+   "top": {
+    "diff": 7.862,
+    "ssim": 0.832
+   },
+   "mid": {
+    "diff": 0.0,
+    "ssim": 1.0
+   },
+   "bot": {
+    "diff": 15.588,
+    "ssim": 0.615
+   }
+  },
+  "reference": "12-consent.png"
+ },
+ "try": {
+  "status": "PASS",
+  "mean": 9.15,
+  "ssim": 0.8099,
+  "bands": {
+   "top": {
+    "diff": 20.598,
+    "ssim": 0.702
+   },
+   "mid": {
+    "diff": 4.846,
+    "ssim": 0.755
+   },
+   "bot": {
+    "diff": 2.02,
+    "ssim": 0.972
+   }
+  },
+  "reference": "36-try-logging.png"
+ },
+ "heard": {
+  "status": "REVIEW",
+  "mean": 25.02,
+  "ssim": 0.597,
+  "bands": {
+   "top": {
+    "diff": 31.524,
+    "ssim": 0.571
+   },
+   "mid": {
+    "diff": 33.179,
+    "ssim": 0.421
+   },
+   "bot": {
+    "diff": 10.345,
+    "ssim": 0.799
+   }
+  },
+  "reference": "35-tracking-demo.png"
+ },
+ "energy": {
+  "status": "PASS",
+  "mean": 11.06,
+  "ssim": 0.782,
+  "bands": {
+   "top": {
+    "diff": 23.012,
+    "ssim": 0.638
+   },
+   "mid": {
+    "diff": 3.22,
+    "ssim": 0.898
+   },
+   "bot": {
+    "diff": 6.944,
+    "ssim": 0.81
+   }
+  },
+  "reference": "37-energy-slider.png"
+ },
+ "goals-demo": {
+  "status": "REVIEW",
+  "mean": 31.36,
+  "ssim": 0.2466,
+  "bands": {
+   "top": {
+    "diff": 35.592,
+    "ssim": 0.355
+   },
+   "mid": {
+    "diff": 38.065,
+    "ssim": 0.005
+   },
+   "bot": {
+    "diff": 20.424,
+    "ssim": 0.379
+   }
+  },
+  "reference": "14-more-goals--selected.png"
+ },
+ "goals": {
+  "status": "REVIEW",
+  "mean": 30.67,
+  "ssim": 0.2446,
+  "bands": {
+   "top": {
+    "diff": 37.407,
+    "ssim": 0.349
+   },
+   "mid": {
+    "diff": 37.304,
+    "ssim": 0.003
+   },
+   "bot": {
+    "diff": 17.3,
+    "ssim": 0.382
+   }
+  },
+  "reference": "14-goals.png"
+ },
+ "conditions": {
+  "status": "REVIEW",
+  "mean": 16.65,
+  "ssim": 0.5185,
+  "bands": {
+   "top": {
+    "diff": 25.381,
+    "ssim": 0.532
+   },
+   "mid": {
+    "diff": 14.434,
+    "ssim": 0.39
+   },
+   "bot": {
+    "diff": 10.122,
+    "ssim": 0.633
+   }
+  },
+  "reference": "17-conditions.png"
+ },
+ "conditions-demo": {
+  "status": "REVIEW",
+  "mean": 14.97,
+  "ssim": 0.5901,
+  "bands": {
+   "top": {
+    "diff": 25.381,
+    "ssim": 0.532
+   },
+   "mid": {
+    "diff": 11.608,
+    "ssim": 0.513
+   },
+   "bot": {
+    "diff": 7.929,
+    "ssim": 0.725
+   }
+  },
+  "reference": "17-more-conditions--selected.png"
+ },
+ "symptoms": {
+  "status": "REVIEW",
+  "mean": 16.68,
+  "ssim": 0.5196,
+  "bands": {
+   "top": {
+    "diff": 26.323,
+    "ssim": 0.514
+   },
+   "mid": {
+    "diff": 13.762,
+    "ssim": 0.389
+   },
+   "bot": {
+    "diff": 9.942,
+    "ssim": 0.656
+   }
+  },
+  "reference": "20-symptoms.png"
+ },
+ "symptoms-demo": {
+  "status": "REVIEW",
+  "mean": 18.69,
+  "ssim": 0.4729,
+  "bands": {
+   "top": {
+    "diff": 26.323,
+    "ssim": 0.514
+   },
+   "mid": {
+    "diff": 18.137,
+    "ssim": 0.284
+   },
+   "bot": {
+    "diff": 11.614,
+    "ssim": 0.621
+   }
+  },
+  "reference": "20-more-symptoms--selected.png"
+ },
+ "meds": {
+  "status": "REVIEW",
+  "mean": 15.39,
+  "ssim": 0.5634,
+  "bands": {
+   "top": {
+    "diff": 25.132,
+    "ssim": 0.521
+   },
+   "mid": {
+    "diff": 13.97,
+    "ssim": 0.388
+   },
+   "bot": {
+    "diff": 7.061,
+    "ssim": 0.78
+   }
+  },
+  "reference": "19-meds.png"
+ },
+ "meds-demo": {
+  "status": "REVIEW",
+  "mean": 14.41,
+  "ssim": 0.5354,
+  "bands": {
+   "top": {
+    "diff": 16.013,
+    "ssim": 0.588
+   },
+   "mid": {
+    "diff": 17.87,
+    "ssim": 0.305
+   },
+   "bot": {
+    "diff": 9.346,
+    "ssim": 0.713
+   }
+  },
+  "reference": "19-more-meds--selected.png"
+ },
+ "support": {
+  "status": "REVIEW",
+  "mean": 51.51,
+  "ssim": 0.434,
+  "bands": {
+   "top": {
+    "diff": 100.299,
+    "ssim": 0.287
+   },
+   "mid": {
+    "diff": 37.738,
+    "ssim": 0.341
+   },
+   "bot": {
+    "diff": 16.486,
+    "ssim": 0.674
+   }
+  },
+  "reference": "46-reply-support.png"
+ },
+ "appointment": {
+  "status": "REVIEW",
+  "mean": 22.74,
+  "ssim": 0.6101,
+  "bands": {
+   "top": {
+    "diff": 23.525,
+    "ssim": 0.599
+   },
+   "mid": {
+    "diff": 7.623,
+    "ssim": 0.616
+   },
+   "bot": {
+    "diff": 37.062,
+    "ssim": 0.615
+   }
+  },
+  "reference": "28-appointment.png"
+ },
+ "about": {
+  "status": "REVIEW",
+  "mean": 39.11,
+  "ssim": 0.4127,
+  "bands": {
+   "top": {
+    "diff": 23.594,
+    "ssim": 0.522
+   },
+   "mid": {
+    "diff": 42.163,
+    "ssim": 0.484
+   },
+   "bot": {
+    "diff": 51.559,
+    "ssim": 0.233
+   }
+  },
+  "reference": "21-more-name--typed.png"
+ },
+ "conditions-skipped": {
+  "status": "REVIEW",
+  "mean": 27.06,
+  "ssim": 0.4507,
+  "bands": {
+   "top": {
+    "diff": 25.381,
+    "ssim": 0.532
+   },
+   "mid": {
+    "diff": 14.434,
+    "ssim": 0.39
+   },
+   "bot": {
+    "diff": 41.372,
+    "ssim": 0.429
+   }
+  },
+  "reference": "17-conditions.png"
+ },
+ "health": {
+  "status": "REVIEW",
+  "mean": 26.07,
+  "ssim": 0.5422,
+  "bands": {
+   "top": {
+    "diff": 28.387,
+    "ssim": 0.486
+   },
+   "mid": {
+    "diff": 36.359,
+    "ssim": 0.422
+   },
+   "bot": {
+    "diff": 13.479,
+    "ssim": 0.719
+   }
+  },
+  "reference": "42-wearables.png"
+ },
+ "appointment-empty": {
+  "status": "REVIEW",
+  "mean": 11.52,
+  "ssim": 0.7079,
+  "bands": {
+   "top": {
+    "diff": 23.525,
+    "ssim": 0.599
+   },
+   "mid": {
+    "diff": 7.027,
+    "ssim": 0.625
+   },
+   "bot": {
+    "diff": 3.999,
+    "ssim": 0.9
+   }
+  },
+  "reference": "28-appointment.png"
+ },
+ "snapshot": {
+  "status": "REVIEW",
+  "mean": 23.09,
+  "ssim": 0.5633,
+  "bands": {
+   "top": {
+    "diff": 33.753,
+    "ssim": 0.577
+   },
+   "mid": {
+    "diff": 24.156,
+    "ssim": 0.28
+   },
+   "bot": {
+    "diff": 11.365,
+    "ssim": 0.833
+   }
+  },
+  "reference": "55-journey-ready.png"
+ },
+ "building": {
+  "status": "REVIEW",
+  "mean": 46.89,
+  "ssim": 0.5285,
+  "bands": {
+   "top": {
+    "diff": 40.48,
+    "ssim": 0.52
+   },
+   "mid": {
+    "diff": 51.258,
+    "ssim": 0.485
+   },
+   "bot": {
+    "diff": 48.925,
+    "ssim": 0.58
+   }
+  },
+  "reference": "54-analyzing.png"
+ },
+ "plans": {
+  "status": "REVIEW",
+  "mean": 37.07,
+  "ssim": 0.4218,
+  "bands": {
+   "top": {
+    "diff": 10.145,
+    "ssim": 0.651
+   },
+   "mid": {
+    "diff": 28.208,
+    "ssim": 0.27
+   },
+   "bot": {
+    "diff": 72.848,
+    "ssim": 0.345
+   }
+  },
+  "reference": "62-pw-price.png"
+ },
+ "save": {
+  "status": "REVIEW",
+  "mean": 20.08,
+  "ssim": 0.5704,
+  "bands": {
+   "top": {
+    "diff": 25.543,
+    "ssim": 0.585
+   },
+   "mid": {
+    "diff": 25.022,
+    "ssim": 0.442
+   },
+   "bot": {
+    "diff": 9.678,
+    "ssim": 0.684
+   }
+  },
+  "reference": "01b-auth.png"
+ },
+ "notify": {
+  "status": "REVIEW",
+  "mean": 40.97,
+  "ssim": 0.5444,
+  "bands": {
+   "top": {
+    "diff": 27.266,
+    "ssim": 0.417
+   },
+   "mid": {
+    "diff": 14.586,
+    "ssim": 0.778
+   },
+   "bot": {
+    "diff": 81.058,
+    "ssim": 0.438
+   }
+  },
+  "reference": "61-bell.png"
+ },
+ "done": {
+  "status": "REVIEW",
+  "mean": 30.84,
+  "ssim": 0.603,
+  "bands": {
+   "top": {
+    "diff": 32.124,
+    "ssim": 0.602
+   },
+   "mid": {
+    "diff": 32.902,
+    "ssim": 0.557
+   },
+   "bot": {
+    "diff": 27.496,
+    "ssim": 0.651
+   }
+  },
+  "reference": "64-subscribe-success.png"
+ },
+ "chat": {
+  "status": "REVIEW",
+  "mean": 24.73,
+  "ssim": 0.5602,
+  "bands": {
+   "top": {
+    "diff": 50.347,
+    "ssim": 0.471
+   },
+   "mid": {
+    "diff": 16.548,
+    "ssim": 0.455
+   },
+   "bot": {
+    "diff": 7.309,
+    "ssim": 0.755
+   }
+  },
+  "reference": "next-first-chat.png"
+ },
+ "snapshot-skipped": {
+  "status": "REVIEW",
+  "mean": 37.98,
+  "ssim": 0.5901,
+  "bands": {
+   "top": {
+    "diff": 41.437,
+    "ssim": 0.516
+   },
+   "mid": {
+    "diff": 61.25,
+    "ssim": 0.346
+   },
+   "bot": {
+    "diff": 11.24,
+    "ssim": 0.908
+   }
+  },
+  "reference": "55-journey-ready.png"
+ },
+ "energy-empty": {
+  "status": "PASS",
+  "mean": 9.86,
+  "ssim": 0.8188,
+  "bands": {
+   "top": {
+    "diff": 23.012,
+    "ssim": 0.638
+   },
+   "mid": {
+    "diff": 2.769,
+    "ssim": 0.9
+   },
+   "bot": {
+    "diff": 3.796,
+    "ssim": 0.919
+   }
+  },
+  "reference": "37-energy-slider.png"
+ },
+ "report": {
+  "status": "REVIEW",
+  "mean": 45.93,
+  "ssim": 0.3853,
+  "bands": {
+   "top": {
+    "diff": 68.583,
+    "ssim": 0.344
+   },
+   "mid": {
+    "diff": 44.182,
+    "ssim": 0.338
+   },
+   "bot": {
+    "diff": 25.021,
+    "ssim": 0.474
+   }
+  },
+  "reference": "09-story-report.png"
+ },
+ "sponsor": {
+  "status": "REVIEW",
+  "mean": 33.78,
+  "ssim": 0.4836,
+  "bands": {
+   "top": {
+    "diff": 44.432,
+    "ssim": 0.555
+   },
+   "mid": {
+    "diff": 44.078,
+    "ssim": 0.34
+   },
+   "bot": {
+    "diff": 12.822,
+    "ssim": 0.556
+   }
+  },
+  "reference": "62b-sponsor-sheet.png"
+ },
+ "support-empty": {
+  "status": "REVIEW",
+  "mean": 13.24,
+  "ssim": 0.6761,
+  "bands": {
+   "top": {
+    "diff": 24.834,
+    "ssim": 0.585
+   },
+   "mid": {
+    "diff": 10.121,
+    "ssim": 0.538
+   },
+   "bot": {
+    "diff": 4.773,
+    "ssim": 0.905
+   }
+  },
+  "reference": "45-support-circle.png"
+ },
+ "building-skipped": {
+  "status": "REVIEW",
+  "mean": 45.97,
+  "ssim": 0.552,
+  "bands": {
+   "top": {
+    "diff": 41.89,
+    "ssim": 0.5
+   },
+   "mid": {
+    "diff": 50.705,
+    "ssim": 0.505
+   },
+   "bot": {
+    "diff": 45.32,
+    "ssim": 0.65
+   }
+  },
+  "reference": "54-analyzing.png"
+ },
+ "about-empty": {
+  "status": "REVIEW",
+  "mean": 25.71,
+  "ssim": 0.4621,
+  "bands": {
+   "top": {
+    "diff": 14.433,
+    "ssim": 0.568
+   },
+   "mid": {
+    "diff": 11.091,
+    "ssim": 0.589
+   },
+   "bot": {
+    "diff": 51.601,
+    "ssim": 0.229
+   }
+  },
+  "reference": "21-name.png"
+ },
+ "done-free": {
+  "status": "REVIEW",
+  "mean": 26.78,
+  "ssim": 0.634,
+  "bands": {
+   "top": {
+    "diff": 21.836,
+    "ssim": 0.695
+   },
+   "mid": {
+    "diff": 31.752,
+    "ssim": 0.545
+   },
+   "bot": {
+    "diff": 26.748,
+    "ssim": 0.661
+   }
+  },
+  "reference": "64-more-subscribe-success--free-plan.png"
+ },
+ "notify-free": {
+  "status": "REVIEW",
+  "mean": 39.63,
+  "ssim": 0.5931,
+  "bands": {
+   "top": {
+    "diff": 24.863,
+    "ssim": 0.505
+   },
+   "mid": {
+    "diff": 12.98,
+    "ssim": 0.837
+   },
+   "bot": {
+    "diff": 81.058,
+    "ssim": 0.438
+   }
+  },
+  "reference": "63-bell-after-plans.png"
+ },
+ "chat-skipped": {
+  "status": "REVIEW",
+  "mean": 22.57,
+  "ssim": 0.6385,
+  "bands": {
+   "top": {
+    "diff": 49.48,
+    "ssim": 0.498
+   },
+   "mid": {
+    "diff": 12.581,
+    "ssim": 0.602
+   },
+   "bot": {
+    "diff": 5.643,
+    "ssim": 0.816
+   }
+  },
+  "reference": "next-first-chat.png"
+ },
+ "plans-skipped": {
+  "status": "REVIEW",
+  "mean": 43.88,
+  "ssim": 0.3702,
+  "bands": {
+   "top": {
+    "diff": 26.385,
+    "ssim": 0.543
+   },
+   "mid": {
+    "diff": 31.969,
+    "ssim": 0.234
+   },
+   "bot": {
+    "diff": 73.288,
+    "ssim": 0.335
+   }
+  },
+  "reference": "62-pw-price.png"
+ },
+ "report-skipped": {
+  "status": "REVIEW",
+  "mean": 48.08,
+  "ssim": 0.4413,
+  "bands": {
+   "top": {
+    "diff": 79.83,
+    "ssim": 0.308
+   },
+   "mid": {
+    "diff": 44.4,
+    "ssim": 0.359
+   },
+   "bot": {
+    "diff": 20.007,
+    "ssim": 0.658
+   }
+  },
+  "reference": "09-story-report.png"
+ },
+ "meds-skipped": {
+  "status": "REVIEW",
+  "mean": 15.39,
+  "ssim": 0.5634,
+  "bands": {
+   "top": {
+    "diff": 25.132,
+    "ssim": 0.521
+   },
+   "mid": {
+    "diff": 13.97,
+    "ssim": 0.388
+   },
+   "bot": {
+    "diff": 7.061,
+    "ssim": 0.78
+   }
+  },
+  "reference": "19-meds.png"
+ },
+ "how": {
+  "status": "REVIEW",
+  "mean": 17.34,
+  "ssim": 0.5854,
+  "bands": {
+   "top": {
+    "diff": 13.502,
+    "ssim": 0.664
+   },
+   "mid": {
+    "diff": 23.576,
+    "ssim": 0.442
+   },
+   "bot": {
+    "diff": 14.938,
+    "ssim": 0.65
+   }
+  },
+  "reference": "60-pw-trial.png"
+ },
+ "debug": {
+  "status": "REVIEW",
+  "mean": 51.76,
+  "ssim": 0.4494,
+  "bands": {
+   "top": {
+    "diff": 74.765,
+    "ssim": 0.316
+   },
+   "mid": {
+    "diff": 45.466,
+    "ssim": 0.571
+   },
+   "bot": {
+    "diff": 35.044,
+    "ssim": 0.461
+   }
+  },
+  "reference": "01-splash.png"
+ }
+}
