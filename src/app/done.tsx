@@ -35,7 +35,7 @@ export default function Done() {
       background={bg.junoCloud}
       back={false}
       scroll={false}
-      footer={<PrimaryButton label={free ? S.done.freeCta : S.done.trialCta} onPress={() => router.replace('/chat')} />}>
+      footer={<PrimaryButton label={free ? S.done.freeCta : S.done.trialCta} onPress={() => router.push('/checkin')} />}>
       <Animated.View style={[styles.body, text]}>
         <Text maxFontSizeMultiplier={FONT_CAP} accessibilityRole="header" style={[type.title, styles.center]}>{free ? S.done.freeTitle : S.done.trialTitle}</Text>
         <Text maxFontSizeMultiplier={FONT_CAP} style={[type.subtitle, styles.center, styles.sub]}>{free ? S.done.freeSub : S.done.trialSub}</Text>

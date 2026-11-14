@@ -433,6 +433,22 @@ export const S = {
     soon: "Today's entry is already on it",
   },
   flow: { part: 'Part {n} of 7' }, // v3 spec
+  checkin: { // v3.1: the commitment, right before the first chat
+    title: 'Your daily check-in',
+    sub: 'This is how your doctor page fills up.',
+    youTitle: 'What you do',
+    you: [
+      'Tell Juno how you feel, in a line or by voice.',
+      'Log anything that matters: a symptom, a medicine, a bad night.',
+      'Bad days count too. Miss one and nothing breaks.',
+    ],
+    junoTitle: 'What Juno does',
+    junoLine: "I'll check in each {time} at {clock}.",
+    junoLine2: 'And keep it all ready for your doctor.',
+    clock: { morning: '9 AM', afternoon: '1 PM', evening: '8 PM' },
+    cta: "I'll check in daily",
+    later: 'Not now',
+  },
   seg: { // v2: flow bar segment labels (spec keys seg.health.done -> seg.healthDone)
     today: 'Today',
     health: 'Your health',

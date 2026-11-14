@@ -106,20 +106,17 @@ appId: host.exp.Exponent
 - assertVisible: "Here's tomorrow's check.in"
 - takeScreenshot: docs/evals/e2e/19-demo
 - tapOn: "Got it"
-- waitForAnimationToEnd
-- takeScreenshot: docs/evals/e2e/20-notify
-- tapOn: "Not now"
 - extendedWaitUntil:
     visible: "See my doctor page"
     timeout: 10000
 - waitForAnimationToEnd
-- takeScreenshot: docs/evals/e2e/22-snapshot
+- takeScreenshot: docs/evals/e2e/21-snapshot
 - tapOn: "See my doctor page"
 - waitForAnimationToEnd
-- takeScreenshot: docs/evals/e2e/23-report
+- takeScreenshot: docs/evals/e2e/22-report
 - scrollUntilVisible:
     element: "What this page becomes"
-- takeScreenshot: docs/evals/e2e/23-report-projection
+- takeScreenshot: docs/evals/e2e/22-report-projection
 - tapOn: "Save my snapshot"
 - waitForAnimationToEnd
 - tapOn: "Continue with Apple"
@@ -128,13 +125,20 @@ appId: host.exp.Exponent
     timeout: 10000
 - tapOn: "See my plan"
 - waitForAnimationToEnd
-- takeScreenshot: docs/evals/e2e/26-plans
+- takeScreenshot: docs/evals/e2e/25-plans
 - tapOn: "Continue with the free plan"
 - waitForAnimationToEnd
-- takeScreenshot: docs/evals/e2e/27-done-free
+- takeScreenshot: docs/evals/e2e/26-done-free
 - tapOn: "Let’s go"
+- waitForAnimationToEnd
+- assertVisible: "Your daily check-in"
+- takeScreenshot: docs/evals/e2e/27-checkin
+- tapOn:
+    id: "checkin-cta"
+- waitForAnimationToEnd
+- tapOn: "Allow"
 - waitForAnimationToEnd
 - assertVisible: "Fatigue"
 - assertVisible: "Headaches"
 - assertVisible: "Day 1 of 7"
-- takeScreenshot: docs/evals/e2e/27-chat
+- takeScreenshot: docs/evals/e2e/28-chat

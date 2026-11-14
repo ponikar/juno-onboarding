@@ -23,14 +23,14 @@ export const FLOW = [
   { route: '/promise', n: 17, seg: 'routine', act: 1, from: '45 support-circle' },
   { route: '/when', n: 18, seg: 'routine', act: 1, from: '14 goals (option rows)' },
   { route: '/demo', n: 19, seg: 'routine', act: 1, from: 'first-chat + 61 bell' },
-  { route: '/notify', n: 20, seg: 'routine', act: 1, from: '61 bell + 63 bell-after-plans' },
-  { route: '/building', n: 21, seg: 'snapshot', act: 2, from: '54 analyzing' },
-  { route: '/snapshot', n: 22, seg: 'snapshot', act: 2, from: '55 journey-ready' },
-  { route: '/report', n: 23, seg: 'snapshot', act: 2, from: '09 story-report + 29 reply-care-team + 60 pw-trial timeline' },
-  { route: '/save', n: 24, seg: 'snapshot', act: 2, from: '01b auth' },
-  { route: '/how', n: 25, seg: 'plan', act: 3, from: '56 honesty + 60 pw-trial' },
-  { route: '/plans', n: 26, seg: 'plan', act: 3, from: '62 pw-price (+ 62b sponsor sheet)' },
-  { route: '/done', n: 27, seg: null, act: 3, from: '64 subscribe-success + 65 how-to-use-juno' },
+  { route: '/building', n: 20, seg: 'snapshot', act: 2, from: '54 analyzing' },
+  { route: '/snapshot', n: 21, seg: 'snapshot', act: 2, from: '55 journey-ready' },
+  { route: '/report', n: 22, seg: 'snapshot', act: 2, from: '09 story-report + 29 reply-care-team + 60 pw-trial timeline' },
+  { route: '/save', n: 23, seg: 'snapshot', act: 2, from: '01b auth' },
+  { route: '/how', n: 24, seg: 'plan', act: 3, from: '56 honesty + 60 pw-trial' },
+  { route: '/plans', n: 25, seg: 'plan', act: 3, from: '62 pw-price (+ 62b sponsor sheet)' },
+  { route: '/done', n: 26, seg: null, act: 3, from: '64 subscribe-success + 65 how-to-use-juno' },
+  { route: '/checkin', n: 27, seg: null, act: 3, from: '61 bell (commitment + reminder)' },
   { route: '/chat', n: 27, seg: null, act: 3, from: 'first-chat' },
 ] as const;
 
@@ -43,13 +43,13 @@ export function nextRoute(route: FlowRoute): FlowRoute {
 
 const DONE_SCREENS: Partial<Record<FlowRoute, true>> = { '/insight-health': true, '/insight-days': true };
 
-// Flow bar (v3 R-07): screens 4 to 26; fill = (n - 3) / 23; part = 1-based segment index of 7; "done" label on 10 and 14.
+// Flow bar (v3 R-07): screens 4 to 25; fill = (n - 3) / 22; part = 1-based segment index of 7; "done" label on 10 and 14.
 export function flowBarFor(
   route: FlowRoute,
 ): { seg: Exclude<Segment, null>; part: number; fraction: number; done: boolean } | null {
   const step = FLOW.find((s) => s.route === route);
-  if (!step || step.seg === null || step.n < 4 || step.n > 26) return null;
-  return { seg: step.seg, part: SEGMENTS.indexOf(step.seg) + 1, fraction: (step.n - 3) / 23, done: !!DONE_SCREENS[route] };
+  if (!step || step.seg === null || step.n < 4 || step.n > 25) return null;
+  return { seg: step.seg, part: SEGMENTS.indexOf(step.seg) + 1, fraction: (step.n - 3) / 22, done: !!DONE_SCREENS[route] };
 }
 
 // Legacy four-act progress, kept until every screen uses the flow bar.
@@ -63,5 +63,5 @@ export function progressFor(route: FlowRoute): { act: Act; fraction: number } {
 export function prevRoute(path: string): FlowRoute {
   const i = FLOW.findIndex((s) => s.route === path);
   const prev = FLOW[Math.max(i - 1, 0)].route;
-  return prev === '/building' ? '/notify' : prev; // never land back on the auto-advancing screen
+  return prev === '/building' ? '/demo' : prev; // never land back on the auto-advancing screen
 }

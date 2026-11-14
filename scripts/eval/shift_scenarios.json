@@ -107,17 +107,6 @@
     "actions": "- tapOn: \"Monthly.*\""
   },
   {
-    "id": "notify",
-    "route": "/notify",
-    "preset": "demo"
-  },
-  {
-    "id": "notify-allow",
-    "route": "/notify",
-    "preset": "demo",
-    "actions": "- tapOn: \"Turn on reminders\""
-  },
-  {
     "id": "done",
     "route": "/done",
     "preset": "demo"
@@ -218,6 +207,15 @@
       "Days",
       "Routine",
       "Skips to the next step"
+    ]
+  },
+  {
+    "id": "checkin-pick",
+    "route": "/checkin",
+    "preset": "demo",
+    "actions": "- tapOn: \"Morning.*\"",
+    "ignore": [
+      "Morning.*"
     ]
   }
 ]
