@@ -27,7 +27,6 @@ export default function How() {
   const points = [
     { icon: 'checkmark', title: S.how.t1, sub: S.how.t1Sub },
     { icon: 'bell', title: fill(S.how.t2, { date: formatDate(dates.remind) }), sub: S.how.t2Sub },
-    { icon: 'star', title: fill(S.how.t3, { date: formatDate(dates.charge) }), sub: S.how.t3Sub },
   ];
 
   return (

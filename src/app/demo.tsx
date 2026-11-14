@@ -11,7 +11,6 @@ import { useOnboarding } from '@/state/onboarding';
 import { colors, radius, shadow, type, FONT_CAP } from '@/theme/tokens';
 import { avatar } from '@/ui/art';
 import { Chip } from '@/ui/Chip';
-import { DoctorPageMeter } from '@/ui/DoctorPageMeter';
 import { haptic } from '@/ui/haptics';
 import { Mascot } from '@/ui/Mascot';
 import { PrimaryButton } from '@/ui/PrimaryButton';
@@ -108,24 +107,11 @@ export default function Demo() {
             {stage === 4 && (
               <Animated.View entering={fade} style={styles.logged}>
                 <Juno text={S.demo.logged} />
-                <View style={styles.dots} accessible accessibilityLabel="Day 2 of 7">
-                  {Array.from({ length: 7 }, (_, i) => (
-                    <View key={i} style={styles.dot}>
-                      {i < 2 ? <Animated.View entering={FadeIn.duration(ENTER_MS).delay(i * 80)} style={styles.dotFill} /> : null}
-                    </View>
-                  ))}
-                </View>
               </Animated.View>
             )}
           </Animated.View>
         )}
       </Pressable>
-      {stage === 4 && (
-        <Animated.View entering={fade} style={styles.after}>
-          <Text maxFontSizeMultiplier={FONT_CAP} style={styles.caption}>{S.demo.caption}</Text>
-          <DoctorPageMeter reached="routine" />
-        </Animated.View>
-      )}
     </ScreenShell>
   );
 }

@@ -59,7 +59,7 @@ appId: host.exp.Exponent
 - repeat:
     times: 4
     while:
-      notVisible: "1 selected"
+      notVisible: "That.s a realistic goal.*"
     commands:
       - waitForAnimationToEnd
       - tapOn: "Manage flare days"

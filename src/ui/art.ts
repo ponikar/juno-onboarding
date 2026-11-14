@@ -60,7 +60,6 @@ export const sponsorIcons: Record<string, number> = {
 
 export const honestyIcons = [
   require('@/assets/juno/honesty-1.png'),
-  require('@/assets/juno/honesty-2.png'),
   require('@/assets/juno/honesty-3.png'),
   require('@/assets/juno/honesty-4.png'),
 ];

@@ -270,10 +270,9 @@ export const S = {
     saving: 'Saving…',
   },
   how: {
-    title: 'Here’s how Juno works for you',
+    title: 'How Juno works',
     rows: [
       { title: 'See what your week is telling you', sub: 'The kind of read a health coach gives, at a fraction of the cost' },
-      { title: 'No ads, ever', sub: 'Nobody is paying to reach you here' },
       { title: 'Your health data is never sold', sub: 'Not to advertisers, not to insurers, not to anyone' },
       { title: '7 days of Premium for free', sub: 'But you can still use Juno’s free version' },
     ],
