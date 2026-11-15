@@ -4,9 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import Animated, { useAnimatedStyle, useReducedMotion, useSharedValue, withDelay, withTiming } from 'react-native-reanimated';
 
 import { fill, joinList, S } from '@/copy/strings';
-import { useFlag } from '@/experiments/flags';
 import { nextRoute } from '@/flow';
-import { projection } from '@/lib/projection';
 import { formatDate, fromISODate } from '@/lib/dates';
 import { EASE_OUT, ENTER_FROM_SCALE, ENTER_MS, staggerAt } from '@/motion/tokens';
 import { OnboardingState, useOnboarding } from '@/state/onboarding';
@@ -16,7 +14,7 @@ import { Icon } from '@/ui/Icon';
 import { PrimaryButton } from '@/ui/PrimaryButton';
 import { ScreenShell, Title } from '@/ui/ScreenShell';
 
-function rows(s: OnboardingState, projected: boolean) {
+function rows(s: OnboardingState) {
   const symptom = s.todaySymptoms[0] ?? s.symptoms[0];
   return [
     {
@@ -39,8 +37,7 @@ function rows(s: OnboardingState, projected: boolean) {
     {
       icon: 'sparkles',
       label: null,
-      // Experiment: a line computed from the appointment date (or 7 days) instead of the generic watch line.
-      value: projected ? projection(s, new Date()).line : symptom ? fill(S.snapshot.watch, { symptom: symptom.toLowerCase() }) : S.snapshot.watchDefault,
+      value: symptom ? fill(S.snapshot.watch, { symptom: symptom.toLowerCase() }) : S.snapshot.watchDefault,
     },
   ];
 }
@@ -62,8 +59,7 @@ export default function Snapshot() {
     transform: reduced ? [] : [{ scale: ENTER_FROM_SCALE + (1 - ENTER_FROM_SCALE) * card.value }],
   }));
 
-  const projected = useFlag('projection');
-  const list = rows(state, projected);
+  const list = rows(state);
   return (
     <ScreenShell
       variant="sky"

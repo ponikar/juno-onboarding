@@ -76,15 +76,6 @@ export const S = {
     reply: '{condition} is exhausting. I’ll keep a close eye on it.',
     replyNone: 'Not having a name for it is hard. I’ll track it anyway.',
     seeking: 'Still looking for answers',
-    showAll: 'Show all conditions', // NEW: experiment variant A
-    showFewer: 'Show fewer', // NEW
-    more: 'More conditions', // NEW: experiment variant B
-    yours: 'Your conditions', // NEW: experiment variant B
-    remove: 'Remove {name}', // NEW: screen reader label on removable chips
-    somethingElse: 'Something else', // NEW: experiment variant C
-    echo: 'Got it: {list}.', // NEW: experiment variant C
-    echoSeeking: 'Got it: still looking for answers.', // NEW: experiment variant C
-    noMatch: 'No match. Add it as typed below.', // NEW
     addN: 'Add {n} diagnoses',
     add1: 'Add 1 diagnosis',
     options: [
@@ -376,19 +367,6 @@ export const S = {
     typing: 'Juno is typing', // NEW
     send: 'Send', // NEW
   },
-  projection: {
-    appointment: 'Your appointment is in {n} days. Log once a day and your doctor sees {n} days of how you’ve felt, not just what you remember.', // NEW (experiment)
-    week: 'Log once a day this week and I’ll have 7 days to look for what affects your {symptom}.', // NEW (experiment)
-    weekNoSymptom: 'Log once a day this week and I’ll have 7 days to look for what affects how you feel.', // NEW (experiment)
-    soon: 'Your appointment is very soon. Today’s entry is already in your summary.', // NEW (experiment)
-    loggedN: '1 of {n} days logged', // NEW (experiment)
-    logged1: '1 of 1 day logged', // NEW (experiment)
-    more: '+{n} more', // NEW (experiment)
-  },
-  sleep: {
-    options: ['Badly', 'Okay', 'Well'], // NEW (experiment): one-tap answers to chat.open
-    reply: 'Logged. That’s two entries today. I’ll check in tomorrow.', // NEW (experiment)
-  },
   story: { // v3 spec: three beats, sourced from Juno's YC launch page (see docs/specs/onboarding-v3.md section 9)
     b1Title: 'Months to get an appointment. Then 15 minutes.',
     b1Body: 'That is all the time you get to explain years of symptoms.',
@@ -520,19 +498,8 @@ export const S = {
     replyUnsure: "That's fine. I'll be here when you are.",
     cta: "I'm in",
   },
-  project: { // v2 section 7.3; text before " · " is the node title, after it the sub-line
-    title: 'What this page becomes',
-    today: 'Today · 1 entry',
-    todayAppt: 'Today, your appointment · Your first entry is on the page',
-    week: 'Day 7 · 7 entries, side by side',
-    appt: '{date}, your appointment · Up to {entries} entries on one page',
-    month: 'Day 30 · A month on one page',
-    note: 'Counts assume one entry a day. Miss a day and nothing breaks.',
-    cta: 'Save my snapshot',
-  },
+  project: { cta: 'Save my snapshot' }, // doctor page button
   debug: {
-    flags: 'Experiments (on = new)', // NEW
-    experiment: 'Experiment: conditions screen (6)', // NEW
     title: 'Jump to a screen',
     reset: 'Reset and start over',
     demo: 'Fill with demo answers',

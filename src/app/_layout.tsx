@@ -4,8 +4,6 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect, useRef } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-import { CONDITIONS_VARIANTS, ConditionsVariant, setConditionsVariant } from '@/experiments/conditionsVariant';
-import { Flag, FLAGS, setFlag } from '@/experiments/flags';
 import { addDays, toISODate } from '@/lib/dates';
 import { track } from '@/lib/track';
 import { OnboardingProvider, presetState, useOnboarding } from '@/state/onboarding';
@@ -17,22 +15,12 @@ SplashScreen.preventAutoHideAsync();
 function FlowWatcher() {
   const { ready, reset, set } = useOnboarding();
   const pathname = usePathname();
-  const { preset, fresh, variant, appt, exp } = useGlobalSearchParams<{ preset?: string; fresh?: string; variant?: string; appt?: string; exp?: string }>();
+  const { preset, fresh, appt } = useGlobalSearchParams<{ preset?: string; fresh?: string; appt?: string }>();
   const applied = useRef<string | null>(null);
 
   useEffect(() => {
     if (ready) SplashScreen.hideAsync();
   }, [ready]);
-
-  // ?exp=on|off flips every experiment flag (screenshots).
-  useEffect(() => {
-    if (__DEV__ && (exp === 'on' || exp === 'off')) (Object.keys(FLAGS) as Flag[]).forEach((f) => setFlag(f, exp === 'on'));
-  }, [exp]);
-
-  // ?variant=current|A|B|C picks the conditions experiment variant (screenshots, evals).
-  useEffect(() => {
-    if (__DEV__ && variant && (CONDITIONS_VARIANTS as readonly string[]).includes(variant)) setConditionsVariant(variant as ConditionsVariant);
-  }, [variant]);
 
   useEffect(() => {
     if (!ready || !__DEV__) return; // debug links (presets, evals) only work in development builds

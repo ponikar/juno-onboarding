@@ -3,16 +3,13 @@ import { useEffect } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { fill, joinList, S } from '@/copy/strings';
-import { useFlag } from '@/experiments/flags';
-import { projection } from '@/lib/projection';
 import { useOnboarding } from '@/state/onboarding';
 import { colors, radius, shadow, type, FONT_CAP, TITLE_CAP } from '@/theme/tokens';
-import { DayMarkers } from '@/ui/DayMarkers';
 import { haptic } from '@/ui/haptics';
 import { PrimaryButton } from '@/ui/PrimaryButton';
 import { ScreenShell } from '@/ui/ScreenShell';
 
-// Screen 20 (from 09 story-report + 29 reply-care-team, projection from 60 pw-trial): a sample one-page summary and what it becomes.
+// Screen 20 (from 09 story-report + 29 reply-care-team): a sample one-page summary and what it becomes.
 export default function Report() {
   const { state } = useOnboarding();
 
@@ -29,7 +26,6 @@ export default function Report() {
   const sex = state.sexAtBirth && state.sexAtBirth !== 'undisclosed' ? S.about.sex.find((o) => o.id === state.sexAtBirth)?.label : null;
   const details = [state.ageRange ? fill(S.report.age, { age: state.ageRange }) : null, sex].filter(Boolean).join(' · ');
 
-  const plan = useFlag('projection') ? projection(state, new Date()) : null;
 
   return (
     <ScreenShell route="/report" scroll={false} footer={<PrimaryButton label={S.project.cta} onPress={() => router.push('/save')} />}>
@@ -75,13 +71,7 @@ export default function Report() {
               )}
             </View>
           </View>
-          {plan ? (
-            <View style={styles.markers}>
-              <DayMarkers markers={plan.markers} more={plan.more} label={plan.label} />
-            </View>
-          ) : (
-            <Text maxFontSizeMultiplier={FONT_CAP} style={styles.note}>{S.report.sampleNote}</Text>
-          )}
+          <Text maxFontSizeMultiplier={FONT_CAP} style={styles.note}>{S.report.sampleNote}</Text>
         </View>
 
       </ScrollView>
@@ -96,7 +86,6 @@ const styles = StyleSheet.create({
   titleRow: { alignItems: 'center', gap: 10, paddingHorizontal: 16 },
   center: { textAlign: 'center' },
   doc: { marginTop: 24, backgroundColor: colors.surface, borderRadius: radius.panel, padding: 20 },
-  markers: { marginTop: 14 },
   badge: { backgroundColor: colors.orangeStrong, borderRadius: 8, paddingHorizontal: 10, paddingVertical: 4 },
   badgeText: { color: '#FFFFFF', fontSize: 13, fontWeight: '700', letterSpacing: 0.5 },
   label: { fontSize: 13, lineHeight: 17, fontWeight: '600', color: colors.muted, textTransform: 'uppercase', letterSpacing: 0.6, marginBottom: 4 },
@@ -109,7 +98,4 @@ const styles = StyleSheet.create({
   chip: { backgroundColor: colors.orangeFill, borderColor: colors.orangeBorder, borderWidth: 1, borderRadius: radius.pill, paddingHorizontal: 10, paddingVertical: 4 },
   chipText: { fontSize: 14, lineHeight: 18, color: colors.ink },
   note: { marginTop: 14, fontSize: 13, lineHeight: 17, color: colors.muted },
-  section: { marginTop: 32, fontSize: 20, lineHeight: 25, fontWeight: '700', color: colors.ink },
-  timeline: { marginTop: 16 },
-  projectNote: { marginTop: 20, fontSize: 13, lineHeight: 17, color: colors.muted },
 });

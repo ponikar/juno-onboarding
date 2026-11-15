@@ -3,8 +3,6 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { S } from '@/copy/strings';
-import { CONDITIONS_VARIANTS, setConditionsVariant, useConditionsVariant } from '@/experiments/conditionsVariant';
-import { Flag, FLAGS, setFlag, useFlag } from '@/experiments/flags';
 import { FLOW } from '@/flow';
 import { presetState, useOnboarding } from '@/state/onboarding';
 import { colors, radius, type, FONT_CAP } from '@/theme/tokens';
@@ -14,7 +12,6 @@ import { PressableScale } from '@/ui/PressableScale';
 export default function Debug() {
   const insets = useSafeAreaInsets();
   const { reset } = useOnboarding();
-  const variant = useConditionsVariant();
   const go = (route: string) => {
     router.dismissAll();
     router.replace(route as never);
@@ -26,27 +23,6 @@ export default function Debug() {
         <Btn label={S.debug.demo} onPress={() => reset(presetState('demo'))} />
         <Btn label={S.debug.reset} onPress={() => { reset(); go('/welcome'); }} />
       </View>
-      <Text maxFontSizeMultiplier={FONT_CAP} style={[type.small, { color: colors.inkSoft, marginBottom: 6 }]}>{S.debug.experiment}</Text>
-      <View style={styles.row}>
-        {CONDITIONS_VARIANTS.map((v) => (
-          <PressableScale
-            key={v}
-            accessibilityRole="radio"
-            accessibilityState={{ checked: v === variant }}
-            onPress={() => {
-              setConditionsVariant(v);
-              go('/conditions');
-            }}
-            style={[styles.seg, v === variant && styles.segOn]}>
-            <Text maxFontSizeMultiplier={FONT_CAP} style={[type.small, { fontWeight: '600', color: v === variant ? '#fff' : colors.ink }]}>{v === 'current' ? 'Now' : v}</Text>
-          </PressableScale>
-        ))}
-      </View>
-      <Text maxFontSizeMultiplier={FONT_CAP} style={[type.small, { color: colors.inkSoft, marginBottom: 6 }]}>{S.debug.flags}</Text>
-      {(Object.keys(FLAGS) as Flag[]).map((f) => (
-        <FlagRow key={f} flag={f} />
-      ))}
-      <View style={{ height: 12 }} />
       {FLOW.map((s) => (
         <PressableScale key={s.route} onPress={() => go(s.route)} style={styles.item} accessibilityRole="button">
           <Text maxFontSizeMultiplier={FONT_CAP} style={type.body}>{`${s.n}. ${s.route.slice(1)}`}</Text>
@@ -54,23 +30,6 @@ export default function Debug() {
         </PressableScale>
       ))}
     </ScrollView>
-  );
-}
-
-function FlagRow({ flag }: { flag: Flag }) {
-  const on = useFlag(flag);
-  return (
-    <PressableScale
-      accessibilityRole="switch"
-      accessibilityState={{ checked: on }}
-      accessibilityLabel={FLAGS[flag]}
-      onPress={() => setFlag(flag, !on)}
-      style={[styles.item, styles.flag]}>
-      <Text maxFontSizeMultiplier={FONT_CAP} style={[type.body, { flex: 1 }]}>{FLAGS[flag]}</Text>
-      <View style={[styles.pill, on && styles.pillOn]}>
-        <Text maxFontSizeMultiplier={FONT_CAP} style={[type.small, { fontWeight: '600', color: on ? '#fff' : colors.ink }]}>{on ? 'On' : 'Off'}</Text>
-      </View>
-    </PressableScale>
   );
 }
 
@@ -85,10 +44,5 @@ function Btn({ label, onPress }: { label: string; onPress: () => void }) {
 const styles = StyleSheet.create({
   row: { flexDirection: 'row', gap: 8, marginBottom: 12 },
   btn: { backgroundColor: colors.button, borderRadius: radius.pill, paddingHorizontal: 14, minHeight: 44, justifyContent: 'center' },
-  seg: { minWidth: 56, minHeight: 44, borderRadius: radius.pill, borderWidth: 1.5, borderColor: colors.radio, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 12 },
-  segOn: { backgroundColor: colors.button, borderColor: colors.button },
-  flag: { flexDirection: 'row', alignItems: 'center', gap: 12 },
-  pill: { minWidth: 52, paddingVertical: 4, borderRadius: radius.pill, borderWidth: 1.5, borderColor: colors.radio, alignItems: 'center' },
-  pillOn: { backgroundColor: colors.button, borderColor: colors.button },
   item: { backgroundColor: colors.surface, borderRadius: 14, padding: 12, marginBottom: 6, minHeight: 44 },
 });

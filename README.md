@@ -46,7 +46,7 @@ The sentence typed on "How do you feel?" carries through to the symptoms list, t
 - **Look:** colours, type and spacing were sampled from the Figma frames (`src/theme/tokens.ts`). Figma had flat screens only, so icons and art were cut out of the exports (`assets/juno/`, `docs/ASSETS.md`); a few icons came from the production app's screens.
 - **Feel:** a light haptic on every button press, a selection haptic and small pop on picks, typing dots before Juno replies, a breathing mascot, and title-led screen entrances. Every animation has a Reduce Motion path.
 - **Copy** lives in `src/copy/strings.ts`, facts with their sources in `src/copy/facts.ts`.
-- **Debug menu:** long-press the Juno logo for presets, jumping to any screen, and the experiment switches.
+- **Debug menu:** long-press the Juno logo to reset, fill demo answers, or jump to any screen.
 
 ## Checks
 

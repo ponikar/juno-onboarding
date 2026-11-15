@@ -138,27 +138,6 @@
     ]
   },
   {
-    "id": "conditions-A-pick",
-    "route": "/conditions",
-    "preset": "empty",
-    "actions": "- tapOn: \"POTS\"",
-    "variant": "A"
-  },
-  {
-    "id": "conditions-B-pick",
-    "route": "/conditions",
-    "preset": "empty",
-    "actions": "- tapOn: \"POTS\"",
-    "variant": "B"
-  },
-  {
-    "id": "conditions-C-pick",
-    "route": "/conditions",
-    "preset": "empty",
-    "actions": "- tapOn: \"POTS\"",
-    "variant": "C"
-  },
-  {
     "id": "story",
     "route": "/story",
     "preset": "demo"

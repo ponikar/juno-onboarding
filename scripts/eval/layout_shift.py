@@ -128,7 +128,7 @@ def shifts_against(base, shots, ignore):
 
 
 def run_scenario(m, sc):
-    url = f'exp://{HOST}/--/{sc["route"].lstrip("/")}?preset={sc.get("preset", "demo")}&fresh=1&exp=off&variant={sc.get("variant", "current")}'
+    url = f'exp://{HOST}/--/{sc["route"].lstrip("/")}?preset={sc.get("preset", "demo")}&fresh=1'
     subprocess.run(['xcrun', 'simctl', 'openurl', UDID, url], check=True)
     time.sleep(SETTLE_S)
     tapped = set(re.findall(r'tapOn: "([^"]+)"', sc.get('actions', '')))  # press feedback scales the tapped element
