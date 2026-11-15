@@ -36,8 +36,8 @@ export interface OnboardingState {
   notificationsAllowed: boolean | null;
   lastRoute: string | null;
   activated: boolean; // activation event already sent (once per install)
-  commitment: 'most_days' | 'good_days' | 'unsure' | null; // v2 screen 17
-  checkInTime: 'morning' | 'afternoon' | 'evening' | null; // v2 screen 17
+  commitment: 'most_days' | 'good_days' | 'unsure' | null;
+  checkInTime: 'morning' | 'afternoon' | 'evening' | null;
   groups: string[]; // v4: community groups picked (mock)
   foundVia: string | null; // v4: where did you find Juno
 }

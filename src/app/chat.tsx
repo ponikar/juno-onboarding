@@ -21,7 +21,7 @@ type SuggestionId = keyof typeof S.chat.replies;
 
 const TYPING_MS = 900;
 
-// MOCK: canned replies. Free text reuses screen 4's keyword match, so nothing medical is generated.
+// MOCK: canned replies. Free text reuses the first entry's keyword match, so nothing medical is generated.
 function replyTo(text: string, id?: SuggestionId) {
   if (id) return S.chat.replies[id];
   const { symptoms } = extractSymptoms(text);

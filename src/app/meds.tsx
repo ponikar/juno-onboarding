@@ -17,7 +17,7 @@ import { ScreenShell, Title } from '@/ui/ScreenShell';
 
 const shortName = (c: string) => c.replace(/\s*\(.*\)$/, '');
 
-// Screen 8 (from Figma 19 meds). Figma's "Show more" is hidden: the list has no further items.
+// From Figma 19 meds. Figma's "Show more" is hidden: the list has no further items.
 export default function Meds() {
   const { state, set } = useOnboarding();
   const [query, setQuery] = useState('');

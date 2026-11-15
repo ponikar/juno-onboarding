@@ -16,7 +16,7 @@ import { ScreenShell, Title } from '@/ui/ScreenShell';
 
 const shortName = (c: string) => c.replace(/\s*\(.*\)$/, '');
 
-// Screen 6 (from Figma 17 conditions; "Still looking for answers" replaces screen 18).
+// From Figma 17 conditions; "Still looking for answers" replaces Figma 18.
 export default function Conditions() {
   const { state, set } = useOnboarding();
   const [query, setQuery] = useState('');

@@ -19,7 +19,7 @@ function labelFor(seg: Seg, done: boolean) {
   return S.seg[seg];
 }
 
-// v3 R-07: part name left, "Part n of 7" right, a 6 pt bar below.
+// Part name left, "Part n of 7" right, a 6 pt bar below.
 export function FlowBar({ seg, fraction, done, onSky }: { seg: Seg; fraction: number; done: boolean; onSky?: boolean }) {
   const reduced = useReducedMotion();
   const [prev] = useState(last);

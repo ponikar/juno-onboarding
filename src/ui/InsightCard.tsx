@@ -17,7 +17,7 @@ import { Mascot } from './Mascot';
 import { PrimaryButton } from './PrimaryButton';
 import { ScreenShell } from './ScreenShell';
 
-// Screens 10 and 14 on the sky (v3 R-15).
+// The two insight cards, on the sky.
 export function InsightCard({ route, insight, known, reached }: { route: FlowRoute; insight: Insight; known: KnownRow[]; reached: 'health' | 'days' }) {
   const reduced = useReducedMotion();
   const card = useSharedValue(0);

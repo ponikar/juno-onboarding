@@ -9,7 +9,7 @@ import { haptic } from '@/ui/haptics';
 import { PrimaryButton } from '@/ui/PrimaryButton';
 import { ScreenShell } from '@/ui/ScreenShell';
 
-// Screen 20 (from 09 story-report + 29 reply-care-team): a sample one-page summary and what it becomes.
+// From 09 story-report + 29 reply-care-team: a sample one-page summary and what it becomes.
 export default function Report() {
   const { state } = useOnboarding();
 

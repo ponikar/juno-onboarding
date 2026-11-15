@@ -17,7 +17,7 @@ import { PressableScale } from '@/ui/PressableScale';
 import { PrimaryButton } from '@/ui/PrimaryButton';
 import { ScreenShell, Title } from '@/ui/ScreenShell';
 
-// Screen 3 (from Figma 36 try-logging). No account needed. The entry is saved to state as typed.
+// From Figma 36 try-logging. No account needed. The entry is saved to state as typed.
 export default function Try() {
   const { state, set } = useOnboarding();
   const input = useRef<React.ComponentRef<typeof TextInput>>(null);
@@ -28,10 +28,10 @@ export default function Try() {
   const save = (text: string) => set({ todayEntry: text });
   const go = () => {
     const todaySymptoms = extractSymptoms(entry.trim()).symptoms;
-    // A new entry re-seeds screen 7's pre-ticks.
+    // A new entry re-seeds the symptoms screen's pre-ticks.
     set((s) => ({ todayEntry: entry.trim(), todaySymptoms, symptomsSeeded: s.todaySymptoms.join('|') === todaySymptoms.join('|') ? s.symptomsSeeded : false }));
     track('answer', { screen: 'try', length: entry.trim().length, matched: todaySymptoms.length });
-    Keyboard.dismiss(); // close it before screen 5 lays out, so nothing there moves as it hides
+    Keyboard.dismiss(); // close it before the next screen lays out, so nothing there moves as it hides
     router.push(nextRoute('/try'));
   };
 

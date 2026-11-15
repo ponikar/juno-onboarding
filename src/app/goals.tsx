@@ -11,7 +11,7 @@ import { OptionCard } from '@/ui/OptionCard';
 import { PrimaryButton } from '@/ui/PrimaryButton';
 import { ScreenShell, Title } from '@/ui/ScreenShell';
 
-// Screen 5 (from Figma 14 goals). goals[0] is the first goal picked.
+// From Figma 14 goals. goals[0] is the first goal picked.
 export default function Goals() {
   const { state, set } = useOnboarding();
   const picked = state.goals;

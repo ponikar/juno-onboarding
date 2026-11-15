@@ -4,7 +4,7 @@ import Animated, { Easing, useAnimatedStyle, useReducedMotion, useSharedValue, w
 
 import { mascotPeekSky } from './art';
 
-const BREATH_MS = 1600; // half of the 3.2 s loop (v3 R-12)
+const BREATH_MS = 1600; // half of the 3.2 s loop
 
 // The mascot, breathing gently (scale 1 to 1.015). Still under reduced motion. `nod` plays one small nod when it changes.
 export function Mascot({ source = mascotPeekSky, style, nod = 0 }: { source?: ImageSourcePropType; style?: StyleProp<ImageStyle>; nod?: number }) {

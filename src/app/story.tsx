@@ -35,7 +35,7 @@ const IN_MS = 320;
 const LINE_GAP_MS = 60;
 const RISE = 12;
 
-// Screen 2 (v3 R-01, R-02): the story in three beats on one route.
+// The story in three beats on one route.
 export default function Story() {
   const reduced = useReducedMotion();
   const [beat, setBeat] = useState(0);

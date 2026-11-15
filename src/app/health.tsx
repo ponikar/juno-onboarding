@@ -17,7 +17,7 @@ import { ScreenShell, Title } from '@/ui/ScreenShell';
 
 const CONTINUE_AFTER_REPLY_MS = 900 + TYPING_MS;
 
-// Screen 13 (from Figma 43 health-connect and 42 wearables).
+// From Figma 43 health-connect and 42 wearables.
 export default function Health() {
   const { state, set } = useOnboarding();
   const [connected, setConnected] = useState(false);

@@ -5,7 +5,7 @@ import { addDays, daysUntil, formatDate, fromISODate } from './dates';
 export type MeterReached = 'health' | 'days' | 'routine';
 export type MeterTick = { key: 'today' | MeterReached; label: string; filled: boolean };
 
-// v3 spec check 3 and 4: forecast follows projectionTimeline (past = none, day 0 = soon, else N + 1 entries).
+// Forecast: no or past appointment = a week, today = soon, else N + 1 entries.
 // The appointment is asked after the health card, so that card always shows the week forecast.
 export function meterFor(state: Pick<OnboardingState, 'commitment' | 'nextAppointment'>, reached: MeterReached, today: Date) {
   const ticks: MeterTick[] = [

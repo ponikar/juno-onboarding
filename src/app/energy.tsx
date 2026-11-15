@@ -10,7 +10,7 @@ import { JunoReply } from '@/ui/JunoReply';
 import { PrimaryButton } from '@/ui/PrimaryButton';
 import { ScreenShell, Title } from '@/ui/ScreenShell';
 
-// Screen 10 (from Figma 37 energy-slider).
+// From Figma 37 energy-slider.
 export default function Energy() {
   const { state, set } = useOnboarding();
   return (

@@ -1,5 +1,5 @@
 // Every user-facing string. Plan copy deck (section 9) first; existing Figma wording kept where the
-// deck is silent. Lines marked NEW are additions not in the deck (flagged in the README).
+// deck is silent. Lines marked NEW are additions not in the deck.
 
 export const S = {
   common: {
@@ -44,7 +44,7 @@ export const S = {
     micUnavailable: 'Dictation isn’t available here. Use the keyboard mic instead.', // NEW
   },
   heard: {
-    title: 'Juno heard you', // NEW (screen title from plan section 6)
+    title: 'Juno heard you', // NEW
     sub: 'Juno logs it for you.', // existing Figma 35 wording
     today: 'Today', // NEW
     reply: 'That sounds hard. I’ve logged {symptoms} for today.',
@@ -179,8 +179,8 @@ export const S = {
     q: 'What should I call you?',
     reply: 'Good to meet you, {name}.',
     namePlaceholder: 'Your first name',
-    sexLabel: 'Sex at birth', // NEW (section label; screen 31 question was "What's your sex at birth?")
-    ageLabel: 'Age', // NEW (section label; screen 33 question was "How old are you?")
+    sexLabel: 'Sex at birth', // NEW (section label; Figma 31 question was "What's your sex at birth?")
+    ageLabel: 'Age', // NEW (section label; Figma 33 question was "How old are you?")
     sex: [
       { id: 'female', label: 'Female' },
       { id: 'male', label: 'Male' },
@@ -224,7 +224,7 @@ export const S = {
     rowToday: 'Today',
     todayAsWritten: '“{entry}”',
     rowMeds: 'Medicines',
-    rowAppt: 'Next appointment', // NEW: screen 14 shows it, so screen 15 repeats it (eval A-08)
+    rowAppt: 'Next appointment', // NEW: Building shows it, so the snapshot repeats it
     noMeds: 'None added yet',
     rowEnergy: 'Energy on a normal day',
     energyValue: '{n} of 7',
@@ -329,7 +329,7 @@ export const S = {
     why: 'So I can check in at the time you picked, and you can change it any time.', // v3 spec
     free: 'Can I check in with you once a day?',
     allow: 'Turn on reminders', // eval T-02: says what happens
-    later: 'Not now', // existing "Not now" wording from screen 35
+    later: 'Not now', // existing "Not now" wording from Figma 35
     mockTitle: '“Juno” Would Like to Send You Notifications', // MOCK system prompt (1:2015)
     mockBody: 'Notifications may include alerts, sounds and icon badges. These can be configured in Settings.',
     mockDeny: 'Don’t Allow',
@@ -485,7 +485,7 @@ export const S = {
     daysNext: 'Next: a little about you.',
     cta: 'Keep going',
   },
-  commit: { // v2 screen 17
+  commit: {
     q: 'Can you tell me one line a day?',
     sub: 'Like the one you wrote earlier.',
     optMost: 'Yes, most days',

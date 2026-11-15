@@ -14,7 +14,7 @@ import { PressableScale } from '@/ui/PressableScale';
 import { PrimaryButton } from '@/ui/PrimaryButton';
 import { ScreenShell } from '@/ui/ScreenShell';
 
-// Screen 2 (from Figma 12 consent). Consent comes before any health data is typed on screen 3.
+// From Figma 12 consent. Consent comes before any health data is typed.
 export default function Consent() {
   const insets = useSafeAreaInsets();
   const { state, set } = useOnboarding();

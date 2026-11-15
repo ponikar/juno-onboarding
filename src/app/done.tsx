@@ -12,7 +12,7 @@ import { haptic } from '@/ui/haptics';
 import { PrimaryButton } from '@/ui/PrimaryButton';
 import { ScreenShell } from '@/ui/ScreenShell';
 
-// Screen 21 (from 64 subscribe-success / free variant): no mascot, as in Figma; the welcome text settles in, then into the first chat.
+// From 64 subscribe-success / free variant: no mascot, as in Figma; the welcome text settles in, then into the first chat.
 export default function Done() {
   const { state } = useOnboarding();
   const reduced = useReducedMotion();

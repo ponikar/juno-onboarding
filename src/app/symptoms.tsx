@@ -17,7 +17,7 @@ import { ScreenShell, Title } from '@/ui/ScreenShell';
 
 const shortName = (c: string) => c.replace(/\s*\(.*\)$/, '');
 
-// Screen 7 (from Figma 20 symptoms). Arrives with screen 4's symptoms ticked (R-05).
+// From Figma 20 symptoms. Arrives with the first entry's symptoms ticked.
 export default function Symptoms() {
   const { state, set } = useOnboarding();
   const [query, setQuery] = useState('');

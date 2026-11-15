@@ -10,7 +10,7 @@ import { Tick } from './Chip';
 
 const ROW_GAP_MS = 50;
 
-// Spec 7.2: what the user has given so far. Rows are not tappable.
+// What the user has given so far. Rows are not tappable.
 export function KnownList({ rows, delay }: { rows: KnownRow[]; delay: number }) {
   return (
     <View style={styles.wrap}>

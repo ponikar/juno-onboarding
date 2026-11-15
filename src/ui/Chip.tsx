@@ -17,7 +17,7 @@ export function Chip({ label, icon, selected, onToggle, preTicked, testID }: {
   icon?: ImageSourcePropType;
   selected: boolean;
   onToggle: () => void;
-  preTicked?: boolean; // ticked by Juno from screen 4: fades from 60% to full once
+  preTicked?: boolean; // ticked by Juno from the first entry: fades from 60% to full once
   testID?: string;
 }) {
   const onSky = useContext(OnSky);

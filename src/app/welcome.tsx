@@ -19,7 +19,7 @@ import { colors, shadow } from '@/theme/tokens';
 import { bg, laurelLeft, laurelRight, mascotPeek } from '@/ui/art';
 import { PrimaryButton, TextLink } from '@/ui/PrimaryButton';
 
-// Screen 1 (from Figma 01 splash). Delight: headline fades up, mascot rises from the cloud, proof follows.
+// From Figma 01 splash. Delight: headline fades up, mascot rises from the cloud, proof follows.
 export default function Welcome() {
   const insets = useSafeAreaInsets();
   const reduced = useReducedMotion();

@@ -31,7 +31,7 @@ const cardIn = new Keyframe({
   .duration(260)
   .delay(80);
 
-// Screen 13: what the energy answer is for, shown as an example week with Juno's nudge.
+// What the energy answer is for, shown as an example week with Juno's nudge.
 export default function Pacing() {
   return (
     <ScreenShell

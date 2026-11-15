@@ -29,5 +29,5 @@ export function daysUntil(iso: string, today: Date) {
 }
 
 export function formatDate(d: Date) {
-  return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' }); // device format (eval D-12)
+  return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' }); // device format
 }

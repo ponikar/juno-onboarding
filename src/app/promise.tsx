@@ -22,7 +22,7 @@ const OPTIONS: { id: Commitment; label: string; icon: ImageSourcePropType }[] = 
   { id: 'unsure', label: S.commit.optUnsure, icon: answerIcons.maybe },
 ];
 
-// Screen 17 Commit (v3 R-03): one line a day. "Not sure yet" skips When.
+// Commit: one line a day.
 export default function Commit() {
   const { state, set } = useOnboarding();
   const picked = useRef(state.commitment !== null);

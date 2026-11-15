@@ -10,10 +10,10 @@ type Props = Omit<PressableProps, 'style' | 'children'> & {
   style?: StyleProp<ViewStyle>;
   children?: ReactNode;
   scaleTo?: number;
-  selected?: boolean; // pops 0.96 -> 1 when it turns true (v3 R-10)
+  selected?: boolean; // pops 0.96 -> 1 when it turns true
 };
 
-// Press feedback for every pressable (plan section 8): scale to 0.97 in 120 ms; opacity only under reduced motion.
+// Press feedback for every pressable: scale to 0.97 in 120 ms; opacity only under reduced motion.
 export function PressableScale({ style, children, scaleTo = PRESS_SCALE, selected, onPressIn, onPressOut, disabled, ...rest }: Props) {
   const reduced = useReducedMotion();
   const p = useSharedValue(0);
