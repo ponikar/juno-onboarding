@@ -42,7 +42,7 @@ function rows(s: OnboardingState) {
   ];
 }
 
-// Screen 15 (from Figma 55 journey-ready). Delight: the card settles in, rows follow.
+// From Figma 55 journey-ready. Delight: the card settles in, rows follow.
 export default function Snapshot() {
   const { state } = useOnboarding();
   const reduced = useReducedMotion();

@@ -11,7 +11,7 @@ import { OptionCard } from '@/ui/OptionCard';
 import { PrimaryButton } from '@/ui/PrimaryButton';
 import { ScreenShell, Title } from '@/ui/ScreenShell';
 
-// Screen 11 (from Figma 45 support-circle; the 46 reply line shows on the same screen).
+// From Figma 45 support-circle; the 46 reply line shows on the same screen.
 export default function Support() {
   const { state, set } = useOnboarding();
   return (

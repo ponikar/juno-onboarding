@@ -1,4 +1,4 @@
-// MOCK: stands in for the model call that would read the entry on screen 4.
+// MOCK: stands in for the model call that would read the first entry.
 
 const TABLE: { symptom: string; words: string[] }[] = [
   { symptom: 'Fatigue', words: ['tired', 'exhausted', 'fatigue', 'drained', 'wiped'] },

@@ -11,7 +11,7 @@ import { sponsorIcons, sponsorTicket } from '@/ui/art';
 import { OptionCard } from '@/ui/OptionCard';
 import { PrimaryButton } from '@/ui/PrimaryButton';
 
-// Sponsored-plan sheet (from 62b sponsor sheet), opened from "Is cost a problem?" on screen 19.
+// Sponsored-plan sheet (from 62b sponsor sheet), opened from "Is cost a problem?" on Plans.
 export default function Sponsor() {
   const insets = useSafeAreaInsets();
   const { set } = useOnboarding();

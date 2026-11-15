@@ -36,15 +36,9 @@ export const TextField = forwardRef<React.ComponentRef<typeof TextInput>, TextIn
   },
 );
 
-export const SearchField = forwardRef<React.ComponentRef<typeof TextInput>, TextInputProps & { quiet?: boolean }>(function SearchField(
-  { quiet, onFocus, onBlur, ...props },
-  ref,
-) {
-  const [focused, setFocused] = useState(false);
-  // quiet (experiment variants): neutral border until focused, so it does not look active.
-  const border = !quiet ? { borderColor: colors.orangeBorder } : focused ? styles.focused : { borderColor: colors.radio };
+export const SearchField = forwardRef<React.ComponentRef<typeof TextInput>, TextInputProps>(function SearchField(props, ref) {
   return (
-    <View style={[styles.field, border]}>
+    <View style={styles.field}>
       <View style={styles.searchIcon}>
         <Icon name="magnifyingglass" size={17} color={colors.ink} />
       </View>
@@ -54,14 +48,6 @@ export const SearchField = forwardRef<React.ComponentRef<typeof TextInput>, Text
         placeholderTextColor={colors.muted}
         style={[styles.input, { paddingLeft: 0 }]}
         returnKeyType="search"
-        onFocus={(e) => {
-          setFocused(true);
-          onFocus?.(e);
-        }}
-        onBlur={(e) => {
-          setFocused(false);
-          onBlur?.(e);
-        }}
         {...props}
       />
     </View>

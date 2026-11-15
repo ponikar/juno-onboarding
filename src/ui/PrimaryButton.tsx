@@ -59,7 +59,7 @@ export function TextLink({ label, onPress, muted, testID }: { label: string; onP
 
 const fade = { transitionProperty: ['backgroundColor', 'color'], transitionDuration: ENABLE_MS } as object;
 
-// A double tap must navigate once (spec section 4): ignore presses for 700 ms after one lands.
+// A double tap must navigate once: ignore presses for 700 ms after one lands.
 function useOnce(fn: () => void) {
   const last = useRef(0);
   return () => {
@@ -70,7 +70,7 @@ function useOnce(fn: () => void) {
   };
 }
 
-// Light haptic on press-in (v3 R-09), once per press under the same 700 ms guard as useOnce.
+// Light haptic on press-in, once per press under the same 700 ms guard as useOnce.
 export function useTapHaptic() {
   return useOnce(haptic.light);
 }

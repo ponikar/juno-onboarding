@@ -16,7 +16,7 @@ import { ScreenShell, Title } from '@/ui/ScreenShell';
 
 const REPLY_AFTER_TYPING_MS = 600;
 
-// Screen 12 (from Figma 21 name, 31 sex, 33 age). Every input is optional.
+// From Figma 21 name, 31 sex, 33 age. Every input is optional.
 export default function About() {
   const { state, set } = useOnboarding();
   const name = state.name.trim();

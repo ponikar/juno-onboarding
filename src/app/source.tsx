@@ -14,7 +14,7 @@ import { PressableScale } from '@/ui/PressableScale';
 import { PrimaryButton, TextLink } from '@/ui/PrimaryButton';
 import { ScreenShell, Title } from '@/ui/ScreenShell';
 
-// Screen 19 (from the Juno app: where did you find Juno).
+// From the Juno app: where did you find Juno.
 export default function Source() {
   const { state, set } = useOnboarding();
   const [picked, setPicked] = useState<string | null>(state.foundVia);

@@ -46,21 +46,13 @@ export function nextRoute(route: FlowRoute): FlowRoute {
 
 const DONE_SCREENS: Partial<Record<FlowRoute, true>> = { '/insight-health': true, '/insight-days': true };
 
-// Flow bar: screens 4 to 27 (plans); fill = (n - 3) / 24; part = 1-based segment index of 7; "done" label on the two insight cards.
+// Flow bar: screens 4 to 28 (plans); fill = (n - 3) / 25; part = 1-based segment index of 7; "done" label on the two insight cards.
 export function flowBarFor(
   route: FlowRoute,
 ): { seg: Exclude<Segment, null>; part: number; fraction: number; done: boolean } | null {
   const step = FLOW.find((s) => s.route === route);
   if (!step || step.seg === null || step.n < 4 || step.n > 28) return null;
   return { seg: step.seg, part: SEGMENTS.indexOf(step.seg) + 1, fraction: (step.n - 3) / 25, done: !!DONE_SCREENS[route] };
-}
-
-// Legacy four-act progress, kept until every screen uses the flow bar.
-export function progressFor(route: FlowRoute): { act: Act; fraction: number } {
-  const step = FLOW.find((s) => s.route === route)!;
-  const inAct = FLOW.filter((s) => s.act === step.act && s.route !== '/chat');
-  const idx = inAct.findIndex((s) => s.route === route);
-  return { act: step.act as Act, fraction: (idx + 1) / inAct.length };
 }
 
 export function prevRoute(path: string): FlowRoute {

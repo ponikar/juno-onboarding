@@ -102,7 +102,7 @@ export function ScreenShell({ children, variant = 'plain', background, backgroun
 
 const EnterContext = createContext<SharedValue<number> | null>(null);
 
-// v3 R-13: the Title leads (fade + 12 pt rise, read from EnterContext); the footer fades in 60 ms later, no rise.
+// The Title leads (fade + 12 pt rise, read from EnterContext); the footer fades in 60 ms later, no rise.
 // Body siblings share the Title's container, so they fade with it: a child cannot be more opaque than its parent.
 function useEnter() {
   const lead = useSharedValue(0);
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
   nav: { height: size.nav, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 15 },
   navSide: { width: 60 },
   navMid: { flex: 1 },
-  barRow: { paddingHorizontal: 16, marginTop: 6 }, // spec 7.1: full width, under the nav row
+  barRow: { paddingHorizontal: 16, marginTop: 6 }, // full width, under the nav row
   navBtn: { width: size.nav, height: size.nav, borderRadius: size.nav / 2, alignItems: 'center', justifyContent: 'center' },
   navBtnPlain: { backgroundColor: '#FCFAFB' },
   navBtnSky: { backgroundColor: colors.skyGlass },

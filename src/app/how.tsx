@@ -20,7 +20,7 @@ const POINT_MS = 160;
 const RAIL_GRADIENT = 'linear-gradient(180deg, #4E9FE9 0%, #7DB3EE 45%, #BFD7F5 80%, rgba(248,246,247,0) 100%)';
 const POINT_GAP_MS = 120; // each point starts 40 ms before the previous one ends: 3 points in 400 ms
 
-// Screen 18 (from 56 honesty + 60 pw-trial): the four honesty rows, then the free-week timeline with real dates.
+// From 56 honesty + 60 pw-trial: the four honesty rows, then the free-week timeline with real dates.
 export default function How() {
   const insets = useSafeAreaInsets();
   const dates = useMemo(() => trialDates(new Date()), []);

@@ -3,10 +3,10 @@
 
 export type Insight = { id: string; stat: string; label: string; source: string; kind: string };
 
-// Stays false until Juno approves publishing its own onboarding data (spec section 12).
+// Stays false until Juno approves publishing its own onboarding data.
 export const FACT_F6_APPROVED = false;
 
-// F7: used inside story.body1 on screen 2 ("Isaac waited 14 years for a diagnosis.").
+// F7: used inside story.body1 on the story screen ("Isaac waited 14 years for a diagnosis.").
 // https://www.ycombinator.com/launches/QT7-juno-ai-health-assistant-for-chronic-illness
 
 export const F3: Insight = {

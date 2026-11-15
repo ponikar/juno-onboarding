@@ -15,7 +15,7 @@ import { sheetStyles } from '@/ui/Sheet';
 
 type Method = 'google' | 'apple' | 'email';
 
-// Screen 17 (from 01b auth + email sheet 1:1935): save the snapshot with a sign-up option.
+// From 01b auth + email sheet 1:1935: save the snapshot with a sign-up option.
 export default function Save() {
   const insets = useSafeAreaInsets();
   const { set } = useOnboarding();

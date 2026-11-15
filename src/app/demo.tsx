@@ -23,7 +23,7 @@ const NOTIFY_LANDS_MS = 320;
 const NOTIFY_HOLD_MS = 1400;
 const AUTO_PICK_MS = 1500;
 
-// Screen 19 Demo (v3 R-05): tomorrow's check-in, rehearsed in three automatic steps.
+// Demo: tomorrow's check-in, rehearsed in three automatic steps.
 export default function Demo() {
   const { state } = useOnboarding();
   const reduced = useReducedMotion();

@@ -18,7 +18,7 @@ function replyFor(iso: string | null, answered: boolean) {
   return fill(S.appt.reply, { days });
 }
 
-// Screen 9 (from Figma 28 appointment).
+// From Figma 28 appointment.
 export default function Appointment() {
   const { state, set } = useOnboarding();
 

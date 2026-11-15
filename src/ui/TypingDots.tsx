@@ -4,7 +4,7 @@ import Animated, { Easing, useAnimatedStyle, useSharedValue, withDelay, withRepe
 
 import { colors } from '@/theme/tokens';
 
-// Juno's typing indicator (v3 R-11): three dots rising in turn. Callers skip it under reduced motion.
+// Juno's typing indicator: three dots rising in turn. Callers skip it under reduced motion.
 export function TypingDots({ color = colors.muted }: { color?: string }) {
   return (
     <View style={styles.row} accessibilityLabel="Juno is typing">

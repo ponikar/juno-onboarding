@@ -26,7 +26,7 @@ function items(s: OnboardingState) {
   ].filter((x): x is string => !!x);
 }
 
-// Screen 14 (from Figma 54 analyzing). Shows the user's real answers one by one, then moves on.
+// From Figma 54 analyzing. Shows the user's real answers one by one, then moves on.
 export default function Building() {
   const { state } = useOnboarding();
   const list = items(state);

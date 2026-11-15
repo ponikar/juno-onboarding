@@ -10,7 +10,7 @@ import { OptionCard } from '@/ui/OptionCard';
 import { PrimaryButton, TextLink } from '@/ui/PrimaryButton';
 import { ScreenShell, Title } from '@/ui/ScreenShell';
 
-// Screen 15: Juno's group chats, multi-select, with a plain way past.
+// Juno's group chats, multi-select, with a plain way past.
 export default function Community() {
   const { state, set } = useOnboarding();
   const picked = state.groups;

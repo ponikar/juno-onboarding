@@ -21,7 +21,7 @@ import { Sheet } from '@/ui/Sheet';
 type Choice = 'yearly' | 'monthly';
 type ExitReason = NonNullable<OnboardingState['paywallExitReason']>;
 
-// Screen 19 (from 62 pw-price + 62b sponsor sheet): yearly leads with the real yearly price; free and sponsored are visible.
+// From 62 pw-price + 62b sponsor sheet: yearly leads with the real yearly price; free and sponsored are visible.
 export default function Plans() {
   const { state, set } = useOnboarding();
   const [choice, setChoice] = useState<Choice>(state.plan === 'monthly' ? 'monthly' : 'yearly');

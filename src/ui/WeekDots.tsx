@@ -5,7 +5,7 @@ import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-na
 import { EASE_OUT, STATE_MS } from '@/motion/tokens';
 import { colors, FONT_CAP } from '@/theme/tokens';
 
-// Spec 7.4: day 1 of 7. Seven equal dots, the first filled. Not tappable.
+// Day 1 of 7. Seven equal dots, the first filled. Not tappable.
 export function WeekDots({ caption, label, center }: { caption?: string; label?: string; center?: boolean }) {
   const t = useSharedValue(0);
   useEffect(() => {

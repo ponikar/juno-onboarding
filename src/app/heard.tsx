@@ -28,7 +28,7 @@ const CHIP_MS = ENTER_MS;
 const CHIP_GAP = ENTER_MS - 60; // 300 ms each with 60 ms overlap
 const START = 350;
 
-// Screen 4 (from Figma 35 tracking-demo, new content). Explanation: the words become a log.
+// From Figma 35 tracking-demo, new content. Explanation: the words become a log.
 export default function Heard() {
   const { state, set } = useOnboarding();
   const entry = state.todayEntry;
@@ -46,7 +46,7 @@ export default function Heard() {
     setSettled(true);
     haptic.light();
     track('heard_logged', { symptoms });
-    // Activation: screen 4 fully shown with a logged entry. Once per install (stored flag).
+    // Activation: this screen fully shown with a logged entry. Once per install (stored flag).
     if (!state.activated && state.todayEntry.trim()) {
       track('activation', { secondsSinceOpen: Math.round((Date.now() - SESSION_STARTED_AT) / 1000), symptomCount: symptoms.length });
       set({ activated: true });
