@@ -8,11 +8,9 @@ The idea in one line: people leave when the app asks and stay when it gives. Jun
 
 ## Try it
 
-Install **Expo Go** (App Store or Play Store), then scan:
+Open **https://junoonboarding.expo.app** on any phone. It runs in the browser, so there's nothing to install and no login.
 
-![Scan with your phone camera](docs/images/expo-go-qr.svg)
-
-Or open this link on the phone: `exp://u.expo.dev/bf47d442-6b7d-43db-b9e5-f6f003f07bd0?runtime-version=exposdk%3A58.0.0&channel-name=preview`
+The web version leaves out the phone-only parts: haptics, and the native Apple Health and notification prompts (they're mocked anyway). For the full native feel, run it in Expo Go from source (see Checks below); Expo Go now only opens published projects for members of the owning Expo account.
 
 To reset and start over: long-press the **Juno** logo on the welcome screen, then "Reset and start over".
 
@@ -61,10 +59,9 @@ python3 scripts/eval/layout_shift.py    # fails if anything on screen moves afte
 
 Not verified: Android, and how the haptics feel on a real phone (they are checked in code only).
 
-## Publishing an update
+## Publishing the web version
 
 ```bash
-bunx eas-cli update --channel preview --environment preview --message "..."
+./scripts/web-export.sh
+bunx eas-cli deploy --prod --export-dir dist
 ```
-
-Expo Go picks it up on the next launch through the same QR code.
