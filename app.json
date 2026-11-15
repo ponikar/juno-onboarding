@@ -39,6 +39,23 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {
+        "asyncRoutes": {
+          "web": true
+        }
+      },
+      "eas": {
+        "projectId": "bf47d442-6b7d-43db-b9e5-f6f003f07bd0"
+      }
+    },
+    "owner": "ponikar-org",
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/bf47d442-6b7d-43db-b9e5-f6f003f07bd0"
     }
   }
 }
