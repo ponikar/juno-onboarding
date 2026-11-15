@@ -10,7 +10,7 @@ The idea in one line: people leave when the app asks and stay when it gives. Jun
 
 Open **https://junoonboarding.expo.app** on any phone. It runs in the browser, so there's nothing to install and no login.
 
-The web version leaves out the phone-only parts: haptics, and the native Apple Health and notification prompts (they're mocked anyway). For the full native feel, run it in Expo Go from source (see Checks below); Expo Go now only opens published projects for members of the owning Expo account.
+The web version leaves out the phone-only parts: haptics, and the native Apple Health and notification prompts (they're mocked anyway).
 
 To reset and start over: long-press the **Juno** logo on the welcome screen, then "Reset and start over".
 
