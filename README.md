@@ -6,14 +6,6 @@ A redesign of the onboarding for [Juno](https://www.ycombinator.com/launches/QT7
 
 The idea in one line: people leave when the app asks and stay when it gives. Juno's own funnel (30,435 new users) shows the biggest drops at sign-up (17%) and the paywall (24%), and 71% of people try the logging demo when it's offered. So the new flow gives something back first, and asks later.
 
-## Try it
-
-Open **https://junoonboarding.expo.app** on any phone. It runs in the browser, so there's nothing to install and no login.
-
-The web version leaves out the phone-only parts: haptics, and the native Apple Health and notification prompts (they're mocked anyway).
-
-To reset and start over: long-press the **Juno** logo on the welcome screen, then "Reset and start over".
-
 ## The flow
 
 | Part | Screens | What it gives or asks |
